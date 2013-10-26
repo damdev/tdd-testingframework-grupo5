@@ -1,6 +1,6 @@
 package ar.uba.fi.tdd.grupo5;
 
-public class TestCase extends Test {
+public abstract class TestCase extends Test {
 
 	@Override
 	void run() {
@@ -13,5 +13,9 @@ public class TestCase extends Test {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * The user-client implements the method including the code under test.
+	 */
+	public abstract void testCode();
 }

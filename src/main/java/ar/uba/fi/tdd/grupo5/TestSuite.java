@@ -5,26 +5,25 @@ import java.util.List;
 
 public class TestSuite extends Test {
 	
-	private List<Test> myTests = new ArrayList<Test>();
+	private List<Test> tests = new ArrayList<>();
 	
 	public TestSuite(){
 		
 	}
 	
 	public void add(Test test){
-		myTests.add(test);
+		tests.add(test);
 	}
+	
 	@Override
 	void run() {
-		for (Test testCase : myTests){
-			testCase.run();
+		for (Test test : tests){
+			test.run();
 		}
-
 	}
 
 	@Override
 	TestResult getResult() {
-		return new TestResult(this);
+		return new TestResult();
 	}
-
 }
