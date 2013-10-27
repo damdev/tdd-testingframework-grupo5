@@ -6,15 +6,14 @@ public class TestResult {
 	private boolean error;
 	private boolean fail;
 	private String message;
-	private Time time;
-
-	public TestResult() {
-		error = false;
-		fail = false;
-	}
+	private long time;
 
 	void run(TestCase test) {
 		testName = test.getName();
+		error = false;
+		fail = false;
+		Timer timer = new Timer();
+		timer.setStart();
 		try {
 			test.testCode();
 		} catch (Error error) {
@@ -23,27 +22,28 @@ public class TestResult {
 		} catch (AssertionFailedException exception) {
 			setFail(true);
 			message = exception.getLocalizedMessage();
+		} finally {
+			time = timer.getRegisteredTime();
 		}
 	}
 
 	@Override
 	public String toString() {
 		String sResult = testName;
-		/**
-		 * TODO Hay que agregar el tiempo que se demoro en correr el test.
-		 */
+		sResult = addTime(sResult);
 		if (isError()) {
-			sResult = sResult + "\t ERROR";
+			sResult = addStatusResult(sResult, "ERROR");
 		}
 		if (isFail()) {
-			sResult = sResult + "\t FAIL";
-		}	sResult = sResult + "\n" + message + "\n";
+			sResult = addStatusResult(sResult, "FAIL");
+		}
 		if (isOK()) {
-			sResult = sResult + "\t OK";
+			sResult = addStatusResult(sResult, "OK");
 		}
 		if (isAvailableMessage()) {
-			sResult = sResult + "\n" + message + "\n";
+			sResult = addAvailableMessage(sResult);
 		}
+		sResult = addEndLine(sResult);
 		return sResult;
 	}
 
@@ -66,8 +66,24 @@ public class TestResult {
 	private boolean isOK() {
 		return !error && !fail;
 	}
-	
+
 	private boolean isAvailableMessage() {
 		return !message.isEmpty();
+	}
+
+	private String addTime(String result) {
+		return result + "[" + time + "ms]:";
+	}
+
+	private String addStatusResult(String result, String status) {
+		return result + "\t" + status;
+	}
+
+	private String addAvailableMessage(String result) {
+		return result + "\n" + message;
+	}
+
+	private String addEndLine(String result) {
+		return result + "\n";
 	}
 }
