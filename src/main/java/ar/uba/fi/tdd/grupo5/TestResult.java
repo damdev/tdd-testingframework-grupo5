@@ -15,12 +15,12 @@ public class TestResult {
 		timer.setStart();
 		try {
 			test.testCode();
-		} catch (Error error) {
-			setError(true);
-			setMessage(error.getLocalizedMessage());
-		} catch (AssertionFailedException exception) {
+		} catch (AssertionFailedException assertionException) {
 			setFail(true);
-			this.setMessage(exception.getLocalizedMessage());
+			this.setMessage(assertionException.getLocalizedMessage());
+		} catch (Exception exception) {
+			setError(true);
+			setMessage(exception.getLocalizedMessage());
 		} finally {
 			setTime(timer.getRegisteredTime());
 		}
