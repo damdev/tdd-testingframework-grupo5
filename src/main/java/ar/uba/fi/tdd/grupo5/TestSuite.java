@@ -3,27 +3,31 @@ package ar.uba.fi.tdd.grupo5;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestSuite extends Test {
+public class TestSuite {
 	
-	private List<Test> tests = new ArrayList<>();
+	private List<TestCase> tests = new ArrayList<>();
+	private List<TestResult> results = new ArrayList<>();
 	
 	public TestSuite(){
 		
 	}
 	
-	public void add(Test test){
+	public void add(TestCase test){
 		tests.add(test);
 	}
 	
-	@Override
-	void run() {
-		for (Test test : tests){
-			test.run();
+	public String run() {
+		for (TestCase test : tests){
+			results.add(test.run());
 		}
+		return generateResult();
 	}
-
-	@Override
-	TestResult getResult() {
-		return new TestResult();
+	
+	private String generateResult() {
+		/**
+		 * TODO Implementar, hay que recorrer la lista de results y formatear
+		 * 		en un string el resultado.
+		 */
+		return "";
 	}
 }

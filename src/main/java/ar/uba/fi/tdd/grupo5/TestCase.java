@@ -1,21 +1,33 @@
 package ar.uba.fi.tdd.grupo5;
 
-public abstract class TestCase extends Test {
+public abstract class TestCase {
 
-	@Override
-	void run() {
-		// TODO Auto-generated method stub
-		
+	private String name;
+	
+	public TestCase(String name) {
+		this.setName(name);
 	}
-
-	@Override
-	TestResult getResult() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public TestCase() {
+		setName("");
+	}
+	
+	public TestResult run() {
+		TestResult result = new TestResult();
+		result.run(this);
+		return result;
 	}
 	
 	/**
 	 * The user-client implements the method including the code under test.
 	 */
-	public abstract void testCode();
+	public abstract void testCode() throws AssertionFailedException;
+
+	public String getName() {
+		return name;
+	}
+
+	private void setName(String name) {
+		this.name = name;
+	}
 }
