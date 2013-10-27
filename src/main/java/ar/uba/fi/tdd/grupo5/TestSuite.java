@@ -4,30 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestSuite {
-	
-	private List<TestCase> tests = new ArrayList<>();
-	private List<TestResult> results = new ArrayList<>();
-	
-	public TestSuite(){
-		
+
+	private String name;
+	private List<TestCase> tests;
+	private List<TestResult> results;
+	private int errorCount;
+	private int failCount;
+	private int okCount;
+
+	public TestSuite(String name) {
+		this.name = name;
+		tests = new ArrayList<>();
+		results = new ArrayList<>();
+		errorCount = 0;
+		failCount = 0;
+		okCount = 0;
 	}
-	
+
 	public void add(TestCase test){
 		tests.add(test);
 	}
-	
+
 	public String run() {
 		for (TestCase test : tests){
-			results.add(test.run());
+			processResult(test.run());
 		}
 		return generateResult();
 	}
-	
+
+	private void processResult(TestResult result) {
+		results.add(result);
+		if (result.isError()) {
+			increaseErrorCount();
+		}
+	}
+
 	private String generateResult() {
-		/**
-		 * TODO Implementar, hay que recorrer la lista de results y formatear
-		 * 		en un string el resultado.
-		 */
-		return "";
+		String sResult = "\tRun Test Suite " + name + "\n";
+		for (TestResult result : results){
+			sResult = sResult + result.toString();
+		}
+		sResult = "Error: " + errorCount + "\tFailure: " + failCount + 
+				"\tOK: " + okCount + "\n";
+		return sResult;
+	}
+	
+	private void increaseErrorCount() {
+		errorCount++;
 	}
 }
