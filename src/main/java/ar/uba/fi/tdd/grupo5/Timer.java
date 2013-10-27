@@ -17,6 +17,6 @@ public class Timer {
 	}
 	
 	private long getSystemTime(){
-		return System.currentTimeMillis();
+		return System.nanoTime();
 	}
 }

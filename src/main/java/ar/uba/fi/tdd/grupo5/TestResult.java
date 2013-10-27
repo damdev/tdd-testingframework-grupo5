@@ -101,7 +101,7 @@ public class TestResult {
 	}
 
 	private String addTime(String result) {
-		return result + "[" + time + "ms]:";
+		return result + "[" + time + "ns]:";
 	}
 
 	private String addStatusResult(String result, String status) {
