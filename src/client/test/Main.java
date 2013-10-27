@@ -8,6 +8,7 @@ public class Main
     {
        TestSuite addSuite = new TestSuite("Addition test suite");
        TestSuite productSuite = new TestSuite("Product test suite");
+       TestSuite divSuite = new TestSuite("Divition test suite");
        
        addSuite.add(new TestAdd());
        addSuite.add(new TestZeroAdd());
@@ -16,8 +17,14 @@ public class Main
        productSuite.add(new TestProduct());
        productSuite.add(new TestZeroProduct());
        
-       addSuite.run();
-       productSuite.run();
+       divSuite.add(new TestZeroDivition());
+       
+       String r1 = addSuite.run();
+       System.out.println(r1);
+       r1 = productSuite.run();
+       System.out.println(r1);
+       r1 = divSuite.run();
+       System.out.println(r1);
 
     }
 }
