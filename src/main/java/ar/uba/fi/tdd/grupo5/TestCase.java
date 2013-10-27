@@ -9,7 +9,7 @@ public abstract class TestCase {
 	}
 	
 	public TestCase() {
-		setName("");
+		setName(getClass().getSimpleName());
 	}
 	
 	public TestResult run() {
