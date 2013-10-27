@@ -70,7 +70,7 @@ public class TestResult {
 		this.fail = fail;
 	}
 
-	private boolean isOK() {
+	public boolean isOK() {
 		return !error && !fail;
 	}
 

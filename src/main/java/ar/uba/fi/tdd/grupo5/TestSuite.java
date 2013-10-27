@@ -37,19 +37,45 @@ public class TestSuite {
 		if (result.isError()) {
 			increaseErrorCount();
 		}
+		if (result.isFail()) {
+			increaseFailCount();
+		}
+		if (result.isOK()) {
+			increaseOKCount();
+		}
 	}
 
 	private String generateResult() {
-		String sResult = "\tRun Test Suite " + name + "\n";
+		String sResult = addTestSuiteName();
 		for (TestResult result : results){
-			sResult = sResult + result.toString();
+			sResult = addTestResult(sResult, result);
 		}
-		sResult = "Error: " + errorCount + "\tFailure: " + failCount + 
-				"\tOK: " + okCount + "\n";
+		sResult = addResultStatics(sResult);
 		return sResult;
 	}
-	
+
 	private void increaseErrorCount() {
 		errorCount++;
+	}
+
+	private void increaseFailCount() {
+		failCount++;
+	}
+
+	private void increaseOKCount() {
+		okCount++;
+	}
+
+	private String addTestSuiteName() {
+		return "\tRun Test Suite " + name + "\n";
+	}
+
+	private String addTestResult(String sResult, TestResult result) {
+		return sResult + result.toString();
+	}
+
+	private String addResultStatics(String result) {
+		return result + "Total: " + results.size() + "\tError: " + errorCount 
+				+ "\tFailure: " + failCount + "\tOK: " + okCount + "\n";
 	}
 }
