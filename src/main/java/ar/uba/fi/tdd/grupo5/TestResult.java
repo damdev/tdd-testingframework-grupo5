@@ -9,9 +9,8 @@ public class TestResult {
 	private long time;
 
 	void run(TestCase test) {
-		testName = test.getName();
-		error = false;
-		fail = false;
+		setTestName(test.getName());
+		setUp();
 		Timer timer = new Timer();
 		timer.setStart();
 		try {
@@ -47,6 +46,14 @@ public class TestResult {
 		return sResult;
 	}
 
+	public String getTestName() {
+		return testName;
+	}
+
+	private void setTestName(String testName) {
+		this.testName = testName;
+	}
+
 	public boolean isError() {
 		return error;
 	}
@@ -65,6 +72,11 @@ public class TestResult {
 
 	private boolean isOK() {
 		return !error && !fail;
+	}
+
+	private void setUp() {
+		setError(false);
+		setFail(false);
 	}
 
 	private boolean isAvailableMessage() {
