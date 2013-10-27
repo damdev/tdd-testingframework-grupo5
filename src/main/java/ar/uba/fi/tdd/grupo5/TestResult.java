@@ -17,12 +17,12 @@ public class TestResult {
 			test.testCode();
 		} catch (Error error) {
 			setError(true);
-			message = error.getLocalizedMessage();
+			setMessage(error.getLocalizedMessage());
 		} catch (AssertionFailedException exception) {
 			setFail(true);
-			message = exception.getLocalizedMessage();
+			this.setMessage(exception.getLocalizedMessage());
 		} finally {
-			time = timer.getRegisteredTime();
+			setTime(timer.getRegisteredTime());
 		}
 	}
 
@@ -74,9 +74,26 @@ public class TestResult {
 		return !error && !fail;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
+	private void setMessage(String message) {
+		this.message = message;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	private void setTime(long time) {
+		this.time = time;
+	}
+
 	private void setUp() {
 		setError(false);
 		setFail(false);
+		setMessage("");
 	}
 
 	private boolean isAvailableMessage() {
