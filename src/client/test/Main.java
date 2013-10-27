@@ -6,18 +6,18 @@ public class Main
 {
     public static void main( String[] args )
     {
-       TestSuite calculatorSuite = new TestSuite();
-       TestSuite addSuite = new TestSuite();
-       TestSuite productSuite = new TestSuite();
+       TestSuite addSuite = new TestSuite("Addition test suite");
+       TestSuite productSuite = new TestSuite("Product test suite");
        
        addSuite.add(new TestAdd());
        addSuite.add(new TestZeroAdd());
+       addSuite.add(new TestAddFailed());
        
        productSuite.add(new TestProduct());
        productSuite.add(new TestZeroProduct());
-      
        
-       calculatorSuite.add(addSuite);
-       calculatorSuite.add(productSuite);
+       addSuite.run();
+       productSuite.run();
+
     }
 }
