@@ -130,7 +130,36 @@ public class Assert {
 	static public void assertNotEquals(double expected, double actual, double delta) throws AssertionFailedException {
 		assertNotEquals(null, expected, actual, delta);
     }
+	
+	/*
+	 assertSame
+	 * */
     
+    static public void assertSame(String message, Object expected, Object actual) throws AssertionFailedException {
+        if (expected == actual) {
+           return;
+        }
+        throwException(message);
+    }
+	
+    static public void assertSame(Object expected, Object actual) throws AssertionFailedException {
+    	assertSame(null, expected, actual);
+    }
+    
+	/*
+	 assertNotSame
+	 * */
+   
+   static public void assertNotSame(String message, Object expected, Object actual) throws AssertionFailedException {
+       if (expected == actual) {
+    	   throwException(message);
+       }
+   }
+	
+   static public void assertNotSame(Object expected, Object actual) throws AssertionFailedException {
+	   assertNotSame(null, expected, actual);
+   }
+	
     /*
      * The method that actually throw the exception if the assertion failed.
      * Can have  (or not) a message with a description.

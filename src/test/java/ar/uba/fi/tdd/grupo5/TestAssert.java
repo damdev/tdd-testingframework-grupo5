@@ -249,7 +249,62 @@ public class TestAssert {
 		double delta = 1;
 		Assert.assertEquals(double1, double2, delta);
 	}
-
+	
+	@Test
+	public void testSameStringObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		assertSame("JUnit assertSame(String, object, object) fails with same object parameters", object, object);
+		Assert.assertSame("Testing Framework assertSame(String, object, object) fails with same object parameters", object, object);
+	}
+	
+	@Test(expected = AssertionFailedException.class)
+	public void testFailSameStringObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		Assert.assertSame("Testing Framework assertSame(String, object, object) throws AssertionFailedException with different object parameters", object, null);
+	}
+	
+	@Test
+	public void testSameObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		assertSame(object, object);
+		Assert.assertSame(object, object);
+	}
+	
+	@Test(expected = AssertionFailedException.class)
+	public void testFailSameObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		Assert.assertSame(object, null);
+	}
+	
+	@Test
+	public void testNotSameStringObjectObject() throws AssertionFailedException {
+		Object object1 = new Float(5);
+		Object object2 = new Float(5);
+		assertNotSame("JUnit assertNotSame(String, object, object) fails with same object parameters", object1, object2);
+		Assert.assertNotSame("Testing Framework assertNotSame(String, object, object) fails with same object parameters", object1, object2);
+	}
+	
+	@Test(expected = AssertionFailedException.class)
+	public void testFailNotSameStringObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		Assert.assertNotSame("Testing Framework assertNotSame(String, object, object) throws AssertionFailedException with same object parameters", object, object);
+	}
+	
+	@Test
+	public void testNotSameObjectObject() throws AssertionFailedException {
+		Object object1 = new Float(5);
+		Object object2 = new Float(5);
+		assertNotSame(object1, object2);
+		Assert.assertNotSame(object1, object2);
+	}
+	
+	@Test(expected = AssertionFailedException.class)
+	public void testFailNotSameObjectObject() throws AssertionFailedException {
+		Object object = new Float(5);
+		Assert.assertNotSame(object, object);
+	}
+	
+	/*
 	@Test
 	public void testAssertNotEqualsStringObjectObject() throws AssertionFailedException {
 		fail("Not yet implemented");
@@ -329,9 +384,5 @@ public class TestAssert {
 	public void testFailAssertNotEqualsDoubleDoubleDouble() throws AssertionFailedException {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testThrowException() throws AssertionFailedException {
-		fail("Not yet implemented");
-	}
+	*/
 }
