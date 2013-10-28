@@ -8,7 +8,7 @@ import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 
 import ar.uba.fi.tdd.grupo5.framework.Assert;
 
-public class TestAssert {
+public class AssertTest {
 
 	@Test
 	public void testAssertTrueStringBoolean() throws AssertionFailedException {

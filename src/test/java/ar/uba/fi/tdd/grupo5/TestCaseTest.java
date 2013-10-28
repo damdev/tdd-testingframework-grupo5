@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
-import ar.uba.fi.tdd.grupo5.test.TestAdd;
+import ar.uba.fi.tdd.grupo5.test.AddTest;
 
-public class TestTestCase {
+public class TestCaseTest {
 	
 	private TestCase tester;
 	private final String testName = "I'm a testAdd test";
@@ -15,13 +15,13 @@ public class TestTestCase {
 	
 	@Test
 	public void testTestCaseString() {
-		tester = new TestAdd(testName);
+		tester = new AddTest(testName);
 		assertEquals("tester.getName() returns a different test name than the constructor name parameter", tester.getName(), testName);
 	}
 
 	@Test
 	public void testTestCase() {
-		tester = new TestAdd();
+		tester = new AddTest();
 		assertEquals("tester.getName() returns a different test name than the constructor default", tester.getName(), className);
 	}
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.Timer;
 
-public class TestTimer {
+public class TimerTest {
 	
 	private Timer tester;
 	

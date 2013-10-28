@@ -5,13 +5,13 @@ import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
-public class TestZeroDivition extends TestCase {
+public class ZeroDivitionTest extends TestCase {
 
-	public TestZeroDivition(String name) {
+	public ZeroDivitionTest(String name) {
 		super(name);
 	}
 	
-	public TestZeroDivition() {
+	public ZeroDivitionTest() {
 		super();
 	}
 	

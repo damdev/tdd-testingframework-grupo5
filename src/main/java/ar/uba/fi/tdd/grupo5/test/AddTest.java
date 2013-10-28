@@ -5,13 +5,13 @@ import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
-public class TestAdd extends TestCase {
+public class AddTest extends TestCase {
 	
-	public TestAdd(String name) {
+	public AddTest(String name) {
 		super(name);
 	}
 	
-	public TestAdd() {
+	public AddTest() {
 		super();
 	}
 	

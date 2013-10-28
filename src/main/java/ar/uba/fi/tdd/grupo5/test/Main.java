@@ -10,14 +10,14 @@ public class Main
        TestSuite productSuite = new TestSuite("Product test suite");
        TestSuite divSuite = new TestSuite("Divition test suite");
        
-       addSuite.add(new TestAdd());
-       addSuite.add(new TestZeroAdd());
-       addSuite.add(new TestAddFailed());
+       addSuite.add(new AddTest());
+       addSuite.add(new ZeroAddTest());
+       addSuite.add(new AddFailedTest());
        
-       productSuite.add(new TestProduct());
-       productSuite.add(new TestZeroProduct());
+       productSuite.add(new ProductTest());
+       productSuite.add(new ZeroProductTest());
        
-       divSuite.add(new TestZeroDivition());
+       divSuite.add(new ZeroDivitionTest());
        
        String r1 = addSuite.run();
        System.out.println(r1);

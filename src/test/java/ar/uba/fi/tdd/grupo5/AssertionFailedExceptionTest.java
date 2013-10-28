@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 
-public class TestAssertionFailedException {
+public class AssertionFailedExceptionTest {
 	
 	private final String message = "Exception message";
 	private final String defaultMessage = "Message was not provided";

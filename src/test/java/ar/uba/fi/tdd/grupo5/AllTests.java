@@ -5,9 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestAssert.class, TestAssertionFailedException.class,
-		TestTestCase.class, TestTestResult.class, TestTestSuite.class,
-		TestTimer.class })
+@SuiteClasses({ AssertTest.class, AssertionFailedExceptionTest.class,
+		TestCaseTest.class, TestResultTest.class, TestSuiteTest.class,
+		TimerTest.class })
 public class AllTests {
 
 }

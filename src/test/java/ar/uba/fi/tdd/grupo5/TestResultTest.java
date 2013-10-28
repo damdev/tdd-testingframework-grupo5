@@ -9,7 +9,7 @@ import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestResult;
 
-public class TestTestResult {
+public class TestResultTest {
 	
 	private TestResult testerResult;
 	private TestCase testerCase;

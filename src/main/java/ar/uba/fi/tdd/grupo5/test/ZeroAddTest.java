@@ -5,18 +5,18 @@ import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
-public class TestSubstraction extends TestCase {
+public class ZeroAddTest extends TestCase {
 	
-	public TestSubstraction(String name) {
+	public ZeroAddTest(String name) {
 		super(name);
 	}
 	
-	public TestSubstraction() {
+	public ZeroAddTest() {
 		super();
 	}
 	
 	public void testCode() throws AssertionFailedException{
 		Calculator c = new Calculator();
-		Assert.assertTrue( c.substract(10, 2) == 8);
+		Assert.assertTrue( c.add(1, 0) == 1);
 	}
 }
