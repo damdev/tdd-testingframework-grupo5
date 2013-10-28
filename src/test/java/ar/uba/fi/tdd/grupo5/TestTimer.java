@@ -19,13 +19,13 @@ public class TestTimer {
 	@Test
 	public void testTimer() {
 		assertTrue("new Timer() returns null pointer", tester != null);
-		assertTrue("startTime doesn't initialize in zero", tester.getStart() == 0);
+		assertTrue("startTime doesn't initialize in zero", tester.getStartTime() == 0);
 	}
 
 	@Test
 	public void testSetStart() {
 		tester.setStart();
-		assertTrue("setStart() doesn't modify the startTime value", tester.getStart() != 0);
+		assertTrue("setStart() doesn't modify the startTime value", tester.getStartTime() != 0);
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class TestTimer {
 		tester.setStart();
 		long time = tester.getRegisteredTime();
 		assertTrue("getRegisteredTime() returns zero", time != 0);
-		assertTrue("The getRegisteredTime() return value is equal to startTime", time != tester.getStart());
+		assertTrue("The getRegisteredTime() return value is equal to startTime", time != tester.getStartTime());
 	}
 
 }

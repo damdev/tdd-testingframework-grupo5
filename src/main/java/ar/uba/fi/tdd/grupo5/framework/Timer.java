@@ -12,7 +12,7 @@ public class Timer {
 		startTime = getSystemTime();
 	}
 	
-	public long getStart(){
+	public long getStartTime(){
 		return startTime;
 	}
 		
