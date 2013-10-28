@@ -50,7 +50,7 @@ public class TestSuite {
 		for (TestResult result : results){
 			sResult = addTestResult(sResult, result);
 		}
-		sResult = addResultStatics(sResult);
+		sResult = addResultStatistics(sResult);
 		return sResult;
 	}
 
@@ -74,7 +74,7 @@ public class TestSuite {
 		return sResult + result.toString();
 	}
 
-	private String addResultStatics(String result) {
+	private String addResultStatistics(String result) {
 		return result + "Total: " + results.size() + "\tError: " + errorCount 
 				+ "\tFailure: " + failCount + "\tOK: " + okCount + "\n";
 	}
