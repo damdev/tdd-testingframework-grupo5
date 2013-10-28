@@ -11,7 +11,7 @@ public class TestCaseTest {
 	
 	private TestCase tester;
 	private final String testName = "I'm a testAdd test";
-	private final String className = "TestAdd";
+	private final String className = "AddTest";
 	
 	@Test
 	public void testTestCaseString() {
