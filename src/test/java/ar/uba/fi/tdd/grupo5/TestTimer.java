@@ -2,23 +2,38 @@ package ar.uba.fi.tdd.grupo5;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
-public class TestTimer {
+import ar.uba.fi.tdd.grupo5.framework.Timer;
 
+public class TestTimer {
+	
+	private Timer tester;
+	
+	@Before
+	public void initObjects(){
+		tester = new Timer();
+	}
+	
 	@Test
 	public void testTimer() {
-		fail("Not yet implemented");
+		assertTrue("new Timer() returns null pointer", tester != null);
+		assertTrue("startTime doesn't initialize in zero", tester.getStart() == 0);
 	}
 
 	@Test
 	public void testSetStart() {
-		fail("Not yet implemented");
+		tester.setStart();
+		assertTrue("setStart() doesn't modify the startTime value", tester.getStart() != 0);
 	}
 
 	@Test
 	public void testGetRegisteredTime() {
-		fail("Not yet implemented");
+		tester.setStart();
+		long time = tester.getRegisteredTime();
+		assertTrue("getRegisteredTime() returns zero", time != 0);
+		assertTrue("The getRegisteredTime() return value is equal to startTime", time != tester.getStart());
 	}
 
 }

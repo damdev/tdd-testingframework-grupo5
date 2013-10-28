@@ -11,6 +11,10 @@ public class Timer {
 	public void setStart(){
 		startTime = getSystemTime();
 	}
+	
+	public long getStart(){
+		return startTime;
+	}
 		
 	public long getRegisteredTime(){
 		return getSystemTime() - startTime;
