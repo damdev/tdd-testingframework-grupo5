@@ -23,6 +23,10 @@ public class Assert {
         assertFalse(null, condition);
     }
     
+    /*
+     assertEquals
+     */
+    
     /*OBJECT*/
     static public void assertEquals(String message, Object expected, Object actual) throws AssertionFailedException {
         if (equalsConsideringNull(expected, actual)) {
@@ -69,11 +73,64 @@ public class Assert {
     	}
     	throwException(message);
     }
-	
+    
 	static public void assertEquals(double expected, double actual, double delta) throws AssertionFailedException {
 		assertEquals(null, expected, actual, delta);
     }
+
+
+    /*
+    assertNotEquals
+    */   
 	
+	/*OBJECT*/
+    static public void assertNotEquals(String message, Object expected, Object actual) throws AssertionFailedException {
+        if (equalsConsideringNull(expected, actual)) {
+            throwException(message);
+        }
+    }
+	
+    static public void assertNotEquals(Object expected, Object actual) throws AssertionFailedException {
+    	assertNotEquals(null, expected, actual);
+    }
+    
+    /*LONG*/
+    static public void assertNotEquals(String message, long expected, long actual) throws AssertionFailedException {
+    	assertNotEquals(message, (Long) expected, (Long) actual);
+    }
+	
+	static public void assertNotEquals(long expected, long actual) throws AssertionFailedException {
+		assertNotEquals(null, expected, actual);
+    }
+	
+	/*FLOAT*/
+    static public void assertNotEquals(String message, float expected, float actual, float delta) throws AssertionFailedException {
+    	if(Float.compare(expected, actual) == 0){
+        	throwException(message);
+    	}
+    	if(Math.abs(expected - actual) <= delta){
+        	throwException(message);
+    	}
+    }
+	
+	static public void assertNotEquals(float expected, float actual, float delta) throws AssertionFailedException {
+		assertNotEquals(null, expected, actual, delta);
+    }	
+	
+	/*DOUBLE*/
+    static public void assertNotEquals(String message, double expected, double actual, double delta) throws AssertionFailedException {
+    	if(Double.compare(expected, actual) == 0){
+        	throwException(message);
+    	}
+    	if(Math.abs(expected - actual) <= delta){
+        	throwException(message);
+    	}
+    }
+    
+	static public void assertNotEquals(double expected, double actual, double delta) throws AssertionFailedException {
+		assertNotEquals(null, expected, actual, delta);
+    }
+    
     /*
      * The method that actually throw the exception if the assertion failed.
      * Can have  (or not) a message with a description.
