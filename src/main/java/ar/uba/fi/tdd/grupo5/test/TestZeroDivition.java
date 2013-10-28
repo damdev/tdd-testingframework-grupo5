@@ -7,6 +7,14 @@ import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
 public class TestZeroDivition extends TestCase {
 
+	public TestZeroDivition(String name) {
+		super(name);
+	}
+	
+	public TestZeroDivition() {
+		super();
+	}
+	
 	@Override
 	public void testCode() throws AssertionFailedException {
 		Calculator c = new Calculator();

@@ -6,7 +6,15 @@ import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
 public class TestAddFailed extends TestCase {
-
+	
+	public TestAddFailed(String name) {
+		super(name);
+	}
+	
+	public TestAddFailed() {
+		super();
+	}
+	
 	@Override
 	public void testCode() throws AssertionFailedException {
 		Calculator c = new Calculator();

@@ -6,6 +6,15 @@ import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
 public class TestZeroAdd extends TestCase {
+	
+	public TestZeroAdd(String name) {
+		super(name);
+	}
+	
+	public TestZeroAdd() {
+		super();
+	}
+	
 	public void testCode() throws AssertionFailedException{
 		Calculator c = new Calculator();
 		Assert.assertTrue( c.add(1, 0) == 1);

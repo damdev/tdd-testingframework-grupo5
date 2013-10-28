@@ -6,6 +6,15 @@ import ar.uba.fi.tdd.grupo5.Calculator;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 
 public class TestProduct extends TestCase {
+	
+	public TestProduct(String name) {
+		super(name);
+	}
+	
+	public TestProduct() {
+		super();
+	}
+	
 	public void testCode() throws AssertionFailedException{
 		Calculator c = new Calculator();
 		Assert.assertTrue( c.product(2, 7) == 14);
