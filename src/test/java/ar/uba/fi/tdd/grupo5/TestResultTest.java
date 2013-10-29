@@ -17,11 +17,6 @@ public class TestResultTest {
 	private String personalizedMessage = "This is a personalized message";
 
 	@Test
-	public void testRun() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testToString() {
 		fail("Not yet implemented");
 	}
@@ -30,7 +25,11 @@ public class TestResultTest {
 	public void errorTestReturnErrorValue() {
 		testerCase = new myErrorTest("I'm a error test");
 		testerResult = testerCase.run();
-		assertTrue("testerResult.isError() return false in a error test",
+		assertFalse("testerResult.isOK() return true in an error test",
+				testerResult.isOK());
+		assertFalse("testerResult.isFail() return true in an error test",
+				testerResult.isFail());
+		assertTrue("testerResult.isError() return false in an error test",
 				testerResult.isError());
 	}
 
@@ -38,6 +37,10 @@ public class TestResultTest {
 	public void failTestReturnFailValue() {
 		testerCase = new myFailTest("I'm a fail test");
 		testerResult = testerCase.run();
+		assertFalse("testerResult.isOK() return true in a fail test",
+				testerResult.isOK());
+		assertFalse("testerResult.isError() return true in a fail test",
+				testerResult.isError());
 		assertTrue("testerResult.isFail() return false in a fail test",
 				testerResult.isFail());
 	}
@@ -46,7 +49,11 @@ public class TestResultTest {
 	public void okTestReturnOKValue() {
 		testerCase = new myOKTest("I'm a OK test");
 		testerResult = testerCase.run();
-		assertTrue("testerResult.isOK() return false in a OK test",
+		assertFalse("testerResult.isFail() return true in an OK test",
+				testerResult.isFail());
+		assertFalse("testerResult.isError() return true in an OK test",
+				testerResult.isError());
+		assertTrue("testerResult.isOK() return false in an OK test",
 				testerResult.isOK());
 	}
 
