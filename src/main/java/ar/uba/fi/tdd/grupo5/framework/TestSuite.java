@@ -74,7 +74,7 @@ public class TestSuite {
 	}
 
 	private long increaseTimeCount(TestResult result) {
-		return result.getTime();
+		return result.getTestTime();
 	}
 
 	private String addTestSuiteName() {

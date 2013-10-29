@@ -6,8 +6,8 @@ public class TestResult {
 	private boolean error;
 	private boolean fail;
 	private String message;
-	private long time;
-
+	private long testTime;
+	
 	public void run(TestCase test) {
 		setTestName(test.getName());
 		setUp();
@@ -17,12 +17,12 @@ public class TestResult {
 			test.testCode();
 		} catch (AssertionFailedException assertionException) {
 			setFail(true);
-			this.setMessage(assertionException.getLocalizedMessage());
+			setMessage(assertionException.getLocalizedMessage());
 		} catch (Exception exception) {
 			setError(true);
 			setMessage(exception.getLocalizedMessage());
 		} finally {
-			setTime(timer.getRegisteredTime());
+			setTestTime(timer.getRegisteredTime());
 		}
 	}
 
@@ -80,12 +80,12 @@ public class TestResult {
 		this.message = message;
 	}
 
-	public long getTime() {
-		return time;
+	public long getTestTime() {
+		return testTime;
 	}
 
-	private void setTime(long time) {
-		this.time = time;
+	private void setTestTime(long time) {
+		this.testTime = time;
 	}
 
 	private void setUp() {
@@ -99,7 +99,7 @@ public class TestResult {
 	}
 
 	private String addTime(String result) {
-		return result + "[" + time + "ns]:";
+		return result + "[" + testTime + "ns]:";
 	}
 
 	private String addStatusResult(String result, String status) {

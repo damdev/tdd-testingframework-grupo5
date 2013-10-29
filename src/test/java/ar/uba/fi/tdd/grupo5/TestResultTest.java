@@ -14,6 +14,7 @@ public class TestResultTest {
 	private TestResult testerResult;
 	private TestCase testerCase;
 	private String defaultMessage = "Message was not provided";
+	private String personalizedMessage = "This is a personalized message";
 	
 	@Test
 	public void testRun() {
@@ -26,40 +27,47 @@ public class TestResultTest {
 	}
 
 	@Test
-	public void testIsError() {
+	public void errorTestReturnErrorValue() {
 		testerCase = new myErrorTest("I'm a error test");
 		testerResult = testerCase.run();
 		assertTrue("testerResult.isError() return false in a error test", testerResult.isError() );
 	}
 
 	@Test
-	public void testIsFail() {
+	public void failTestReturnFailValue() {
 		testerCase = new myFailTest("I'm a fail test");
 		testerResult = testerCase.run();
 		assertTrue("testerResult.isFail() return false in a fail test", testerResult.isFail() );
 	}
 
 	@Test
-	public void testIsOK() {
+	public void okTestReturnOKValue() {
 		testerCase = new myOKTest("I'm a OK test");
 		testerResult = testerCase.run();
 		assertTrue("testerResult.isOK() return false in a OK test", testerResult.isOK() );
 	}
 
 	@Test
-	public void testGetMessage() {
+	public void defaultResultMessage() {
 		testerCase = new myFailTest("I'm a fail test");
 		testerResult = testerCase.run();
 		assertEquals("testerResult.getMessage() return a different message than the default message", testerResult.getMessage(), defaultMessage);
 	}
-
+	
 	@Test
-	public void testGetTime() {
+	public void personalizedResultMessage() {
+		testerCase = new myFailTestWithMessage("I'm a fail test, with message");
+		testerResult = testerCase.run();
+		assertEquals("testerResult.getMessage() return a different message than the personalized message", testerResult.getMessage(), personalizedMessage);
+	}
+	
+	@Test
+	public void correctTestTimeInTestWithSleep() {
 		long timeInNanoSec = 500000000;
 		long deltaTime = 1000000;
 		testerCase = new mySleepTest("0.5 sec sleep");
 		testerResult = testerCase.run();
-		assertEquals("testerResult.getTime() return a different value than the expected (Considering delta)", testerResult.getTime(), timeInNanoSec, deltaTime );
+		assertEquals("testerResult.getTestTime() return a different value than the expected (Considering delta)", testerResult.getTestTime(), timeInNanoSec, deltaTime );
 	}
 	
 }
@@ -112,6 +120,21 @@ final class myFailTest extends TestCase {
 	
 	public void testCode() throws AssertionFailedException{
 		Assert.assertTrue(false);
+	}
+}
+
+final class myFailTestWithMessage extends TestCase {
+	
+	public myFailTestWithMessage(String name) {
+		super(name);
+	}
+	
+	public myFailTestWithMessage() {
+		super();
+	}
+	
+	public void testCode() throws AssertionFailedException{
+		Assert.assertTrue("This is a personalized message",false);
 	}
 }
 
