@@ -194,7 +194,7 @@ public class AssertTest {
 	}
 
 	@Test
-	public void testAssertEqualsStringDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsStringDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;
@@ -203,7 +203,7 @@ public class AssertTest {
 	}
 
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsStringDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 0;
@@ -211,7 +211,7 @@ public class AssertTest {
 	}
 	
 	@Test
-	public void testAssertEqualsDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;
@@ -220,7 +220,7 @@ public class AssertTest {
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsDoubleDoubleDoubleZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 0;
@@ -228,7 +228,7 @@ public class AssertTest {
 	}
 	
 	@Test
-	public void testAssertEqualsStringDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsStringDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 1;
@@ -237,7 +237,7 @@ public class AssertTest {
 	}
 
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsStringDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -245,7 +245,7 @@ public class AssertTest {
 	}
 	
 	@Test
-	public void testAssertEqualsDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 1;
@@ -254,7 +254,7 @@ public class AssertTest {
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsDoubleDoubleDoubleNonZeroDelta() throws AssertionFailedException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -262,33 +262,33 @@ public class AssertTest {
 	}
 	
 	@Test
-	public void testSameStringObjectObject() throws AssertionFailedException {
+	public void successAssertSameStringObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		assertSame("JUnit assertSame(String, object, object) fails with same object parameters", object, object);
 		Assert.assertSame("Testing Framework assertSame(String, object, object) fails with same object parameters", object, object);
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailSameStringObjectObject() throws AssertionFailedException {
+	public void failAssertSameStringObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		Assert.assertSame("Testing Framework assertSame(String, object, object) throws AssertionFailedException with different object parameters", object, null);
 	}
 	
 	@Test
-	public void testSameObjectObject() throws AssertionFailedException {
+	public void successAssertSameObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		assertSame(object, object);
 		Assert.assertSame(object, object);
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailSameObjectObject() throws AssertionFailedException {
+	public void failAssertSameObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		Assert.assertSame(object, null);
 	}
 	
 	@Test
-	public void testNotSameStringObjectObject() throws AssertionFailedException {
+	public void successAssertNotSameStringObjectObject() throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		assertNotSame("JUnit assertNotSame(String, object, object) fails with same object parameters", object1, object2);
@@ -296,13 +296,13 @@ public class AssertTest {
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailNotSameStringObjectObject() throws AssertionFailedException {
+	public void failAssertNotSameStringObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		Assert.assertNotSame("Testing Framework assertNotSame(String, object, object) throws AssertionFailedException with same object parameters", object, object);
 	}
 	
 	@Test
-	public void testNotSameObjectObject() throws AssertionFailedException {
+	public void successAssertNotSameObjectObject() throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		assertNotSame(object1, object2);
@@ -310,7 +310,7 @@ public class AssertTest {
 	}
 	
 	@Test(expected = AssertionFailedException.class)
-	public void testFailNotSameObjectObject() throws AssertionFailedException {
+	public void failAssertNotSameObjectObject() throws AssertionFailedException {
 		Object object = new Float(5);
 		Assert.assertNotSame(object, object);
 	}
