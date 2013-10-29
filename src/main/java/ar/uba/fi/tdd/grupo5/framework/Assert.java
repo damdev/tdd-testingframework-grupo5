@@ -2,11 +2,13 @@ package ar.uba.fi.tdd.grupo5.framework;
 
 public class Assert {
 
+	protected Assert() {
+	}
+
 	/*
 	 * If condition result to be false, and exception is raised and the test
 	 * will fail.
 	 */
-
 	static public void assertTrue(String message, boolean condition)
 			throws AssertionFailedException {
 		if (!condition) {
