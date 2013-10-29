@@ -72,7 +72,7 @@ public class TestResult {
 		return !error && !fail;
 	}
 
-	private String getMessage() {
+	public String getMessage() {
 		return message;
 	}
 
