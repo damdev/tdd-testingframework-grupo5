@@ -1,147 +1,154 @@
 package ar.uba.fi.tdd.grupo5;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
-
 import ar.uba.fi.tdd.grupo5.framework.Assert;
+import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 
 public class AssertTest {
 
 	@Test
-	public void testAssertTrueStringBoolean() throws AssertionFailedException {
-		assertTrue("JUnit assertTrue(String,boolean) fails with true parameter", true);
+	public void successAssertTrueWithPersonalizedMessage()
+			throws AssertionFailedException {
 		Assert.assertTrue("Testing Framework assertTrue(String,boolean) fails with true parameter", true);
+		assertTrue("JUnit assertTrue(String,boolean) fails with true parameter", true);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertTrueStringBoolean() throws AssertionFailedException {
+	public void failAssertTrueWithPersonalizedMessage() throws AssertionFailedException {
 		Assert.assertTrue("Testing Framework assertTrue(String,boolean) throws AssertionFailedException with false parameter", false);
 	}
 
 	@Test
-	public void testAssertTrueBoolean() throws AssertionFailedException {
-		assertTrue(true);
+	public void successAssertTrue() throws AssertionFailedException {
 		Assert.assertTrue(true);
+		assertTrue(true);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertTrueBoolean() throws AssertionFailedException {
+	public void failAssertTrue() throws AssertionFailedException {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testAssertFalseStringBoolean() throws AssertionFailedException {
-		assertFalse("JUnit assertFalse(String,boolean) fails with false parameter", false);
+	public void successAssertFalseWithPersonalizedMessage()
+			throws AssertionFailedException {
 		Assert.assertFalse("Testing Framework assertFalse(String,boolean) fails with false parameter", false);
+		assertFalse("JUnit assertFalse(String,boolean) fails with false parameter", false);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertFalseStringBoolean() throws AssertionFailedException {
+	public void failAssertFalseWithPersonalizedMessage()
+			throws AssertionFailedException {
 		Assert.assertFalse("Testing Framework assertFalse(String,boolean) throws AssertionFailedException with true parameter", true);
 	}
 
 	@Test
-	public void testAssertFalseBoolean() throws AssertionFailedException {
+	public void successAssertFalse() throws AssertionFailedException {
 		assertFalse(false);
 		Assert.assertFalse(false);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertFalseBoolean() throws AssertionFailedException {
+	public void failAssertFalse() throws AssertionFailedException {
 		Assert.assertFalse(true);
 	}
 
 	@Test
-	public void testAssertEqualsStringObjectObject() throws AssertionFailedException {
+	public void successAssertEqualsObjectsWithPersonalizedMessage()
+			throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
-		assertEquals("JUnit assertEquals(String, object, object) fails with equal parameters", object1, object2);
 		Assert.assertEquals("Testing Framework assertEquals(String, object, object) fails with equal parameters", object1, object2);
+		assertEquals("JUnit assertEquals(String, object, object) fails with equal parameters", object1, object2);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringObjectObject() throws AssertionFailedException {
+	public void failAssertEqualsObjectsWithPersonalizedMessage()
+			throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertEquals("Testing Framework assertEquals(String, object, object) throws AssertionFailedException with different parameters", object1, object2);
 	}
 
 	@Test
-	public void testAssertEqualsObjectObject() throws AssertionFailedException {
+	public void successAssertEqualsObjects() throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
-		assertEquals(object1, object2);
 		Assert.assertEquals( object1, object2);
+		assertEquals(object1, object2);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsObjectObject() throws AssertionFailedException {
+	public void failAssertEqualsObjects() throws AssertionFailedException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertEquals(object1, object2);
 	}
 
 	@Test
-	public void testAssertEqualsStringLongLong() throws AssertionFailedException {
+	public void successAssertEqualsLongWithPersonalizedMessage()
+			throws AssertionFailedException {
 		long long1 = 5;
 		long long2 = 5;
-		assertEquals("JUnit assertEquals(String, long, long) fails with equal parameters", long1, long2);
 		Assert.assertEquals("Testing Framework assertEquals(String, long, long) fails with equal parameters", long1, long2);
+		assertEquals("JUnit assertEquals(String, long, long) fails with equal parameters", long1, long2);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringLongLong() throws AssertionFailedException {
+	public void failAssertEqualsLongWithPersonalizedMessage() throws AssertionFailedException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertEquals("Testing Framework assertEquals(String, long, long) throws AssertionFailedException with different parameters", long1, long2);
 	}
 
 	@Test
-	public void testAssertEqualsLongLong() throws AssertionFailedException {
+	public void successAssertEqualsLong() throws AssertionFailedException {
 		long long1 = 5;
 		long long2 = 5;
-		assertEquals(long1, long2);
 		Assert.assertEquals(long1, long2);
+		assertEquals(long1, long2);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsLongLong() throws AssertionFailedException {
+	public void failAssertEqualsLong() throws AssertionFailedException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertEquals(long1, long2);
 	}
 
 	@Test
-	public void testAssertEqualsStringFloatFloatFloatZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
-		assertEquals("JUnit assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
 		Assert.assertEquals("Testing Framework assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
+		assertEquals("JUnit assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringFloatFloatFloatZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 0;
 		Assert.assertEquals("Testing Framework assertEquals(String, float, float, float) throws AssertionFailedException with different parameters (Considering delta value)", float1, float2, delta);
 	}
-	
+
 	@Test
-	public void testAssertEqualsStringFloatFloatFloatNonZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 1;
-		assertEquals("JUnit assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
 		Assert.assertEquals("Testing Framework assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
+		assertEquals("JUnit assertEquals(String, float, float, float) fails with equal parameters (Considering delta value)", float1, float2, delta);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsStringFloatFloatFloatNonZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
@@ -149,33 +156,37 @@ public class AssertTest {
 	}
 
 	@Test
-	public void testAssertEqualsFloatFloatFloatZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsFloatWithZeroDeltaValue()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
 		assertEquals(float1, float2, delta);
 		Assert.assertEquals(float1, float2, delta);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsFloatFloatFloatZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsFloatWithZeroDeltaValue()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 0;
 		Assert.assertEquals(float1, float2, delta);
 	}
-	
+
 	@Test
-	public void testAssertEqualsFloatFloatFloatNonZeroDelta() throws AssertionFailedException {
+	public void successAssertEqualsFloatWithNonZeroDeltaValue()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 1;
 		assertEquals(float1, float2, delta);
 		Assert.assertEquals(float1, float2, delta);
 	}
-	
+
 	@Test(expected = AssertionFailedException.class)
-	public void testFailAssertEqualsFloatFloatFloatNonZeroDelta() throws AssertionFailedException {
+	public void failAssertEqualsFloatWithNonZeroDeltaValue()
+			throws AssertionFailedException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
