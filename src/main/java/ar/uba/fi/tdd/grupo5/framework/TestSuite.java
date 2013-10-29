@@ -11,14 +11,12 @@ public class TestSuite {
 	private int errorCount;
 	private int failCount;
 	private int okCount;
+	private long time;
 
 	public TestSuite(String name) {
 		this.name = name;
 		tests = new ArrayList<>();
 		results = new ArrayList<>();
-		errorCount = 0;
-		failCount = 0;
-		okCount = 0;
 	}
 
 	public void add(TestCase test){
@@ -26,12 +24,20 @@ public class TestSuite {
 	}
 
 	public String run() {
+		setUp();
 		for (TestCase test : tests){
 			processResult(test.run());
 		}
 		return generateResult();
 	}
 
+	private void setUp() {
+		errorCount = 0;
+		failCount = 0;
+		okCount = 0;
+		time=0;
+	}
+	
 	private void processResult(TestResult result) {
 		results.add(result);
 		if (result.isError()) {
@@ -43,6 +49,7 @@ public class TestSuite {
 		if (result.isOK()) {
 			increaseOKCount();
 		}
+		time += increaseTimeCount(result);
 	}
 
 	private String generateResult() {
@@ -66,8 +73,12 @@ public class TestSuite {
 		okCount++;
 	}
 
+	private long increaseTimeCount(TestResult result) {
+		return result.getTime();
+	}
+
 	private String addTestSuiteName() {
-		return "\tRun Test Suite " + name + "\n";
+		return "\tTest Suite: " + name + "\n";
 	}
 
 	private String addTestResult(String sResult, TestResult result) {
@@ -75,7 +86,8 @@ public class TestSuite {
 	}
 
 	private String addResultStatistics(String result) {
-		return result + "Total: " + results.size() + "\tError: " + errorCount 
-				+ "\tFailure: " + failCount + "\tOK: " + okCount + "\n";
+		return result + "Total: " + results.size() + "\tTime:" + time + "ns\n" 
+				+ "Error: " + errorCount + "\tFailure: " + failCount 
+				+ "\tOK: " + okCount + "\n";
 	}
 }
