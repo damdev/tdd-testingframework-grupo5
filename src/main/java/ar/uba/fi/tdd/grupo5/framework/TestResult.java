@@ -8,7 +8,7 @@ public class TestResult {
 	private String message;
 	private long time;
 
-	void run(TestCase test) {
+	public void run(TestCase test) {
 		setTestName(test.getName());
 		setUp();
 		Timer timer = new Timer();
@@ -28,7 +28,7 @@ public class TestResult {
 
 	@Override
 	public String toString() {
-		String sResult = testName;
+		String sResult = getTestName();
 		sResult = addTime(sResult);
 		if (isError()) {
 			sResult = addStatusResult(sResult, "ERROR");
@@ -39,14 +39,12 @@ public class TestResult {
 		if (isOK()) {
 			sResult = addStatusResult(sResult, "OK");
 		}
-		if (isAvailableMessage()) {
-			sResult = addAvailableMessage(sResult);
-		}
+		sResult = addAvailableMessage(sResult);
 		sResult = addEndLine(sResult);
 		return sResult;
 	}
 
-	public String getTestName() {
+	private String getTestName() {
 		return testName;
 	}
 
@@ -74,7 +72,7 @@ public class TestResult {
 		return !error && !fail;
 	}
 
-	public String getMessage() {
+	private String getMessage() {
 		return message;
 	}
 
@@ -109,7 +107,10 @@ public class TestResult {
 	}
 
 	private String addAvailableMessage(String result) {
-		return result + "\n" + message;
+		if (isAvailableMessage()) {
+			return result + "\n" + getMessage();
+		}
+		return result;
 	}
 
 	private String addEndLine(String result) {
