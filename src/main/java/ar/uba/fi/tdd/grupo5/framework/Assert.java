@@ -2,11 +2,11 @@ package ar.uba.fi.tdd.grupo5.framework;
 
 /**
  * A set of assert methods, used in this Test Framework. The failed assertions
- * throws an {@link AssertionFailedException} with a personalized identifying  
+ * throws an {@link AssertionFailedException} with a personalized identifying
  * message, if the user give one.
  */
 public class Assert {
-	
+
 	/**
 	 * Protect constructor because it is a static class
 	 */
@@ -18,7 +18,8 @@ public class Assert {
 	 * {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param condition
 	 *            condition to be checked
 	 */
@@ -28,7 +29,7 @@ public class Assert {
 			throwException(message);
 		}
 	}
-	
+
 	/**
 	 * Asserts that a condition is true. If it isn't it throws an
 	 * {@link AssertionFailedException} with no message.
@@ -40,13 +41,14 @@ public class Assert {
 			throws AssertionFailedException {
 		assertTrue(null, condition);
 	}
-	
+
 	/**
 	 * Asserts that a condition is false. If it isn't it throws an
 	 * {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param condition
 	 *            condition to be checked
 	 */
@@ -54,7 +56,7 @@ public class Assert {
 			throws AssertionFailedException {
 		assertTrue(message, !condition);
 	}
-	
+
 	/**
 	 * Asserts that a condition is false. If it isn't it throws an
 	 * {@link AssertionFailedException} with no message.
@@ -69,11 +71,12 @@ public class Assert {
 
 	/**
 	 * Asserts that two objects are equal. If they aren't it throws an
-	 * {@link AssertionFailedException} with the given message.
-	 * Null's objects are considered equals
+	 * {@link AssertionFailedException} with the given message. Null's objects
+	 * are considered equals
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param expected
 	 *            expected object
 	 * @param actual
@@ -89,8 +92,8 @@ public class Assert {
 
 	/**
 	 * Asserts that two objects are equal. If they aren't it throws an
-	 * {@link AssertionFailedException} with no message.
-	 * Null's objects are considered equals
+	 * {@link AssertionFailedException} with no message. Null's objects are
+	 * considered equals
 	 * 
 	 * @param expected
 	 *            expected object
@@ -107,7 +110,8 @@ public class Assert {
 	 * {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param expected
 	 *            expected long value
 	 * @param actual
@@ -133,12 +137,13 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two float values are equal, considering a delta. 
-	 * If they aren't it throws an {@link AssertionFailedException} with
-	 * the given message.
+	 * Asserts that two float values are equal, considering a delta. If they
+	 * aren't it throws an {@link AssertionFailedException} with the given
+	 * message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param expected
 	 *            expected float value
 	 * @param actual
@@ -154,10 +159,10 @@ public class Assert {
 		}
 		throwException(message);
 	}
-	
+
 	/**
-	 * Asserts that two float values are equal, considering a delta. 
-	 * If they aren't it throws an {@link AssertionFailedException} with no message
+	 * Asserts that two float values are equal, considering a delta. If they
+	 * aren't it throws an {@link AssertionFailedException} with no message
 	 * 
 	 * @param expected
 	 *            expected float value
@@ -170,12 +175,13 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two double values are equal, considering a delta. 
-	 * If they aren't it throws an {@link AssertionFailedException} with
-	 * the given message.
+	 * Asserts that two double values are equal, considering a delta. If they
+	 * aren't it throws an {@link AssertionFailedException} with the given
+	 * message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param expected
 	 *            expected double value
 	 * @param actual
@@ -193,8 +199,8 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two double values are equal, considering a delta. 
-	 * If they aren't it throws an {@link AssertionFailedException} with no message.
+	 * Asserts that two double values are equal, considering a delta. If they
+	 * aren't it throws an {@link AssertionFailedException} with no message.
 	 * 
 	 * @param expected
 	 *            expected double value
@@ -208,11 +214,12 @@ public class Assert {
 
 	/**
 	 * Asserts that two objects aren't equal. If they are it throws an
-	 * {@link AssertionFailedException} with the given message.
-	 * Null's objects are considered equals
+	 * {@link AssertionFailedException} with the given message. Null's objects
+	 * are considered equals
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param object1
 	 *            unexpected object
 	 * @param object2
@@ -227,8 +234,8 @@ public class Assert {
 
 	/**
 	 * Asserts that two objects aren't equal. If they are it throws an
-	 * {@link AssertionFailedException} with no message.
-	 * Null's objects are considered equals
+	 * {@link AssertionFailedException} with no message. Null's objects are
+	 * considered equals
 	 * 
 	 * @param object1
 	 *            unexpected object
@@ -245,14 +252,15 @@ public class Assert {
 	 * {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param long1
 	 *            unexpected long value
 	 * @param long2
 	 *            actual long value
 	 */
-	static public void assertNotEquals(String message, long long1,
-			long long2) throws AssertionFailedException {
+	static public void assertNotEquals(String message, long long1, long long2)
+			throws AssertionFailedException {
 		assertNotEquals(message, (Long) long1, (Long) long2);
 	}
 
@@ -271,12 +279,12 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two float values aren't equal, considering a delta. 
-	 * If they are it throws an {@link AssertionFailedException} with
-	 * the given message.
+	 * Asserts that two float values aren't equal, considering a delta. If they
+	 * are it throws an {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param float1
 	 *            unexpected float value
 	 * @param float2
@@ -293,8 +301,8 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two float values aren't equal, considering a delta. 
-	 * If they are it throws an {@link AssertionFailedException} with no message.
+	 * Asserts that two float values aren't equal, considering a delta. If they
+	 * are it throws an {@link AssertionFailedException} with no message.
 	 * 
 	 * @param float1
 	 *            unexpected float value
@@ -307,12 +315,12 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two double values aren't equal, considering a delta. 
-	 * If they are it throws an {@link AssertionFailedException} with
-	 * the given message.
+	 * Asserts that two double values aren't equal, considering a delta. If they
+	 * are it throws an {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param double1
 	 *            unexpected double value
 	 * @param double2
@@ -329,8 +337,8 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two double values aren't equal, considering a delta. 
-	 * If they are it throws an {@link AssertionFailedException} with no message.
+	 * Asserts that two double values aren't equal, considering a delta. If they
+	 * are it throws an {@link AssertionFailedException} with no message.
 	 * 
 	 * @param double1
 	 *            unexpected double value
@@ -343,16 +351,17 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two objects are referencing the same object. If they aren't 
+	 * Asserts that two objects are referencing the same object. If they aren't
 	 * it throws an {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param expected
 	 *            expected object
 	 * @param actual
 	 *            actual object
-	 */	
+	 */
 	static public void assertSame(String message, Object expected, Object actual)
 			throws AssertionFailedException {
 		if (expected != actual) {
@@ -361,30 +370,31 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two objects are referencing the same object. If they aren't 
+	 * Asserts that two objects are referencing the same object. If they aren't
 	 * it throws an {@link AssertionFailedException} with no message.
 	 * 
 	 * @param expected
 	 *            expected object
 	 * @param actual
 	 *            actual object
-	 */	
+	 */
 	static public void assertSame(Object expected, Object actual)
 			throws AssertionFailedException {
 		assertSame(null, expected, actual);
 	}
 
 	/**
-	 * Asserts that two objects aren't referencing the same object. If they are 
+	 * Asserts that two objects aren't referencing the same object. If they are
 	 * it throws an {@link AssertionFailedException} with the given message.
 	 * 
 	 * @param message
-	 *            the personalized identifying message for the {@link AssertionFailedException}
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * @param object1
 	 *            unexpected object
 	 * @param object2
 	 *            actual object
-	 */	
+	 */
 	static public void assertNotSame(String message, Object object1,
 			Object object2) throws AssertionFailedException {
 		if (object1 == object2) {
@@ -393,14 +403,14 @@ public class Assert {
 	}
 
 	/**
-	 * Asserts that two objects aren't referencing the same object. If they are 
+	 * Asserts that two objects aren't referencing the same object. If they are
 	 * it throws an {@link AssertionFailedException} with no message.
 	 * 
 	 * @param object1
 	 *            unexpected object
 	 * @param object2
 	 *            actual object
-	 */	
+	 */
 	static public void assertNotSame(Object object1, Object object2)
 			throws AssertionFailedException {
 		assertNotSame(null, object1, object2);
@@ -411,7 +421,8 @@ public class Assert {
 	 * have (or not) a message with a description.
 	 * 
 	 * @param message
-	 *        the personalized identifying message for the {@link AssertionFailedException} 
+	 *            the personalized identifying message for the
+	 *            {@link AssertionFailedException}
 	 * 
 	 */
 	static public void throwException(String message)
