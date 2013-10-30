@@ -9,15 +9,18 @@ public class AssertionFailedException extends Exception {
 	private static final String defaultMessage = "Message was not provided";
 
 	/**
-	 * Constructs an AssertionFailedException with a personalized exception
+	 * Constructs an <code>AssertionFailedException</code> with a personalized exception
 	 * message
+	 * 
+	 * @param message   
+	 * 			the detail message 
 	 */
 	public AssertionFailedException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Constructs an AssertionFailedException with the default message.
+	 * Constructs an <code>AssertionFailedException</code> with the default message.
 	 */
 	public AssertionFailedException() {
 		super(defaultMessage);

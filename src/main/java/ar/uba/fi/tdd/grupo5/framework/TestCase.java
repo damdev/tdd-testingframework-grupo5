@@ -4,14 +4,32 @@ public abstract class TestCase {
 
 	private String name;
 	
+	/**
+	 * Constructs a <code>TestCase</code> specifying a name
+	 * 
+	 * @param name   
+	 * 			the name of the <code>TestCase</code>
+	 */
 	public TestCase(String name) {
 		this.setName(name);
 	}
 	
+	/**
+	 * Constructs a <code>TestCase</code> without specifying a name.
+	 * The name used is the return value of getSimpleName()
+	 * 
+	 */
 	public TestCase() {
 		setName(getClass().getSimpleName());
 	}
 	
+	/**
+	 * Method that run the <code>TestCase</code> and return a 
+	 * {@link TestResult}
+	 * 
+	 * @return the result of the <code>TestCase</code>
+	 * @see {@link TestResult}
+	 */
 	public TestResult run() {
 		TestResult result = new TestResult();
 		result.run(this);
@@ -23,10 +41,15 @@ public abstract class TestCase {
 	 */
 	public abstract void testCode() throws AssertionFailedException;
 
+	/**
+	 * Getter that returns the <code>TestCase</code>'s name
+	 * 
+	 * @return a String with the name of the <code>TestCase</code>
+	 */
 	public String getName() {
 		return name;
 	}
-
+	
 	private void setName(String name) {
 		this.name = name;
 	}
