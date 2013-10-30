@@ -19,25 +19,36 @@ public class TestSuite {
 		results = new ArrayList<>();
 	}
 
-	public void add(TestCase test){
+	public void add(TestCase test) {
 		tests.add(test);
 	}
 
 	public String run() {
+		if (isEmptyTestSuite()) {
+			return getEmptyTestSuiteMessage();
+		}
 		setUp();
-		for (TestCase test : tests){
+		for (TestCase test : tests) {
 			processResult(test.run());
 		}
 		return generateResult();
+	}
+
+	private boolean isEmptyTestSuite() {
+		return this.tests.isEmpty();
+	}
+
+	private String getEmptyTestSuiteMessage() {
+		return "The TestSuite is empty. There are no tests to run.";
 	}
 
 	private void setUp() {
 		errorCount = 0;
 		failCount = 0;
 		okCount = 0;
-		time=0;
+		time = 0;
 	}
-	
+
 	private void processResult(TestResult result) {
 		results.add(result);
 		if (result.isError()) {
@@ -54,7 +65,7 @@ public class TestSuite {
 
 	private String generateResult() {
 		String sResult = addTestSuiteName();
-		for (TestResult result : results){
+		for (TestResult result : results) {
 			sResult = addTestResult(sResult, result);
 		}
 		sResult = addResultStatistics(sResult);
@@ -86,8 +97,8 @@ public class TestSuite {
 	}
 
 	private String addResultStatistics(String result) {
-		return result + "Total: " + results.size() + "\tTime:" + time + "ns\n" 
-				+ "Error: " + errorCount + "\tFailure: " + failCount 
-				+ "\tOK: " + okCount + "\n";
+		return result + "Total: " + results.size() + "\tTime:" + time + "ns\n"
+				+ "Error: " + errorCount + "\tFailure: " + failCount + "\tOK: "
+				+ okCount + "\n";
 	}
 }
