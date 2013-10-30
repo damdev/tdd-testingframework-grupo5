@@ -8,6 +8,11 @@ public class TestResult {
 	private String message;
 	private long testTime;
 	
+	/**
+	 * Runs a TestCase.
+	 * 
+	 * @see {@link TestCase}
+	 */
 	public void run(TestCase test) {
 		setTestName(test.getName());
 		setUp();
@@ -26,7 +31,11 @@ public class TestResult {
 		}
 	}
 
-	@Override
+	/**
+	 * Returns a string representation of the {@code TestResult}
+	 * 
+	 * @return a String that represents the {@code TestResult}
+	 */
 	public String toString() {
 		String sResult = getTestName();
 		sResult = addTime(sResult);
@@ -44,6 +53,11 @@ public class TestResult {
 		return sResult;
 	}
 
+	/**
+	 * Returns the name of the test
+	 * 
+	 * @return a String that represents the name of the test
+	 */
 	private String getTestName() {
 		return testName;
 	}
@@ -52,42 +66,99 @@ public class TestResult {
 		this.testName = testName;
 	}
 
+	/**
+	 * Determines whether the test gave error
+	 * 
+	 * @return a boolean 
+	 */
 	public boolean isError() {
 		return error;
 	}
 
+	/**
+	 * Sets the private error boolean
+	 * 
+	 * @param error
+	 * 		the new value of error
+	 * 
+	 */
 	private void setError(boolean error) {
 		this.error = error;
 	}
 
+	/**
+	 * Determines whether the test failed
+	 * 
+	 * @return a boolean 
+	 */
 	public boolean isFail() {
 		return fail;
 	}
 
+	/**
+	 * Sets the private fail boolean
+	 * 
+	 * @param fail
+	 * 		the new value of fail
+	 * 
+	 */
 	private void setFail(boolean fail) {
 		this.fail = fail;
 	}
 
+	/**
+	 * Determines whether the test was successful or not
+	 * 
+	 * @return a boolean 
+	 */
 	public boolean isOK() {
 		return !error && !fail;
 	}
 
+	/**
+	 * Returns the error message of the test, if it's failed
+	 * 
+	 * @return a long 
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the private String message
+	 * 
+	 * @param message
+	 * 		the new value of message
+	 * 
+	 */
 	private void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Returns the time of the test
+	 * 
+	 * @return a long 
+	 */
 	public long getTestTime() {
 		return testTime;
 	}
 
+	/**
+	 * Sets the private long testTime
+	 * 
+	 * @param time
+	 * 		the new value of testTime
+	 * 
+	 */
 	private void setTestTime(long time) {
 		this.testTime = time;
 	}
 
+	/**
+	 * Initial setUp of the private booleans
+	 * 
+	 */
 	private void setUp() {
 		setError(false);
 		setFail(false);
