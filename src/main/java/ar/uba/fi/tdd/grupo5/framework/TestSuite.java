@@ -14,38 +14,32 @@ public class TestSuite {
 	private long time;
 
 	/**
-	 * Suite constructor
+	 * Constructs a <code>TestSuite</code>.
 	 * 
 	 * @param name
-	 * 		the name that will represent the suite in the final output
-	 */	
-
+	 *            the name that will represent the suite in the final output
+	 */
 	public TestSuite(String name) {
 		this.name = name;
 		tests = new ArrayList<>();
 		results = new ArrayList<>();
 	}
 
-
 	/**
 	 * Add a testCase to the collection.
 	 * 
 	 * @param test
-	 * 		the testCase that is added to the collection
+	 *            the testCase that is added to the collection
 	 */
-
 	public void add(TestCase test) {
 		tests.add(test);
 	}
 
-
 	/**
 	 * Run the cases that are in the suite.
 	 * 
-	 * @return a String  
-	 * 		the output of the tests executed plus statistical data.
+	 * @return the output string of the tests executed plus statistical data
 	 */
-
 	public String run() {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
@@ -65,10 +59,9 @@ public class TestSuite {
 		return "The TestSuite is empty. There are no tests to run.";
 	}
 
-	 /**
+	/**
 	 * Initiate the counters of the suite
 	 */
-
 	private void setUp() {
 		errorCount = 0;
 		failCount = 0;
@@ -80,9 +73,8 @@ public class TestSuite {
 	 * Update the statistics of the suite.
 	 * 
 	 * @param result
-	 * 		the testResult that brings new data to the results
+	 *            the testResult that brings new data to the results
 	 */
-
 	private void processResult(TestResult result) {
 		results.add(result);
 		if (result.isError()) {
@@ -100,10 +92,9 @@ public class TestSuite {
 	/**
 	 * Generate the output of the executed tests.
 	 * 
-	 * @return a String
-	 * 		the output of the tets, with their results and statistical data about them.
+	 * @return a String the output of the tets, with their results and
+	 *         statistical data about them.
 	 */
-
 	private String generateResult() {
 		String sResult = addTestSuiteName();
 		for (TestResult result : results) {
@@ -139,15 +130,13 @@ public class TestSuite {
 
 	/**
 	 * Generate statistical data of the suite.
-
-	 * @param a String
-	 * 		a string that has the previous results of the tests runned.
-
-	 * @return a String
-	 * 		a string having the previous results, plus the statistical data provided
-	 		by the counters (fails, errors, OK, execution time).
+	 * 
+	 * @param result
+	 *            a string that has the previous results of the tests runned.
+	 * 
+	 * @return a string having the previous results, plus the statistical data
+	 *         provided by the counters (fails, errors, OK, execution time).
 	 */
-
 	private String addResultStatistics(String result) {
 		return result + "Total: " + results.size() + "\tTime:" + time + "ns\n"
 				+ "Error: " + errorCount + "\tFailure: " + failCount + "\tOK: "

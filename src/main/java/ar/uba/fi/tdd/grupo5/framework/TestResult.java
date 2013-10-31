@@ -9,9 +9,9 @@ public class TestResult {
 	private long testTime;
 
 	/**
-	 * Runs a TestCase.
+	 * Runs a <code>TestCase</code>.
 	 * 
-	 * @see {@link TestCase}
+	 * @see TestCase
 	 */
 	public void run(TestCase test) {
 		setTestName(test.getName());
@@ -32,9 +32,7 @@ public class TestResult {
 	}
 
 	/**
-	 * Returns a string representation of the {@code TestResult}
-	 * 
-	 * @return a String that represents the {@code TestResult}
+	 * Returns a string representation of the {@code TestResult}.
 	 */
 	public String toString() {
 		String sResult = getTestName();
@@ -54,9 +52,7 @@ public class TestResult {
 	}
 
 	/**
-	 * Returns the name of the test
-	 * 
-	 * @return a String that represents the name of the test
+	 * Returns the name of the test.
 	 */
 	private String getTestName() {
 		return testName;
@@ -68,84 +64,71 @@ public class TestResult {
 
 	/**
 	 * Determines whether the test gave error
-	 * 
-	 * @return a boolean
 	 */
 	public boolean isError() {
 		return error;
 	}
 
 	/**
-	 * Sets the private error boolean
+	 * Sets the private error boolean.
 	 * 
 	 * @param error
 	 *            the new value of error
-	 * 
 	 */
 	private void setError(boolean error) {
 		this.error = error;
 	}
 
 	/**
-	 * Determines whether the test failed
-	 * 
-	 * @return a boolean
+	 * Determines whether the test failed.
 	 */
 	public boolean isFail() {
 		return fail;
 	}
 
 	/**
-	 * Sets the private fail boolean
+	 * Sets the private fail boolean.
 	 * 
 	 * @param fail
 	 *            the new value of fail
-	 * 
 	 */
 	private void setFail(boolean fail) {
 		this.fail = fail;
 	}
 
 	/**
-	 * Determines whether the test was successful or not
-	 * 
-	 * @return a boolean
+	 * Determines whether the test was successful or not.
 	 */
 	public boolean isOK() {
 		return !error && !fail;
 	}
 
 	/**
-	 * Returns the error message of the test, if it's failed
-	 * 
-	 * @return a long
+	 * Returns the error message of the test, if it's failed.
 	 */
 	public String getMessage() {
 		return message;
 	}
 
 	/**
-	 * Sets the private String message
+	 * Sets the private String message.
 	 * 
 	 * @param message
 	 *            the new value of message
-	 * 
 	 */
 	private void setMessage(String message) {
 		this.message = message;
 	}
 
 	/**
-	 * Returns the time of the test
-	 * 
-	 * @return a long
+	 * Returns the time of the test.
 	 */
 	public long getTestTime() {
 		return testTime;
 	}
 
 	/**
-	 * Sets the private long testTime
+	 * Sets the private long testTime.
 	 * 
 	 * @param time
 	 *            the new value of testTime
@@ -156,8 +139,7 @@ public class TestResult {
 	}
 
 	/**
-	 * Initial setUp of the private booleans
-	 * 
+	 * Initial setUp of the private booleans.
 	 */
 	private void setUp() {
 		setError(false);
