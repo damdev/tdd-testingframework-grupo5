@@ -7,7 +7,7 @@ public class TestResult {
 	private boolean fail;
 	private String message;
 	private long testTime;
-	
+
 	/**
 	 * Runs a TestCase.
 	 * 
@@ -69,7 +69,7 @@ public class TestResult {
 	/**
 	 * Determines whether the test gave error
 	 * 
-	 * @return a boolean 
+	 * @return a boolean
 	 */
 	public boolean isError() {
 		return error;
@@ -79,7 +79,7 @@ public class TestResult {
 	 * Sets the private error boolean
 	 * 
 	 * @param error
-	 * 		the new value of error
+	 *            the new value of error
 	 * 
 	 */
 	private void setError(boolean error) {
@@ -89,7 +89,7 @@ public class TestResult {
 	/**
 	 * Determines whether the test failed
 	 * 
-	 * @return a boolean 
+	 * @return a boolean
 	 */
 	public boolean isFail() {
 		return fail;
@@ -99,7 +99,7 @@ public class TestResult {
 	 * Sets the private fail boolean
 	 * 
 	 * @param fail
-	 * 		the new value of fail
+	 *            the new value of fail
 	 * 
 	 */
 	private void setFail(boolean fail) {
@@ -109,7 +109,7 @@ public class TestResult {
 	/**
 	 * Determines whether the test was successful or not
 	 * 
-	 * @return a boolean 
+	 * @return a boolean
 	 */
 	public boolean isOK() {
 		return !error && !fail;
@@ -118,7 +118,7 @@ public class TestResult {
 	/**
 	 * Returns the error message of the test, if it's failed
 	 * 
-	 * @return a long 
+	 * @return a long
 	 */
 	public String getMessage() {
 		return message;
@@ -128,7 +128,7 @@ public class TestResult {
 	 * Sets the private String message
 	 * 
 	 * @param message
-	 * 		the new value of message
+	 *            the new value of message
 	 * 
 	 */
 	private void setMessage(String message) {
@@ -138,7 +138,7 @@ public class TestResult {
 	/**
 	 * Returns the time of the test
 	 * 
-	 * @return a long 
+	 * @return a long
 	 */
 	public long getTestTime() {
 		return testTime;
@@ -148,7 +148,7 @@ public class TestResult {
 	 * Sets the private long testTime
 	 * 
 	 * @param time
-	 * 		the new value of testTime
+	 *            the new value of testTime
 	 * 
 	 */
 	private void setTestTime(long time) {
