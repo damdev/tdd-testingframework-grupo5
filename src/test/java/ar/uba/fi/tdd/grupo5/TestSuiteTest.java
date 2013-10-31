@@ -12,16 +12,6 @@ public class TestSuiteTest {
 	private final String emptySuite = "The TestSuite is empty. There are no tests to run.";
 
 	@Test
-	public void testTestSuite() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAdd() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void runAnEmptyTestSuite() {
 		tester = new TestSuite("My Test Suite");
 		assertEquals(

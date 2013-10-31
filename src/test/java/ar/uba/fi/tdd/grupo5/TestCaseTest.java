@@ -28,9 +28,4 @@ public class TestCaseTest {
 				"tester.getName() returns a different test name than the constructor default",
 				tester.getName(), className);
 	}
-
-	@Test
-	public void testRun() {
-		fail("Not yet implemented");
-	}
 }

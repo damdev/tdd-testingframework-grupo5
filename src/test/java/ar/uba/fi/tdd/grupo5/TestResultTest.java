@@ -17,11 +17,6 @@ public class TestResultTest {
 	private String personalizedMessage = "This is a personalized message";
 
 	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void errorTestReturnErrorValue() {
 		testerCase = new myErrorTest("I'm a error test");
 		testerResult = testerCase.run();
