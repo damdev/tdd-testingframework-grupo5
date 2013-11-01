@@ -1,9 +1,7 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
-public abstract class TestCase {
+public abstract class TestCase extends Test {
 
-	private String name;
-	
 	/**
 	 * Constructs a <code>TestCase</code> specifying a name.
 	 * 
@@ -29,23 +27,17 @@ public abstract class TestCase {
 	 * @return the result of the <code>TestCase</code>
 	 * @see TestResult
 	 */
-	public TestResult run() {
-		TestResult result = new TestResult();
+	@Override
+	public void run(TestResult result) {
+//		TestResult result = new TestResult();
 		result.run(this);
-		return result;
+//		return result;
 	}
 	
 	/**
 	 * The user-client implements the method including the code under test.
 	 */
 	public abstract void testCode() throws AssertionFailedException;
-
-	/**
-	 * Returns the <code>TestCase</code>'s name.
-	 */
-	public String getName() {
-		return name;
-	}
 	
 	private void setName(String name) {
 		this.name = name;

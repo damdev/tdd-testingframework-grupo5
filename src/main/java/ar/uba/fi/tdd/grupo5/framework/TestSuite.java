@@ -3,10 +3,9 @@ package ar.uba.fi.tdd.grupo5.framework;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestSuite {
+public class TestSuite extends Test {
 
-	private String name;
-	private List<TestCase> tests;
+	private List<Test> tests;
 	private List<TestResult> results;
 	private int errorCount;
 	private int failCount;
@@ -25,6 +24,14 @@ public class TestSuite {
 		results = new ArrayList<>();
 	}
 
+	@Override
+	public void run(TestResult result) {
+		resetCounters();
+		for (Test test : tests) {
+			test.run(result);
+		}
+	}
+
 	/**
 	 * Add a testCase to the collection.
 	 * 
@@ -33,6 +40,11 @@ public class TestSuite {
 	 */
 	public void add(TestCase test) {
 		tests.add(test);
+	}
+	
+	public void add(TestSuite test) {
+		String testName = name + "." + test.getName();
+		test.setName(testName);
 	}
 
 	/**
@@ -44,11 +56,13 @@ public class TestSuite {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
-		setUp();
-		for (TestCase test : tests) {
-			processResult(test.run());
-		}
+		TestResult result = new TestResult();
+		run(result);
 		return generateResult();
+	}
+
+	private void setName(String name) {
+		this.name = name;
 	}
 
 	private boolean isEmptyTestSuite() {
@@ -60,9 +74,9 @@ public class TestSuite {
 	}
 
 	/**
-	 * Initiate the counters of the suite
+	 * Reset the counters of the suite
 	 */
-	private void setUp() {
+	private void resetCounters() {
 		errorCount = 0;
 		failCount = 0;
 		okCount = 0;

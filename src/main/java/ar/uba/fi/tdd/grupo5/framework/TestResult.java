@@ -1,13 +1,22 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import java.util.ArrayList;
+
 public class TestResult {
 
+	private ArrayList<TestFailure> failures;
+	private ArrayList<TestFailure> errors;
 	private String testName;
 	private boolean error;
 	private boolean fail;
 	private String message;
 	private long testTime;
 
+	public TestResult() {
+		failures = new ArrayList<>();
+		errors = new ArrayList<>();
+	}
+	
 	/**
 	 * Runs a <code>TestCase</code>.
 	 * 
@@ -21,11 +30,9 @@ public class TestResult {
 		try {
 			test.testCode();
 		} catch (AssertionFailedException assertionException) {
-			setFail(true);
-			setMessage(assertionException.getLocalizedMessage());
+			addFailure(test, assertionException);
 		} catch (Exception exception) {
-			setError(true);
-			setMessage(exception.getLocalizedMessage());
+			addError(test, exception);
 		} finally {
 			setTestTime(timer.getRegisteredTime());
 		}
@@ -168,5 +175,15 @@ public class TestResult {
 
 	private String addEndLine(String result) {
 		return result + "\n";
+	}
+	
+	private void addFailure(Test test, Exception exception) {
+		TestFailure failure = new TestFailure(test, exception);
+		failures.add(failure);
+	}
+	
+	private void addError(Test test, Exception exception) {
+		TestFailure error = new TestFailure(test, exception);
+		errors.add(error);
 	}
 }
