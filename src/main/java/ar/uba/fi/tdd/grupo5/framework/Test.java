@@ -18,8 +18,6 @@ public abstract class Test {
 	protected void tearDown() throws Exception {
 	}
 
-	public abstract void run(TestResult result);
-
 	/**
 	 * Returns the {@code Test}'s name.
 	 */

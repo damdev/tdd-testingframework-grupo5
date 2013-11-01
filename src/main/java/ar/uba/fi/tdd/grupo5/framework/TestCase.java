@@ -27,11 +27,10 @@ public abstract class TestCase extends Test {
 	 * @return the result of the <code>TestCase</code>
 	 * @see TestResult
 	 */
-	@Override
-	public void run(TestResult result) {
-//		TestResult result = new TestResult();
+	public TestResult run() {
+		TestResult result = new TestResult();
 		result.run(this);
-//		return result;
+		return result;
 	}
 	
 	/**

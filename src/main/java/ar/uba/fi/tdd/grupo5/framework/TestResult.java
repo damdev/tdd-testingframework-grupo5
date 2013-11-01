@@ -1,38 +1,32 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
-import java.util.ArrayList;
-
 public class TestResult {
 
-	private ArrayList<TestFailure> failures;
-	private ArrayList<TestFailure> errors;
-	private String testName;
+	private TestCase test;
+	private Throwable throwable;
 	private boolean error;
 	private boolean fail;
-	private String message;
 	private long testTime;
 
 	public TestResult() {
-		failures = new ArrayList<>();
-		errors = new ArrayList<>();
 	}
-	
+
 	/**
-	 * Runs a <code>TestCase</code>.
+	 * Runs a {@code TestCase}.
 	 * 
 	 * @see TestCase
 	 */
 	public void run(TestCase test) {
-		setTestName(test.getName());
+		this.test = test;
 		setUp();
 		Timer timer = new Timer();
 		timer.setStart();
 		try {
 			test.testCode();
-		} catch (AssertionFailedException assertionException) {
-			addFailure(test, assertionException);
-		} catch (Exception exception) {
-			addError(test, exception);
+		} catch (AssertionFailedException assertException) {
+			setFailTest(assertException);
+		} catch (Throwable exception) {
+			setErrorTest(exception);
 		} finally {
 			setTestTime(timer.getRegisteredTime());
 		}
@@ -42,48 +36,25 @@ public class TestResult {
 	 * Returns a string representation of the {@code TestResult}.
 	 */
 	public String toString() {
-		String sResult = getTestName();
-		sResult = addTime(sResult);
-		if (isError()) {
-			sResult = addStatusResult(sResult, "ERROR");
+		String sResult = "";
+		if (isOK()) {
+			sResult = "[ok] ";
 		}
 		if (isFail()) {
-			sResult = addStatusResult(sResult, "FAIL");
+			sResult = "[fail]";
 		}
-		if (isOK()) {
-			sResult = addStatusResult(sResult, "OK");
+		if (isError()) {
+			sResult = "[error]";
 		}
-		sResult = addAvailableMessage(sResult);
+		sResult = addTestName(sResult);
+		sResult = addTime(sResult);
+		/*
+		 * FIXME El reporte de esta entrega no requiere mostrar el mensaje de la
+		 * excepción. Preguntar si se puede agregar el mensaje.
+		 */
+		// sResult = addAvailableMessage(sResult);
 		sResult = addEndLine(sResult);
 		return sResult;
-	}
-
-	/**
-	 * Returns the name of the test.
-	 */
-	private String getTestName() {
-		return testName;
-	}
-
-	private void setTestName(String testName) {
-		this.testName = testName;
-	}
-
-	/**
-	 * Determines whether the test gave error
-	 */
-	public boolean isError() {
-		return error;
-	}
-
-	/**
-	 * Sets the private error boolean.
-	 * 
-	 * @param error
-	 *            the new value of error
-	 */
-	private void setError(boolean error) {
-		this.error = error;
 	}
 
 	/**
@@ -103,6 +74,33 @@ public class TestResult {
 		this.fail = fail;
 	}
 
+	private void setFailTest(Throwable throwable) {
+		fail = true;
+		this.throwable = throwable;
+	}
+
+	/**
+	 * Determines whether the test gave error
+	 */
+	public boolean isError() {
+		return error;
+	}
+
+	/**
+	 * Sets the private error boolean.
+	 * 
+	 * @param error
+	 *            the new value of error
+	 */
+	private void setError(boolean error) {
+		this.error = error;
+	}
+
+	private void setErrorTest(Throwable throwable) {
+		error = true;
+		this.throwable = throwable;
+	}
+
 	/**
 	 * Determines whether the test was successful or not.
 	 */
@@ -114,17 +112,7 @@ public class TestResult {
 	 * Returns the error message of the test, if it's failed.
 	 */
 	public String getMessage() {
-		return message;
-	}
-
-	/**
-	 * Sets the private String message.
-	 * 
-	 * @param message
-	 *            the new value of message
-	 */
-	private void setMessage(String message) {
-		this.message = message;
+		return throwable.getLocalizedMessage();
 	}
 
 	/**
@@ -139,10 +127,9 @@ public class TestResult {
 	 * 
 	 * @param time
 	 *            the new value of testTime
-	 * 
 	 */
 	private void setTestTime(long time) {
-		this.testTime = time;
+		testTime = time;
 	}
 
 	/**
@@ -151,19 +138,19 @@ public class TestResult {
 	private void setUp() {
 		setError(false);
 		setFail(false);
-		setMessage("");
+		throwable = null;
 	}
 
-	private boolean isAvailableMessage() {
-		return !message.isEmpty();
+	private String addTestName(String result) {
+		return result + " " + test.getName();
 	}
 
 	private String addTime(String result) {
-		return result + "[" + testTime + "ns]:";
+		return result + " (" + testTime + "ns)";
 	}
 
-	private String addStatusResult(String result, String status) {
-		return result + "\t" + status;
+	private boolean isAvailableMessage() {
+		return !getMessage().isEmpty();
 	}
 
 	private String addAvailableMessage(String result) {
@@ -175,15 +162,5 @@ public class TestResult {
 
 	private String addEndLine(String result) {
 		return result + "\n";
-	}
-	
-	private void addFailure(Test test, Exception exception) {
-		TestFailure failure = new TestFailure(test, exception);
-		failures.add(failure);
-	}
-	
-	private void addError(Test test, Exception exception) {
-		TestFailure error = new TestFailure(test, exception);
-		errors.add(error);
 	}
 }

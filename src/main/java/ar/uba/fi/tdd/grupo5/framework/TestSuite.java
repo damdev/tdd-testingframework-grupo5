@@ -5,11 +5,12 @@ import java.util.List;
 
 public class TestSuite extends Test {
 
-	private List<Test> tests;
+	private List<TestCase> testCases;
+	private List<TestSuite> testSuites;
 	private List<TestResult> results;
-	private int errorCount;
-	private int failCount;
-	private int okCount;
+	private int totalTestCaseCount;
+	private int failTestCaseCount;
+	private int errorTestCaseCount;
 	private long time;
 
 	/**
@@ -20,31 +21,47 @@ public class TestSuite extends Test {
 	 */
 	public TestSuite(String name) {
 		this.name = name;
-		tests = new ArrayList<>();
+		testCases = new ArrayList<>();
+		testSuites = new ArrayList<>();
 		results = new ArrayList<>();
 	}
 
-	@Override
-	public void run(TestResult result) {
-		resetCounters();
-		for (Test test : tests) {
-			test.run(result);
+	public int countTestCases() {
+		int count = testCases.size();
+		for (TestSuite testSuite : testSuites) {
+			count += testSuite.countTestCases();
 		}
-	}
-
-	/**
-	 * Add a testCase to the collection.
-	 * 
-	 * @param test
-	 *            the testCase that is added to the collection
-	 */
-	public void add(TestCase test) {
-		tests.add(test);
+		return count;
 	}
 	
+	public int countFailTestCases() {
+		return failTestCaseCount;
+	}
+
+	public int countErrorTestCases() {
+		return errorTestCaseCount;
+	}
+	
+	/**
+	 * Add a {@code TestCase} to the {@code TestSuite}.
+	 * 
+	 * @param test
+	 *            the {@code TestCase} that is added
+	 */
+	public void add(TestCase test) {
+		testCases.add(test);
+	}
+	
+	/**
+	 * Add a {@code TestSuite} to the {@code TestSuite}.
+	 * 
+	 * @param test
+	 *            the {@code TestSuite} that is added
+	 */
 	public void add(TestSuite test) {
 		String testName = name + "." + test.getName();
 		test.setName(testName);
+		testSuites.add(test);
 	}
 
 	/**
@@ -56,9 +73,27 @@ public class TestSuite extends Test {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
-		TestResult result = new TestResult();
-		run(result);
-		return generateResult();
+		this.runTests();
+		return generateReport();
+	}
+	
+	/*
+	 * Corre los test sin generar un reporte.
+	 */
+	private void runTests() {
+		resetCounters();
+		for (TestCase testCase : testCases) {
+			processResult(testCase.run());
+		}
+		for (TestSuite testSuite : testSuites) {
+			runTestSuite(testSuite);
+		}
+	}
+
+	private void runTestSuite(TestSuite testSuite) {
+		testSuite.run();
+		failTestCaseCount += testSuite.countFailTestCases();
+		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
 
 	private void setName(String name) {
@@ -66,20 +101,22 @@ public class TestSuite extends Test {
 	}
 
 	private boolean isEmptyTestSuite() {
-		return this.tests.isEmpty();
+		return countTestCases() == 0;
 	}
 
 	private String getEmptyTestSuiteMessage() {
-		return "The TestSuite is empty. There are no tests to run.";
+		String report = getName() + "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
+				+ "The TestSuite is empty. There are no tests to run.";
+		return report;
 	}
 
 	/**
 	 * Reset the counters of the suite
 	 */
 	private void resetCounters() {
-		errorCount = 0;
-		failCount = 0;
-		okCount = 0;
+		totalTestCaseCount = countTestCases();
+		failTestCaseCount = 0;
+		errorTestCaseCount = 0;
 		time = 0;
 	}
 
@@ -89,7 +126,7 @@ public class TestSuite extends Test {
 	 * @param result
 	 *            the testResult that brings new data to the results
 	 */
-	private void processResult(TestResult result) {
+	private String processResult(TestResult result) {
 		results.add(result);
 		if (result.isError()) {
 			increaseErrorCount();
@@ -97,10 +134,8 @@ public class TestSuite extends Test {
 		if (result.isFail()) {
 			increaseFailCount();
 		}
-		if (result.isOK()) {
-			increaseOKCount();
-		}
 		time += increaseTimeCount(result);
+		return result.toString();
 	}
 
 	/**
@@ -109,25 +144,29 @@ public class TestSuite extends Test {
 	 * @return a String the output of the tets, with their results and
 	 *         statistical data about them.
 	 */
-	private String generateResult() {
-		String sResult = addTestSuiteName();
+	private String generateReport() {
+		String report = generateReducedReport();
+		report = addSummary(report);
+		return report;
+	}
+	
+	private String generateReducedReport() {
+		String report = addTestSuiteName();
 		for (TestResult result : results) {
-			sResult = addTestResult(sResult, result);
+			report = addTestCaseReport(report, result);
 		}
-		sResult = addResultStatistics(sResult);
-		return sResult;
+		for (TestSuite testSuite : testSuites) {
+			report = addTestSuiteReport(report, testSuite);
+		}
+		return report;
 	}
 
 	private void increaseErrorCount() {
-		errorCount++;
+		errorTestCaseCount++;
 	}
 
 	private void increaseFailCount() {
-		failCount++;
-	}
-
-	private void increaseOKCount() {
-		okCount++;
+		failTestCaseCount++;
 	}
 
 	private long increaseTimeCount(TestResult result) {
@@ -135,25 +174,41 @@ public class TestSuite extends Test {
 	}
 
 	private String addTestSuiteName() {
-		return "\tTest Suite: " + name + "\n";
+		return name + "­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	}
 
-	private String addTestResult(String sResult, TestResult result) {
-		return sResult + result.toString();
+	private String addTestCaseReport(String report, TestResult result) {
+		return report + result.toString();
+	}
+	
+	private String addTestSuiteReport(String report, TestSuite testSuite) {
+		return report + "\n" + testSuite.generateReducedReport();
 	}
 
 	/**
 	 * Generate statistical data of the suite.
 	 * 
-	 * @param result
+	 * @param report
 	 *            a string that has the previous results of the tests runned.
 	 * 
 	 * @return a string having the previous results, plus the statistical data
 	 *         provided by the counters (fails, errors, OK, execution time).
 	 */
-	private String addResultStatistics(String result) {
-		return result + "Total: " + results.size() + "\tTime:" + time + "ns\n"
-				+ "Error: " + errorCount + "\tFailure: " + failCount + "\tOK: "
-				+ okCount + "\n";
+	private String addSummary(String report) {
+		report = report + "\n";
+		if (isFailureTestSuite()) {
+			report = report + "[failure]";
+		} else {
+			report = report + "[success]";
+		}
+		report = report + " Summary\n=================="
+				+ "\nRun: " + totalTestCaseCount
+				+ "\nErrors: " + errorTestCaseCount
+				+ "\nFailures: " + failTestCaseCount + "\n";
+		return report;
+	}
+	
+	private boolean isFailureTestSuite() {
+		return !((totalTestCaseCount - failTestCaseCount - errorTestCaseCount) == totalTestCaseCount);
 	}
 }
