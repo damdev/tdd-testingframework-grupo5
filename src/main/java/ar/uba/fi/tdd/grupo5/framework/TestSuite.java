@@ -1,7 +1,12 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
 public class TestSuite extends Test {
@@ -60,7 +65,7 @@ public class TestSuite extends Test {
 	 */
 	public void add(TestCase test) throws TestException {
 		if (exitsTestCase(test.getName())) {
-			String message = "Already exists TestCase with that name"
+			String message = "Already exists TestCase with that name "
 					+ test.getName();
 			throw new TestException(message);
 		}
@@ -77,7 +82,7 @@ public class TestSuite extends Test {
 	public void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
 		if (exitsTestSuite(testName)) {
-			String message = "Already exists TestSuite with that name"
+			String message = "Already exists TestSuite with that name "
 					+ test.getName();
 			throw new TestException(message);
 		}
@@ -94,8 +99,22 @@ public class TestSuite extends Test {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
-		this.runTests();
+		runTests();
 		return generateReport();
+	}
+	
+	/**
+	 * Run the cases that are in the suite.
+	 * 
+	 * @throws TestException 
+	 */
+	public void run(String filePath) throws TestException {
+		if (exitsFile(filePath)) {
+			String message = "Already exists file with that name " + filePath;
+			throw new TestException(message);
+		}
+		String report = run();
+		this.saveReport(report, filePath);
 	}
 
 	private boolean exitsTestCase(String testName) {
@@ -118,6 +137,24 @@ public class TestSuite extends Test {
 
 	private void setName(String name) {
 		this.name = name;
+	}
+	
+	private boolean exitsFile(String filePath) {
+		File file = new File(filePath);
+		return file.exists();
+	}
+	
+	private void saveReport(String report, String filePath) throws TestException {
+		FileWriter file = null;
+		try {
+			file = new FileWriter(filePath);
+			PrintWriter printer = new PrintWriter(file);
+			printer.write(report);
+			file.close();
+		} catch (IOException e) {
+			String message = "Unable to create the file" + filePath;
+			throw new TestException(message);
+		}
 	}
 
 	/*

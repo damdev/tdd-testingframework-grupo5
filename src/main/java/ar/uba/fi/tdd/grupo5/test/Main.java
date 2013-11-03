@@ -24,8 +24,6 @@ public class Main
        System.out.println(r1);
        r1 = productSuite.run();
        System.out.println(r1);
-       r1 = divSuite.run();
-       System.out.println(r1);
-
+       divSuite.run("Divide Report");
     }
 }
