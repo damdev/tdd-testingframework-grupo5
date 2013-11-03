@@ -59,7 +59,7 @@ public class TestSuite extends Test {
 	 * @throws TestException
 	 */
 	public void add(TestCase test) throws TestException {
-		if (this.exitsTestCase(test.getName())) {
+		if (exitsTestCase(test.getName())) {
 			String message = "Already exists TestCase with that name"
 					+ test.getName();
 			throw new TestException(message);
@@ -207,11 +207,7 @@ public class TestSuite extends Test {
 	}
 
 	private String addTestSuiteName() {
-		return name
-				+ "("
-				+ time
-				+ "ns)\n"
-				+ "­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
+		return name + " (" + time + "ns)" + "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	}
 
 	private String addTestCaseReport(String report, TestResult result) {
