@@ -1,10 +1,11 @@
 package ar.uba.fi.tdd.grupo5.test;
 
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
+import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
 public class Main 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws TestException
     {
        TestSuite addSuite = new TestSuite("Addition test suite");
        TestSuite productSuite = new TestSuite("Product test suite");

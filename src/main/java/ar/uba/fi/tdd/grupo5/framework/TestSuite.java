@@ -56,8 +56,14 @@ public class TestSuite extends Test {
 	 * 
 	 * @param test
 	 *            the {@code TestCase} that is added
+	 * @throws TestException
 	 */
-	public void add(TestCase test) {
+	public void add(TestCase test) throws TestException {
+		if (this.exitsTestCase(test.getName())) {
+			String message = "Already exists TestCase with that name"
+					+ test.getName();
+			throw new TestException(message);
+		}
 		testCases.add(test);
 	}
 
@@ -66,12 +72,13 @@ public class TestSuite extends Test {
 	 * 
 	 * @param test
 	 *            the {@code TestSuite} that is added
-	 * @throws TestException 
+	 * @throws TestException
 	 */
 	public void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
 		if (exitsTestSuite(testName)) {
-			String message = "Already exists TestSuite with that name";
+			String message = "Already exists TestSuite with that name"
+					+ test.getName();
 			throw new TestException(message);
 		}
 		test.setName(testName);
@@ -91,15 +98,24 @@ public class TestSuite extends Test {
 		return generateReport();
 	}
 
-	private boolean exitsTestSuite(String testName) {
-		for (TestSuite testSuite : testSuites) {
-			if (testSuite.getName().equals(testName)){
+	private boolean exitsTestCase(String testName) {
+		for (TestCase testCase : testCases) {
+			if (testCase.getName().equals(testName)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+	private boolean exitsTestSuite(String testName) {
+		for (TestSuite testSuite : testSuites) {
+			if (testSuite.getName().equals(testName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void setName(String name) {
 		this.name = name;
 	}
@@ -191,7 +207,11 @@ public class TestSuite extends Test {
 	}
 
 	private String addTestSuiteName() {
-		return name + "(" + time + "ns)\n" +  "­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
+		return name
+				+ "("
+				+ time
+				+ "ns)\n"
+				+ "­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	}
 
 	private String addTestCaseReport(String report, TestResult result) {
