@@ -1,15 +1,17 @@
 package ar.uba.fi.tdd.grupo5;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
+
 import ar.uba.fi.tdd.grupo5.framework.Assert;
-import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
+import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
 
 public class AssertTest {
 
 	@Test
 	public void successAssertTrueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Assert.assertTrue("Testing Framework assertTrue(String,boolean) fails"
 				+ " with true parameter", true);
 		assertTrue(
@@ -17,54 +19,54 @@ public class AssertTest {
 				true);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertTrueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Assert.assertTrue("Testing Framework assertTrue(String,boolean) throws"
 				+ " AssertionFailedException with false parameter", false);
 	}
 
 	@Test
-	public void successAssertTrue() throws AssertionFailedException {
+	public void successAssertTrue() throws AssertException {
 		Assert.assertTrue(true);
 		assertTrue(true);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertTrue() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertTrue() throws AssertException {
 		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void successAssertFalseWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Assert.assertFalse("Testing Framework assertFalse(String,boolean) "
 				+ "fails with false parameter", false);
 		assertFalse("JUnit assertFalse(String,boolean) fails with false"
 				+ " parameter", false);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertFalseWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Assert.assertFalse("Testing Framework assertFalse(String,boolean) "
 				+ "throws AssertionFailedException with true parameter", true);
 	}
 
 	@Test
-	public void successAssertFalse() throws AssertionFailedException {
+	public void successAssertFalse() throws AssertException {
 		assertFalse(false);
 		Assert.assertFalse(false);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertFalse() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertFalse() throws AssertException {
 		Assert.assertFalse(true);
 	}
 
 	@Test
 	public void successAssertEqualsObjectsWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		Assert.assertEquals("Testing Framework assertEquals(String, object, "
@@ -73,9 +75,9 @@ public class AssertTest {
 				+ "equal parameters", object1, object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsObjectsWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertEquals("Testing Framework assertEquals(String, object, "
@@ -84,15 +86,15 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertEqualsObjects() throws AssertionFailedException {
+	public void successAssertEqualsObjects() throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		Assert.assertEquals(object1, object2);
 		assertEquals(object1, object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertEqualsObjects() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertEqualsObjects() throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertEquals(object1, object2);
@@ -100,7 +102,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsLongWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		long long1 = 5;
 		long long2 = 5;
 		Assert.assertEquals("Testing Framework assertEquals(String, long, "
@@ -109,9 +111,9 @@ public class AssertTest {
 				+ "parameters", long1, long2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsLongWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertEquals("Testing Framework assertEquals(String, long, "
@@ -120,15 +122,15 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertEqualsLong() throws AssertionFailedException {
+	public void successAssertEqualsLong() throws AssertException {
 		long long1 = 5;
 		long long2 = 5;
 		Assert.assertEquals(long1, long2);
 		assertEquals(long1, long2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertEqualsLong() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertEqualsLong() throws AssertException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertEquals(long1, long2);
@@ -136,7 +138,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
@@ -148,9 +150,9 @@ public class AssertTest {
 				float2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 0;
@@ -162,7 +164,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 1;
@@ -174,9 +176,9 @@ public class AssertTest {
 				float2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
@@ -188,7 +190,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsFloatWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
@@ -196,9 +198,9 @@ public class AssertTest {
 		Assert.assertEquals(float1, float2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsFloatWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 0;
@@ -207,7 +209,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsFloatWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 6;
 		float delta = 1;
@@ -215,9 +217,9 @@ public class AssertTest {
 		Assert.assertEquals(float1, float2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsFloatWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
@@ -226,7 +228,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsDoubleWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;
@@ -238,9 +240,9 @@ public class AssertTest {
 				+ "delta value)", double1, double2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsDoubleWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 0;
@@ -252,7 +254,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsDoubleWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;
@@ -260,9 +262,9 @@ public class AssertTest {
 		Assert.assertEquals(double1, double2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsDoubleWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 0;
@@ -271,7 +273,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsDoubleWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 1;
@@ -283,9 +285,9 @@ public class AssertTest {
 				+ "delta value)", double1, double2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsDoubleWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -297,7 +299,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertEqualsDoubleWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 6;
 		double delta = 1;
@@ -305,9 +307,9 @@ public class AssertTest {
 		Assert.assertEquals(double1, double2, delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertEqualsDoubleWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -316,7 +318,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertSameObjectWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object = new Float(5);
 		assertSame("JUnit assertSame(String, object, object) fails with same "
 				+ "object parameters", object, object);
@@ -324,9 +326,9 @@ public class AssertTest {
 				+ "object) fails with same object parameters", object, object);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertSameObjectWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object = new Float(5);
 		Assert.assertSame("Testing Framework assertSame(String, object, "
 				+ "object) throws AssertionFailedException with different "
@@ -334,21 +336,21 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertSameObject() throws AssertionFailedException {
+	public void successAssertSameObject() throws AssertException {
 		Object object = new Float(5);
 		assertSame(object, object);
 		Assert.assertSame(object, object);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertSameObject() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertSameObject() throws AssertException {
 		Object object = new Float(5);
 		Assert.assertSame(object, null);
 	}
 
 	@Test
 	public void successAssertNotSameObjectWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		assertNotSame("JUnit assertNotSame(String, object, object) fails with "
@@ -357,9 +359,9 @@ public class AssertTest {
 				+ "object) fails with same object parameters", object1, object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotSameObjectWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object = new Float(5);
 		Assert.assertNotSame("Testing Framework assertNotSame(String, object,"
 				+ " object) throws AssertionFailedException with same object "
@@ -367,22 +369,22 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertNotSameObject() throws AssertionFailedException {
+	public void successAssertNotSameObject() throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(5);
 		assertNotSame(object1, object2);
 		Assert.assertNotSame(object1, object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertNotSameObject() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertNotSameObject() throws AssertException {
 		Object object = new Float(5);
 		Assert.assertNotSame(object, object);
 	}
 
 	@Test
 	public void successAssertNotEqualsObjectsWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertNotEquals("Testing Framework assertNotEquals(String, "
@@ -392,9 +394,9 @@ public class AssertTest {
 				+ "parameters", object1 == object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsObjectsWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		Object object1 = new Float(5);
 		Assert.assertNotEquals("Testing Framework assertNotEquals(String, "
 				+ "object, object) throws AssertionFailedException with same "
@@ -402,15 +404,15 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertNotEqualsObjects() throws AssertionFailedException {
+	public void successAssertNotEqualsObjects() throws AssertException {
 		Object object1 = new Float(5);
 		Object object2 = new Float(6);
 		Assert.assertNotEquals(object1, object2);
 		assertFalse(object1 == object2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertNotEqualsObjects() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertNotEqualsObjects() throws AssertException {
 		Object object1 = new Float(5);
 		Assert.assertNotEquals(object1, object1);
 		assertFalse(object1 == null);
@@ -418,7 +420,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsLongWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertNotEquals("Testing Framework assertNotEquals(String, "
@@ -427,9 +429,9 @@ public class AssertTest {
 				+ "parameters", long1 == long2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsLongWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		long long1 = 5;
 		Assert.assertNotEquals("Testing Framework assertNotEquals(String, "
 				+ "long, long) throws AssertionFailedException with same "
@@ -437,22 +439,22 @@ public class AssertTest {
 	}
 
 	@Test
-	public void successAssertNotEqualsLong() throws AssertionFailedException {
+	public void successAssertNotEqualsLong() throws AssertException {
 		long long1 = 5;
 		long long2 = 6;
 		Assert.assertNotEquals(long1, long2);
 		assertFalse(long1 == long2);
 	}
 
-	@Test(expected = AssertionFailedException.class)
-	public void failAssertNotEqualsLong() throws AssertionFailedException {
+	@Test(expected = AssertException.class)
+	public void failAssertNotEqualsLong() throws AssertException {
 		long long1 = 5;
 		Assert.assertNotEquals(long1, long1);
 	}
 
 	@Test
 	public void successAssertNotEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
@@ -467,9 +469,9 @@ public class AssertTest {
 				float1 == float2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsFloatWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 1;
@@ -481,7 +483,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 0;
@@ -496,9 +498,9 @@ public class AssertTest {
 				float1 == float2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsFloatWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
@@ -510,7 +512,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsFloatWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 1;
@@ -519,9 +521,9 @@ public class AssertTest {
 		assertFalse(float1 == float2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsFloatWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 1;
@@ -530,7 +532,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsFloatWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 7;
 		float delta = 0;
@@ -539,9 +541,9 @@ public class AssertTest {
 		assertFalse(float1 == float2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsFloatWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		float float1 = 5;
 		float float2 = 5;
 		float delta = 0;
@@ -550,7 +552,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsDoubleWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -565,9 +567,9 @@ public class AssertTest {
 				double1 == double2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsDoubleWithNonZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 1;
@@ -579,7 +581,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsDoubleWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 0;
@@ -594,9 +596,9 @@ public class AssertTest {
 				double1 == double2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsDoubleWithZeroDeltaValueWithPersonalizedMessage()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;
@@ -608,7 +610,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsDoubleWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 1;
@@ -617,9 +619,9 @@ public class AssertTest {
 		assertFalse(double1 == double2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsDoubleWithNonZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 1;
@@ -628,7 +630,7 @@ public class AssertTest {
 
 	@Test
 	public void successAssertNotEqualsDoubleWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 7;
 		double delta = 0;
@@ -637,9 +639,9 @@ public class AssertTest {
 		assertFalse(double1 == double2 - delta);
 	}
 
-	@Test(expected = AssertionFailedException.class)
+	@Test(expected = AssertException.class)
 	public void failAssertNotEqualsDoubleWithZeroDeltaValue()
-			throws AssertionFailedException {
+			throws AssertException {
 		double double1 = 5;
 		double double2 = 5;
 		double delta = 0;

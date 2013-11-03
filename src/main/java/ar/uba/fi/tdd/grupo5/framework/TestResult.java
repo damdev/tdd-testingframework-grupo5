@@ -1,5 +1,7 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+
 public class TestResult {
 
 	private TestCase test;
@@ -23,7 +25,7 @@ public class TestResult {
 		timer.setStart();
 		try {
 			test.testCode();
-		} catch (AssertionFailedException assertException) {
+		} catch (AssertException assertException) {
 			setFailTest(assertException);
 		} catch (Throwable exception) {
 			setErrorTest(exception);

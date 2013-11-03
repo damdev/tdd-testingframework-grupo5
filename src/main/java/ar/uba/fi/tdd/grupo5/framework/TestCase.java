@@ -1,5 +1,7 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+
 public abstract class TestCase extends Test {
 
 	/**
@@ -36,7 +38,7 @@ public abstract class TestCase extends Test {
 	/**
 	 * The user-client implements the method including the code under test.
 	 */
-	public abstract void testCode() throws AssertionFailedException;
+	public abstract void testCode() throws AssertException;
 	
 	private void setName(String name) {
 		this.name = name;

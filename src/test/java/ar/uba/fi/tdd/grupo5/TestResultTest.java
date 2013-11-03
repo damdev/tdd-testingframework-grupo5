@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.Assert;
-import ar.uba.fi.tdd.grupo5.framework.AssertionFailedException;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestResult;
+import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
 
 public class TestResultTest {
 
@@ -93,7 +93,7 @@ final class mySleepTest extends TestCase {
 		super();
 	}
 
-	public void testCode() throws AssertionFailedException {
+	public void testCode() throws AssertException {
 		Assert.assertTrue(true);
 		try {
 			Thread.sleep(500);
@@ -114,7 +114,7 @@ final class myOKTest extends TestCase {
 		super();
 	}
 
-	public void testCode() throws AssertionFailedException {
+	public void testCode() throws AssertException {
 		Assert.assertTrue(true);
 	}
 }
@@ -129,7 +129,7 @@ final class myFailTest extends TestCase {
 		super();
 	}
 
-	public void testCode() throws AssertionFailedException {
+	public void testCode() throws AssertException {
 		Assert.assertTrue(false);
 	}
 }
@@ -144,7 +144,7 @@ final class myFailTestWithMessage extends TestCase {
 		super();
 	}
 
-	public void testCode() throws AssertionFailedException {
+	public void testCode() throws AssertException {
 		Assert.assertTrue("This is a personalized message", false);
 	}
 }
@@ -159,7 +159,7 @@ final class myErrorTest extends TestCase {
 		super();
 	}
 
-	public void testCode() throws AssertionFailedException {
+	public void testCode() throws AssertException {
 		Calculator c = new Calculator();
 		Assert.assertTrue(c.divide(1, 0) == 1);
 	}

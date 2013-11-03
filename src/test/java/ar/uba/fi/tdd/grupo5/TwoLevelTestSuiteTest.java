@@ -17,5 +17,14 @@ public class TwoLevelTestSuiteTest {
 		String secondLevelTSName = "MyTestSuite1.MyTestSuite2";
 		assertEquals(secondLevelTSName, secondLevelTestSuite.getName());
 	}
+	
+	@Test
+	public void addSecondLevelTestSuiteSameName() {
+		TestSuite firstLevelTestSuite = new TestSuite(firstLevelTestSuiteName);
+		TestSuite secondLevelTestSuite = new TestSuite(secondLevelTestSuiteName);
+		firstLevelTestSuite.add(secondLevelTestSuite);
+		String secondLevelTSName = "MyTestSuite1.MyTestSuite2";
+		assertEquals(secondLevelTSName, secondLevelTestSuite.getName());
+	}
 
 }

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AssertTest.class, AssertionFailedExceptionTest.class,
+@SuiteClasses({ AssertTest.class, AssertExceptionTest.class,
 		TestCaseTest.class, TestResultTest.class, TestSuiteTest.class,
 		TimerTest.class })
 public class AllTests {
