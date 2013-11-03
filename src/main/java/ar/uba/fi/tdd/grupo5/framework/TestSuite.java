@@ -2,6 +2,7 @@ package ar.uba.fi.tdd.grupo5.framework;
 
 import java.util.ArrayList;
 import java.util.List;
+import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
 public class TestSuite extends Test {
 
@@ -65,9 +66,14 @@ public class TestSuite extends Test {
 	 * 
 	 * @param test
 	 *            the {@code TestSuite} that is added
+	 * @throws TestException 
 	 */
-	public void add(TestSuite test) {
+	public void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
+		if (exitsTestSuite(testName)) {
+			String message = "Already exists TestSuite with that name";
+			throw new TestException(message);
+		}
 		test.setName(testName);
 		testSuites.add(test);
 	}
@@ -85,6 +91,15 @@ public class TestSuite extends Test {
 		return generateReport();
 	}
 
+	private boolean exitsTestSuite(String testName) {
+		for (TestSuite testSuite : testSuites) {
+			if (testSuite.getName().equals(testName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private void setName(String name) {
 		this.name = name;
 	}
