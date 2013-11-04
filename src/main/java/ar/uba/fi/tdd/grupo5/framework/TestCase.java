@@ -35,6 +35,9 @@ public abstract class TestCase extends Test {
 		return result;
 	}
 	
+	public boolean patternMatches(String pattern){
+		return name.matches(pattern);
+	}
 	/**
 	 * The user-client implements the method including the code under test.
 	 */

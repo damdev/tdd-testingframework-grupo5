@@ -11,6 +11,7 @@ import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
 public class TestSuite extends Test {
 
+	private static final String ALL_MATCHES_PATTERN = ".*";
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
 	private List<TestResult> results;
@@ -36,12 +37,21 @@ public class TestSuite extends Test {
 		time = 0;
 	}
 
-	public int countTestCases() {
-		totalTestCaseCount = testCases.size();
+	public int countTestCases(String pattern) {
+		totalTestCaseCount = 0;
+
+		for (TestCase testCase : testCases) {
+			if (testCase.patternMatches(pattern)) totalTestCaseCount += 1;
+		}
+		
 		for (TestSuite testSuite : testSuites) {
-			totalTestCaseCount += testSuite.countTestCases();
+			totalTestCaseCount += testSuite.countTestCases(pattern);
 		}
 		return totalTestCaseCount;
+	}
+	
+	public int countTestCases(){
+		return countTestCases(ALL_MATCHES_PATTERN);
 	}
 
 	public int countFailTestCases() {
@@ -64,7 +74,7 @@ public class TestSuite extends Test {
 	 * @throws TestException
 	 */
 	public void add(TestCase test) throws TestException {
-		if (exitsTestCase(test.getName())) {
+		if (existsTestCase(test.getName())) {
 			String message = "Already exists TestCase with that name "
 					+ test.getName();
 			throw new TestException(message);
@@ -81,7 +91,7 @@ public class TestSuite extends Test {
 	 */
 	public void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
-		if (exitsTestSuite(testName)) {
+		if (existsTestSuite(testName)) {
 			String message = "Already exists TestSuite with that name "
 					+ test.getName();
 			throw new TestException(message);
@@ -91,16 +101,27 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Run the cases that are in the suite.
+	 * Run the cases that are in the suite and matches the pattern
+	 * 
+	 * @param the regex that must match the test before 
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
-	public String run() {
+	public String run(String pattern) {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
-		runTests();
+		runTests(pattern);
 		return generateReport();
+	}
+	
+	/**
+	 * Run all the cases that are in the suite
+	 * 
+	 * @return the output string of the tests executed plus statistical data
+	 */
+	public String run(){
+		return run(ALL_MATCHES_PATTERN);
 	}
 	
 	/**
@@ -108,16 +129,16 @@ public class TestSuite extends Test {
 	 * 
 	 * @throws TestException 
 	 */
-	public void run(String filePath) throws TestException {
+/*	public void run(String filePath) throws TestException {
 		if (exitsFile(filePath)) {
 			String message = "Already exists file with that name " + filePath;
 			throw new TestException(message);
 		}
 		String report = run();
 		this.saveReport(report, filePath);
-	}
-
-	private boolean exitsTestCase(String testName) {
+	}*/
+	
+	private boolean existsTestCase(String testName) {
 		for (TestCase testCase : testCases) {
 			if (testCase.getName().equals(testName)) {
 				return true;
@@ -126,7 +147,7 @@ public class TestSuite extends Test {
 		return false;
 	}
 
-	private boolean exitsTestSuite(String testName) {
+	private boolean existsTestSuite(String testName) {
 		for (TestSuite testSuite : testSuites) {
 			if (testSuite.getName().equals(testName)) {
 				return true;
@@ -157,19 +178,19 @@ public class TestSuite extends Test {
 		}
 	}
 
-	/*
-	 * Corre los test sin generar un reporte. FIXME Convertir este comentario en
-	 * ingles.
+	/**
+	 * Run the tests but do not generate a report
 	 */
-	private void runTests() {
+	
+	private void runTests(String pattern) {
 		resetCounters();
 		Timer timer = new Timer();
 		timer.setStart();
 		for (TestCase testCase : testCases) {
-			runTestCase(testCase);
+			if (testCase.patternMatches(pattern)) runTestCase(testCase);
 		}
 		for (TestSuite testSuite : testSuites) {
-			runTestSuite(testSuite);
+			runTestSuite(testSuite, pattern);
 		}
 		time = timer.getRegisteredTime();
 	}
@@ -185,15 +206,19 @@ public class TestSuite extends Test {
 		}
 	}
 
-	private void runTestSuite(TestSuite testSuite) {
-		testSuite.run();
+	private void runTestSuite(TestSuite testSuite, String pattern) {
+		testSuite.run(pattern);
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
 
-	private boolean isEmptyTestSuite() {
-		return countTestCases() == 0;
+	private boolean isEmptyTestSuite(String pattern) {
+		return countTestCases(pattern) == 0;
 	}
+	
+	private boolean isEmptyTestSuite() {
+		return countTestCases(ALL_MATCHES_PATTERN) == 0;
+	}	
 
 	private String getEmptyTestSuiteMessage() {
 		String report = getName()
