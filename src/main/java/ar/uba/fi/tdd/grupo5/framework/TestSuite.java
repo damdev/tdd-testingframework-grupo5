@@ -1,9 +1,5 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,17 +35,17 @@ public class TestSuite extends Test {
 
 	public int countTestCases(String pattern) {
 		totalTestCaseCount = 0;
-
 		for (TestCase testCase : testCases) {
-			if (testCase.patternMatches(pattern)) totalTestCaseCount += 1;
+			if (testCase.patternMatches(pattern)) {
+				totalTestCaseCount += 1;
+			}
 		}
-		
 		for (TestSuite testSuite : testSuites) {
 			totalTestCaseCount += testSuite.countTestCases(pattern);
 		}
 		return totalTestCaseCount;
 	}
-	
+
 	public int countTestCases(){
 		return countTestCases(ALL_MATCHES_PATTERN);
 	}
@@ -108,36 +104,25 @@ public class TestSuite extends Test {
 	 * @return the output string of the tests executed plus statistical data
 	 */
 	public String run(String pattern) {
-		if (isEmptyTestSuite()) {
-			return getEmptyTestSuiteMessage();
+		if (isNoTestsThatSatisfyPattern(pattern)) {
+			return getNoTestsThatSatisfyPatternMessage(pattern);
 		}
 		runTests(pattern);
 		return generateReport();
 	}
-	
+
 	/**
 	 * Run all the cases that are in the suite
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
 	public String run(){
+		if (this.isEmptyTestSuite()) {
+			return this.getEmptyTestSuiteMessage();
+		}
 		return run(ALL_MATCHES_PATTERN);
 	}
-	
-	/**
-	 * Run the cases that are in the suite.
-	 * 
-	 * @throws TestException 
-	 */
-/*	public void run(String filePath) throws TestException {
-		if (exitsFile(filePath)) {
-			String message = "Already exists file with that name " + filePath;
-			throw new TestException(message);
-		}
-		String report = run();
-		this.saveReport(report, filePath);
-	}*/
-	
+
 	private boolean existsTestCase(String testName) {
 		for (TestCase testCase : testCases) {
 			if (testCase.getName().equals(testName)) {
@@ -159,29 +144,33 @@ public class TestSuite extends Test {
 	private void setName(String name) {
 		this.name = name;
 	}
-	
-	private boolean exitsFile(String filePath) {
-		File file = new File(filePath);
-		return file.exists();
+
+	private boolean isNoTestsThatSatisfyPattern(String pattern) {
+		return countTestCases(pattern) == 0;
 	}
-	
-	private void saveReport(String report, String filePath) throws TestException {
-		FileWriter file = null;
-		try {
-			file = new FileWriter(filePath);
-			PrintWriter printer = new PrintWriter(file);
-			printer.write(report);
-			file.close();
-		} catch (IOException e) {
-			String message = "Unable to create the file" + filePath;
-			throw new TestException(message);
-		}
+
+	private String getNoTestsThatSatisfyPatternMessage(String pattern) {
+		String report = getName()
+				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
+				+ "Not available tests that satisfy the pattern "
+				+ pattern;
+		return report;
+	}
+
+	private boolean isEmptyTestSuite() {
+		return countTestCases(ALL_MATCHES_PATTERN) == 0;
+	}	
+
+	private String getEmptyTestSuiteMessage() {
+		String report = getName()
+				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
+				+ "The TestSuite is empty. There are no tests to run.";
+		return report;
 	}
 
 	/**
 	 * Run the tests but do not generate a report
 	 */
-	
 	private void runTests(String pattern) {
 		resetCounters();
 		Timer timer = new Timer();
@@ -210,21 +199,6 @@ public class TestSuite extends Test {
 		testSuite.run(pattern);
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
-	}
-
-	private boolean isEmptyTestSuite(String pattern) {
-		return countTestCases(pattern) == 0;
-	}
-	
-	private boolean isEmptyTestSuite() {
-		return countTestCases(ALL_MATCHES_PATTERN) == 0;
-	}	
-
-	private String getEmptyTestSuiteMessage() {
-		String report = getName()
-				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
-				+ "The TestSuite is empty. There are no tests to run.";
-		return report;
 	}
 
 	/**
