@@ -46,7 +46,7 @@ public class TestSuite extends Test {
 		return totalTestCaseCount;
 	}
 
-	public int countTestCases(){
+	public int countTestCases() {
 		return countTestCases(ALL_MATCHES_PATTERN);
 	}
 
@@ -71,9 +71,7 @@ public class TestSuite extends Test {
 	 */
 	public void add(TestCase test) throws TestException {
 		if (existsTestCase(test.getName())) {
-			String message = "Already exists TestCase with that name "
-					+ test.getName();
-			throw new TestException(message);
+			throwsExistsTestCaseException(test.getName());
 		}
 		testCases.add(test);
 	}
@@ -88,9 +86,7 @@ public class TestSuite extends Test {
 	public void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
 		if (existsTestSuite(testName)) {
-			String message = "Already exists TestSuite with that name "
-					+ test.getName();
-			throw new TestException(message);
+			throwsExistsTestSuiteException(test.getName());
 		}
 		test.setName(testName);
 		testSuites.add(test);
@@ -99,7 +95,8 @@ public class TestSuite extends Test {
 	/**
 	 * Run the cases that are in the suite and matches the pattern
 	 * 
-	 * @param the regex that must match the test before 
+	 * @param the
+	 *            regex that must match the test before
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
@@ -116,9 +113,9 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
-	public String run(){
-		if (this.isEmptyTestSuite()) {
-			return this.getEmptyTestSuiteMessage();
+	public String run() {
+		if (isEmptyTestSuite()) {
+			return getEmptyTestSuiteMessage();
 		}
 		return run(ALL_MATCHES_PATTERN);
 	}
@@ -132,6 +129,13 @@ public class TestSuite extends Test {
 		return false;
 	}
 
+	private void throwsExistsTestCaseException(String testCaseName)
+			throws TestException {
+		String message = "Already exists TestCase with that name "
+				+ testCaseName;
+		throw new TestException(message);
+	}
+
 	private boolean existsTestSuite(String testName) {
 		for (TestSuite testSuite : testSuites) {
 			if (testSuite.getName().equals(testName)) {
@@ -139,6 +143,13 @@ public class TestSuite extends Test {
 			}
 		}
 		return false;
+	}
+
+	private void throwsExistsTestSuiteException(String testSuiteName)
+			throws TestException {
+		String message = "Already exists TestSuite with that name "
+				+ testSuiteName;
+		throw new TestException(message);
 	}
 
 	private void setName(String name) {
@@ -152,14 +163,13 @@ public class TestSuite extends Test {
 	private String getNoTestsThatSatisfyPatternMessage(String pattern) {
 		String report = getName()
 				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
-				+ "Not available tests that satisfy the pattern "
-				+ pattern;
+				+ "Not available tests that satisfy the pattern " + pattern;
 		return report;
 	}
 
 	private boolean isEmptyTestSuite() {
 		return countTestCases(ALL_MATCHES_PATTERN) == 0;
-	}	
+	}
 
 	private String getEmptyTestSuiteMessage() {
 		String report = getName()
@@ -176,7 +186,8 @@ public class TestSuite extends Test {
 		Timer timer = new Timer();
 		timer.setStart();
 		for (TestCase testCase : testCases) {
-			if (testCase.patternMatches(pattern)) runTestCase(testCase);
+			if (testCase.patternMatches(pattern))
+				runTestCase(testCase);
 		}
 		for (TestSuite testSuite : testSuites) {
 			runTestSuite(testSuite, pattern);
@@ -243,7 +254,11 @@ public class TestSuite extends Test {
 	}
 
 	private String addTestSuiteName() {
-		return name + " (" + time + "ns)" + "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
+		return name
+				+ " ("
+				+ time
+				+ "ns)"
+				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	}
 
 	private String addTestCaseReport(String report, TestResult result) {
