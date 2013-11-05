@@ -32,6 +32,10 @@ public class TestSuite extends Test {
 		errorTestCaseCount = 0;
 		time = 0;
 	}
+	
+	private void resetResults(){
+		results = new ArrayList<>();
+	}
 
 	public int countTestCases(String pattern) {
 		totalTestCaseCount = 0;
@@ -213,13 +217,14 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Reset the counters of the suite
+	 * Reset the counters of the suite and the previous results (if they exists).
 	 */
 	private void resetCounters() {
 		totalTestCaseCount = countTestCases();
 		failTestCaseCount = 0;
 		errorTestCaseCount = 0;
 		time = 0;
+		resetResults();
 	}
 
 	private void increaseErrorCount() {
@@ -233,7 +238,7 @@ public class TestSuite extends Test {
 	/**
 	 * Generate the output of the executed tests.
 	 * 
-	 * @return a String the output of the tets, with their results and
+	 * @return a String the output of the tests, with their results and
 	 *         statistical data about them.
 	 */
 	private String generateReport() {
@@ -273,7 +278,7 @@ public class TestSuite extends Test {
 	 * Generate statistical data of the suite.
 	 * 
 	 * @param report
-	 *            a string that has the previous results of the tests runned.
+	 *            a string that contain the results of the tests.
 	 * 
 	 * @return a string having the previous results, plus the statistical data
 	 *         provided by the counters (fails, errors, OK, execution time).
