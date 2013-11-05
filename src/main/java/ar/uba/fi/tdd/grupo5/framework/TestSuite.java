@@ -21,7 +21,7 @@ public class TestSuite extends Test {
 	 * Constructs a {@code TestSuite}.
 	 * 
 	 * @param name
-	 *            the name that will represent the suite in the final output
+	 *            the name that will represent the suite in the final report
 	 */
 	public TestSuite(String name) {
 		this.name = name;
@@ -103,22 +103,22 @@ public class TestSuite extends Test {
 	 * @param the
 	 *            regex that must match the test before
 	 * 
-	 * @return the output string of the tests executed plus statistical data
+	 * @return the report of the tests executed plus statistical data
 	 */
-	public Output run(String pattern) {
+	public Report run(String pattern) {
 		if (isNoTestsThatSatisfyPattern(pattern)) {
 			return getNoTestsThatSatisfyPatternMessage(pattern);
 		}
 		runTests(pattern);
-		return new Output(generateReport());
+		return new Report(generateReport());
 	}
 
 	/**
 	 * Run all the cases that are in the suite
 	 * 
-	 * @return the output string of the tests executed plus statistical data
+	 * @return the report of the tests executed plus statistical data
 	 */
-	public Output run() {
+	public Report run() {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
@@ -165,22 +165,22 @@ public class TestSuite extends Test {
 		return countTestCases(pattern) == 0;
 	}
 
-	private Output getNoTestsThatSatisfyPatternMessage(String pattern) {
+	private Report getNoTestsThatSatisfyPatternMessage(String pattern) {
 		String report = getName()
 				+ SEPARATOR
 				+ "Not available tests that satisfy the pattern " + pattern;
-		return new Output(report);
+		return new Report(report);
 	}
 
 	private boolean isEmptyTestSuite() {
 		return countTestCases(ALL_MATCHES_PATTERN) == 0;
 	}
 
-	private Output getEmptyTestSuiteMessage() {
+	private Report getEmptyTestSuiteMessage() {
 		String report = getName()
 				+ SEPARATOR
 				+ "The TestSuite is empty. There are no tests to run.";
-		return new Output(report);
+		return new Report(report);
 	}
 
 	/**
@@ -237,9 +237,9 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Generate the output of the executed tests.
+	 * Generate the report of the executed tests.
 	 * 
-	 * @return a String the output of the tests, with their results and
+	 * @return a String the report of the tests, with their results and
 	 *         statistical data about them.
 	 */
 	private String generateReport() {
