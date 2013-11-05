@@ -21,7 +21,7 @@ public class TestSuiteTest {
 		TestSuite suite = new TestSuite(testSuiteName);
 		assertEquals(
 				"tester.run() returns a different default message than the expected",
-				emptySuite, suite.run());
+				emptySuite, suite.run().writeOnString());
 	}
 
 	@Test(expected=TestException.class)

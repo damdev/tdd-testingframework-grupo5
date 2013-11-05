@@ -1,5 +1,6 @@
 package ar.uba.fi.tdd.grupo5.test;
 
+import ar.uba.fi.tdd.grupo5.framework.Output;
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
@@ -7,6 +8,7 @@ public class Main
 {
     public static void main( String[] args ) throws TestException
     {
+       TestSuite calculatorSuite = new TestSuite("Calculator suite");
        TestSuite addSuite = new TestSuite("Addition test suite");
        TestSuite productSuite = new TestSuite("Product test suite");
        TestSuite divSuite = new TestSuite("Divition test suite");
@@ -20,10 +22,11 @@ public class Main
        
        divSuite.add(new ZeroDivitionTest());
        
-       String r1 = addSuite.run();
-       System.out.println(r1);
-       r1 = productSuite.run();
-       System.out.println(r1);
-       divSuite.run("Divide Report");
+       calculatorSuite.add(addSuite);
+       calculatorSuite.add(productSuite);
+       calculatorSuite.add(divSuite);
+       
+       Output result = calculatorSuite.run();
+       result.writeOnScreen();
     }
 }

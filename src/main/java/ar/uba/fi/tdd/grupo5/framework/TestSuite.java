@@ -8,6 +8,7 @@ import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 public class TestSuite extends Test {
 
 	private static final String ALL_MATCHES_PATTERN = ".*";
+	public static final String SEPARATOR = "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
 	private List<TestResult> results;
@@ -104,12 +105,12 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
-	public String run(String pattern) {
+	public Output run(String pattern) {
 		if (isNoTestsThatSatisfyPattern(pattern)) {
 			return getNoTestsThatSatisfyPatternMessage(pattern);
 		}
 		runTests(pattern);
-		return generateReport();
+		return new Output(generateReport());
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the output string of the tests executed plus statistical data
 	 */
-	public String run() {
+	public Output run() {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
@@ -164,22 +165,22 @@ public class TestSuite extends Test {
 		return countTestCases(pattern) == 0;
 	}
 
-	private String getNoTestsThatSatisfyPatternMessage(String pattern) {
+	private Output getNoTestsThatSatisfyPatternMessage(String pattern) {
 		String report = getName()
-				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
+				+ SEPARATOR
 				+ "Not available tests that satisfy the pattern " + pattern;
-		return report;
+		return new Output(report);
 	}
 
 	private boolean isEmptyTestSuite() {
 		return countTestCases(ALL_MATCHES_PATTERN) == 0;
 	}
 
-	private String getEmptyTestSuiteMessage() {
+	private Output getEmptyTestSuiteMessage() {
 		String report = getName()
-				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
+				+ SEPARATOR
 				+ "The TestSuite is empty. There are no tests to run.";
-		return report;
+		return new Output(report);
 	}
 
 	/**
@@ -263,7 +264,7 @@ public class TestSuite extends Test {
 				+ " ("
 				+ time
 				+ "ns)"
-				+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
+				+ SEPARATOR;
 	}
 
 	private String addTestCaseReport(String report, TestResult result) {
