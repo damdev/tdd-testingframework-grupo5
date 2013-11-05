@@ -1,4 +1,4 @@
-package ar.uba.fi.tdd.output;
+package ar.uba.fi.tdd.grupo5.framework;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,22 +12,8 @@ public class Output {
 	FileWriter fw;
 	BufferedWriter bw;
 
-	Output(String message) {
+	public Output(String message) {
 		buffer = message;
-	}
-	
-	private void init(String filePath) throws IOException{
-		file = new File(filePath);
-		fw = new FileWriter(file.getAbsoluteFile());
-		bw = new BufferedWriter(fw);
-	}
-	
-	private boolean existsFile() throws IOException {
-		return file.exists();
-	}
-	
-	private void createFile() throws IOException{
-		file.createNewFile();
 	}
 	
 	/**
@@ -60,5 +46,19 @@ public class Output {
 	
 	public String writeOnString() {
 		return buffer;
+	}
+	
+	private void init(String filePath) throws IOException{
+		file = new File(filePath);
+		fw = new FileWriter(file.getAbsoluteFile());
+		bw = new BufferedWriter(fw);
+	}
+	
+	private boolean existsFile() throws IOException {
+		return file.exists();
+	}
+	
+	private void createFile() throws IOException{
+		file.createNewFile();
 	}
 }
