@@ -6,67 +6,59 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Output {
+	
 	private File file;
-	private String path;
 	private String buffer;
 	FileWriter fw;
 	BufferedWriter bw;
+
+	Output(String message) {
+		buffer = message;
+	}
 	
-	Output(String filePath, String message) throws IOException{
+	private void init(String filePath) throws IOException{
 		file = new File(filePath);
-		path = filePath;
 		fw = new FileWriter(file.getAbsoluteFile());
 		bw = new BufferedWriter(fw);
-		buffer = message;
 	}
 	
-	Output(String message) throws IOException{
-		buffer = message;
-	}
-	
-	public boolean existsFile() throws IOException {
-		if (file == null){
-			throw new IOException("There is no file assigned.");
-		}
-		
+	private boolean existsFile() throws IOException {
 		return file.exists();
 	}
 	
-	public void createFile() throws IOException{
-		if (file == null){
-			throw new IOException("There is no file assigned.");
-		}
-		
-		else if (!existsFile()) {
+	private void createFile() throws IOException{
 		file.createNewFile();
-		}
 	}
-
-	public void writeOnFile() throws IOException {
-		if (bw == null){
-			throw new IOException("There is no file assigned.");
-		}
-		else {
+	
+	/**
+	 * Write the content of the output on a file
+	 * @param filePath the path of the file that is going to be written
+	 * @throws IOException If the file exists, and exception is raised.
+	 */
+	
+	public void writeOnFile(String filePath) throws IOException {
+		init(filePath);
+		if (!existsFile()){ 
+			createFile();
 			bw.write(buffer);
+			bw.close();
 		}
 	}
+	
+	/**
+	 * Write the content of the output on the standard output
+	 */
 	
 	public void writeOnScreen() {
 		System.out.println(buffer);
 	}
 	
-	public String getString() {
+	/**
+	 * 
+	 * @return a String with the content of the output
+	 */
+	
+	public String writeOnString() {
 		return buffer;
 	}
-	
-	public void finalize(){
-		if (bw != null){
-			try {
-				bw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 }
