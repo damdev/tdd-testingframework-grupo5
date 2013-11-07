@@ -106,6 +106,7 @@ public class TestSuite extends Test {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
+		fixture = new Fixture();
 		return run(ALL_MATCHES_PATTERN);
 	}
 	
