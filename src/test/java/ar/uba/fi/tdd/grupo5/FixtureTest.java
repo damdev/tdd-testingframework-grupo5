@@ -11,7 +11,7 @@ public class FixtureTest {
 	@Test
 	public void addInteger() {
 		Fixture fx = new Fixture();
-		Integer integer = 1;
+		int integer = 1;
 		fx.add("number", integer);
 		assertEquals(1, (int) fx.get("number"));
 	}
@@ -35,7 +35,7 @@ public class FixtureTest {
 	@Test
 	public void cloneMapWithInteger() {
 		Fixture fx = new Fixture();
-		Integer integer = 1;
+		int integer = 1;
 		fx.add("number", integer);
 		Fixture otherFx = fx.cloneFixture();
 		assertEquals(1, (int) otherFx.get("number"));		
