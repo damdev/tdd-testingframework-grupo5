@@ -3,7 +3,6 @@ package ar.uba.fi.tdd.grupo5.framework;
 import java.util.HashMap;
 import java.util.Map;
 
-import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
 /**
  * 
