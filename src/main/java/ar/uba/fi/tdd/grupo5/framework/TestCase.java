@@ -33,10 +33,10 @@ public abstract class TestCase extends Test {
 	 */
 	public TestResult run(Fixture fixture) {
 		this.fixture = fixture;
-		setUp(fixture);
+		setUp();
 		TestResult result = new TestResult();
 		result.run(this);
-		tearDown(fixture);
+		tearDown();
 		return result;
 	}
 	

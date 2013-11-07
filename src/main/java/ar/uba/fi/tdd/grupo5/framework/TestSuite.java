@@ -121,17 +121,15 @@ public class TestSuite extends Test {
 		if (isNoTestsThatSatisfyPattern(pattern)) {
 			return getNoTestsThatSatisfyPatternMessage(pattern);
 		}
+		setUp();
 		runTests(pattern);
+		tearDown();
 		return new Report(generateReport());
 	}
 	
 	private Report run(String pattern, Fixture fixture) {
 		this.fixture = fixture;
-		if (isNoTestsThatSatisfyPattern(pattern)) {
-			return getNoTestsThatSatisfyPatternMessage(pattern);
-		}
-		runTests(pattern);
-		return new Report(generateReport());
+		return run(pattern);
 	}
 
 	private boolean existsTestCase(String testName) {
@@ -201,18 +199,17 @@ public class TestSuite extends Test {
 		timer.setStart();
 		for (TestCase testCase : testCases) {
 			if (testCase.patternMatches(pattern)) {
-				Fixture clonedFixture = fixture.cloneFixture();
-				runTestCase(testCase, clonedFixture);
+				runTestCase(testCase);
 			}
 		}
 		for (TestSuite testSuite : testSuites) {
-			Fixture clonedFixture = fixture.cloneFixture();
-			runTestSuite(testSuite, pattern, clonedFixture);
+			runTestSuite(testSuite, pattern);
 		}
 		time = timer.getRegisteredTime();
 	}
 
-	private void runTestCase(TestCase test, Fixture clonedFixture) {
+	private void runTestCase(TestCase test) {
+		Fixture clonedFixture = fixture.cloneFixture();
 		TestResult result = test.run(clonedFixture);
 		results.add(result);
 		if (result.isError()) {
@@ -223,7 +220,8 @@ public class TestSuite extends Test {
 		}
 	}
 
-	private void runTestSuite(TestSuite testSuite, String pattern, Fixture clonedFixture) {
+	private void runTestSuite(TestSuite testSuite, String pattern) {
+		Fixture clonedFixture = fixture.cloneFixture();
 		testSuite.run(pattern, clonedFixture);
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
