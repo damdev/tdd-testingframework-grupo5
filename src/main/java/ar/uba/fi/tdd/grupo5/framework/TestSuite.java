@@ -191,7 +191,7 @@ public class TestSuite extends Test {
 		return new Report(report);
 	}
 
-	/**
+	/*
 	 * Run the tests but do not generate a report
 	 */
 	private void runTests(String pattern) {
@@ -228,7 +228,7 @@ public class TestSuite extends Test {
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
 
-	/**
+	/*
 	 * Reset the counters of the suite and the previous results (if they exists).
 	 */
 	private void resetCounters() {
