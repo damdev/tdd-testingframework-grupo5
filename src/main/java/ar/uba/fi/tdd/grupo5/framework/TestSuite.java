@@ -35,6 +35,15 @@ public class TestSuite extends Test {
 		fixture = new Fixture();
 	}
 
+	/**
+	 * Counts the number of {@code TestCase} in the {@code TestSuite}
+	 * that match with the regex
+	 * 
+	 * @param pattern
+	 * 			the regex that must match with the test name
+	 * 
+	 * @return the final count of {@code TestCase}
+	 */
 	public final int countTestCases(String pattern) {
 		totalTestCaseCount = 0;
 		for (TestCase testCase : testCases) {
@@ -48,14 +57,30 @@ public class TestSuite extends Test {
 		return totalTestCaseCount;
 	}
 
+	/**
+	 * Counts the total number of {@code TestCase} in the {@code TestSuite}
+	 * 
+	 * @return the final count of {@code TestCase}
+	 */
 	public final int countTestCases() {
 		return countTestCases(ALL_MATCHES_PATTERN);
 	}
 
+	/**
+	 * Counts the number of failed {@code TestCase} after run the {@code TestSuite}
+	 * 
+	 * @return the number of failed {@code TestCase}
+	 */
 	public final int countFailTestCases() {
 		return failTestCaseCount;
 	}
 
+	/**
+	 * Counts the number of {@code TestCase} thats return an error 
+	 * after run the {@code TestSuite}
+	 * 
+	 * @return the number of erroneous {@code TestCase}
+	 */
 	public final int countErrorTestCases() {
 		return errorTestCaseCount;
 	}
@@ -110,7 +135,7 @@ public class TestSuite extends Test {
 	 * Run the cases that are in the suite and matches the pattern
 	 * 
 	 * @param pattern
-	 *            the regex that must match the test before
+	 *            the regex that must match with the test name
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
