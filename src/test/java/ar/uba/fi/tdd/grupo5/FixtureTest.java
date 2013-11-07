@@ -47,7 +47,7 @@ public class FixtureTest {
 		Calculator calculator = new Calculator();
 		fx.add("calc", calculator);
 		Fixture otherFx = fx.cloneFixture();
-		assertEquals(calculator, (Calculator) otherFx.get("calc"));		
+		assertEquals(calculator, (Calculator) otherFx.get("calc"));
 	}
 
 }

@@ -115,13 +115,11 @@ public class TwoLevelTestSuiteTest {
 
 		@Override
 		public void testCode() throws AssertException {
-			Calculator calculator = new Calculator();
 			fixture.add("myNumberMT", 8);
 			fixture.add("myStringMT", "Test Driven Development");
 			
 			assertEquals(3, (int) fixture.get("myNumberSA"));
 			assertEquals("Hello World!", (String) fixture.get("myStringSA"));
-			assertEquals(calculator, (Calculator) fixture.get("myCalculatorSA"));
 			assertEquals(5, (int) fixture.get("myNumberSB"));
 			assertEquals("Hasta la vista, baby", (String) fixture.get("myStringSB"));
 			assertEquals(8, (int) fixture.get("myNumberMT"));
