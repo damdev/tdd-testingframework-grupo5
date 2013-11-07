@@ -80,6 +80,7 @@ public class TestSuiteTest {
 		assertEquals(2, suite.countTestCases());
 		assertEquals(1, suite.countFailTestCases());
 	}
+
 /*
 	@Test
 	public void successFixtureChanges() throws TestException {
