@@ -1,6 +1,7 @@
 package ar.uba.fi.tdd.grupo5;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
@@ -68,6 +69,44 @@ public class TwoLevelTestSuiteTest {
 		assertEquals(6, suite1.countTestCases());
 	}
 	
+	@Test
+	public void accessAttributesOfOtherFixtures() throws TestException {
+		TestSuite suiteA = new MySuiteA("suiteA");
+		TestSuite suiteB = new MySuiteB("suiteB");
+		TestCase myTest = new MyTest("myTest");
+		suiteB.add(myTest);
+		suiteA.add(suiteB);
+		suiteA.run();
+	}
+	
+	private class MySuiteA extends TestSuite {
+
+		public MySuiteA(String name) {
+			super(name);
+		}
+
+		@Override
+		public void setUp() {
+			fixture.add("myNumberSA", 3);
+			fixture.add("myStringSA", "Hello World!");
+			Calculator calculator = new Calculator();
+			fixture.add("myCalculatorSA", calculator);
+		}
+	}
+	
+	private class MySuiteB extends TestSuite {
+
+		public MySuiteB(String name) {
+			super(name);
+		}
+
+		@Override
+		public void setUp() {
+			fixture.add("myNumberSB", 5);
+			fixture.add("myStringSB", "Hasta la vista, baby");
+		}
+	}
+	
 	private class MyTest extends TestCase {
 
 		public MyTest(String name) {
@@ -76,7 +115,15 @@ public class TwoLevelTestSuiteTest {
 
 		@Override
 		public void testCode() throws AssertException {
-			// Auto-generated method stub
+			fixture.add("myNumberMT", 8);
+			fixture.add("myStringMT", "Test Driven Development");
+			
+			assertEquals(3, (int) fixture.get("myNumberSA"));
+			assertEquals("Hello World!", (String) fixture.get("myStringSA"));
+			assertEquals(5, (int) fixture.get("myNumberSB"));
+			assertEquals("Hasta la vista, baby", (String) fixture.get("myStringSB"));
+			assertEquals(8, (int) fixture.get("myNumberMT"));
+			assertEquals("Test Driven Development", (String) fixture.get("myStringMT"));
 		}
 	}
 }

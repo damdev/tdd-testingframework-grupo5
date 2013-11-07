@@ -8,7 +8,7 @@ import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 public class TestSuite extends Test {
 
 	private static final String ALL_MATCHES_PATTERN = ".*";
-	public static final String SEPARATOR = "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
+	private static final String SEPARATOR = "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
 	private List<TestResult> results;
@@ -32,6 +32,7 @@ public class TestSuite extends Test {
 		failTestCaseCount = 0;
 		errorTestCaseCount = 0;
 		time = 0;
+		fixture = new Fixture();
 	}
 	
 	private void resetResults(){
@@ -98,22 +99,6 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Run the cases that are in the suite and matches the pattern
-	 * 
-	 * @param the
-	 *            regex that must match the test before
-	 * 
-	 * @return the report of the tests executed plus statistical data
-	 */
-	public Report run(String pattern) {
-		if (isNoTestsThatSatisfyPattern(pattern)) {
-			return getNoTestsThatSatisfyPatternMessage(pattern);
-		}
-		runTests(pattern);
-		return new Report(generateReport());
-	}
-
-	/**
 	 * Run all the cases that are in the suite
 	 * 
 	 * @return the report of the tests executed plus statistical data
@@ -123,6 +108,29 @@ public class TestSuite extends Test {
 			return getEmptyTestSuiteMessage();
 		}
 		return run(ALL_MATCHES_PATTERN);
+	}
+	
+	/**
+	 * Run the cases that are in the suite and matches the pattern
+	 * 
+	 * @param pattern
+	 *            the regex that must match the test before
+	 * 
+	 * @return the report of the tests executed plus statistical data
+	 */
+	public Report run(String pattern) {
+		if (isNoTestsThatSatisfyPattern(pattern)) {
+			return getNoTestsThatSatisfyPatternMessage(pattern);
+		}
+		setUp();
+		runTests(pattern);
+		tearDown();
+		return new Report(generateReport());
+	}
+	
+	private Report run(String pattern, Fixture fixture) {
+		this.fixture = fixture;
+		return run(pattern);
 	}
 
 	private boolean existsTestCase(String testName) {
@@ -183,7 +191,7 @@ public class TestSuite extends Test {
 		return new Report(report);
 	}
 
-	/**
+	/*
 	 * Run the tests but do not generate a report
 	 */
 	private void runTests(String pattern) {
@@ -191,8 +199,9 @@ public class TestSuite extends Test {
 		Timer timer = new Timer();
 		timer.setStart();
 		for (TestCase testCase : testCases) {
-			if (testCase.patternMatches(pattern))
+			if (testCase.patternMatches(pattern)) {
 				runTestCase(testCase);
+			}
 		}
 		for (TestSuite testSuite : testSuites) {
 			runTestSuite(testSuite, pattern);
@@ -201,7 +210,8 @@ public class TestSuite extends Test {
 	}
 
 	private void runTestCase(TestCase test) {
-		TestResult result = test.run();
+		Fixture clonedFixture = fixture.cloneFixture();
+		TestResult result = test.run(clonedFixture);
 		results.add(result);
 		if (result.isError()) {
 			increaseErrorCount();
@@ -212,12 +222,13 @@ public class TestSuite extends Test {
 	}
 
 	private void runTestSuite(TestSuite testSuite, String pattern) {
-		testSuite.run(pattern);
+		Fixture clonedFixture = fixture.cloneFixture();
+		testSuite.run(pattern, clonedFixture);
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
 
-	/**
+	/*
 	 * Reset the counters of the suite and the previous results (if they exists).
 	 */
 	private void resetCounters() {
