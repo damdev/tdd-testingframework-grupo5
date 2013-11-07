@@ -29,8 +29,8 @@ public class TestSuiteTest {
 	public void addTwoTestCaseWithSameName() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
 		String testName = "SameName";
-		MyComplexTest test1 = new MyComplexTest(testName);
-		MyComplexTest test2 = new MyComplexTest(testName);
+		TestCase test1 = new MyComplexTest(testName);
+		TestCase test2 = new MyComplexTest(testName);
 		suite.add(test1);
 		suite.add(test2);
 	}
@@ -38,8 +38,8 @@ public class TestSuiteTest {
 	@Test
 	public void twoTestCaseCount() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
-		MyComplexTest test1 = new MyComplexTest("test1");
-		MyComplexTest test2 = new MyComplexTest("test2");
+		TestCase test1 = new MyComplexTest("test1");
+		TestCase test2 = new MyComplexTest("test2");
 		suite.add(test1);
 		suite.add(test2);
 		assertEquals(2, suite.countTestCases());
@@ -48,8 +48,8 @@ public class TestSuiteTest {
 	@Test
 	public void twoTestCaseCountPattern() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
-		MyComplexTest test1 = new MyComplexTest("hola");
-		MyComplexTest test2 = new MyComplexTest("chau");
+		TestCase test1 = new MyComplexTest("hola");
+		TestCase test2 = new MyComplexTest("chau");
 		suite.add(test1);
 		suite.add(test2);
 
@@ -60,7 +60,7 @@ public class TestSuiteTest {
 	public void oneSuccessAndOneFailTestCaseCount() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
 		TestCase test1 = new MySimpleTest("test1");
-		MyFailTest test2 = new MyFailTest("test2");
+		TestCase test2 = new MyFailTest("test2");
 		suite.add(test1);
 		suite.add(test2);
 		suite.run();
@@ -79,8 +79,21 @@ public class TestSuiteTest {
 		suite.run();
 		assertEquals(2, suite.countTestCases());
 		assertEquals(1, suite.countFailTestCases());
+		assertEquals(0, suite.countErrorTestCases());
 	}
 
+	@Test
+	public void oneSuccessAndOneErrorTestCaseCount() throws TestException {
+		TestSuite suite = new TestSuite(testSuiteName);
+		TestCase test1 = new MySimpleTest("test1");
+		TestCase test2 = new MyErrorTest("test2");
+		suite.add(test1);
+		suite.add(test2);
+		suite.run();
+		assertEquals(2, suite.countTestCases());
+		assertEquals(0, suite.countFailTestCases());
+		assertEquals(1, suite.countErrorTestCases());
+	}
 
 	@Test
 	public void successFixtureChanges() throws TestException {
@@ -161,6 +174,20 @@ public class TestSuiteTest {
 
 		@Override
 		public void testCode() throws AssertException {
+			Assert.assertTrue(false);
+		}
+	}
+	
+	private class MyErrorTest extends TestCase {
+
+		public MyErrorTest(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public void testCode() throws AssertException {
+			int number = 1;
+			number = number / 0;
 			Assert.assertTrue(false);
 		}
 	}
