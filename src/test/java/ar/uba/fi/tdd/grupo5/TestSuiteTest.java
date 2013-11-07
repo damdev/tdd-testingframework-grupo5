@@ -71,7 +71,7 @@ public class TestSuiteTest {
 	@Test
 	public void oneSuccessAndOneFailTestCaseCountWithComplexTest()
 			throws TestException {
-		TestSuite suite = new TestSuite(testSuiteName);
+		TestSuite suite = new MySuite();
 		TestCase test1 = new MyComplexTest("test1");
 		TestCase test2 = new MyFailTest("test2");
 		suite.add(test1);
@@ -81,7 +81,7 @@ public class TestSuiteTest {
 		assertEquals(1, suite.countFailTestCases());
 	}
 
-/*
+
 	@Test
 	public void successFixtureChanges() throws TestException {
 		TestSuite suite = new MySuite();
@@ -89,7 +89,7 @@ public class TestSuiteTest {
 		suite.add(test1);
 		suite.run();
 	}
-*/
+
 	private class MySuite extends TestSuite {
 		public MySuite() {
 			super("MySuite");

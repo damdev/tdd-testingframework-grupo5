@@ -12,7 +12,6 @@ public abstract class TestCase extends Test {
 	 */
 	public TestCase(String name) {
 		this.setName(name);
-		
 	}
 	
 	/**
