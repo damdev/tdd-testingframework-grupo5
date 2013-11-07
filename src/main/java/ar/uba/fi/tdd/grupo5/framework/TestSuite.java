@@ -35,7 +35,7 @@ public class TestSuite extends Test {
 		fixture = new Fixture();
 	}
 
-	public int countTestCases(String pattern) {
+	public final int countTestCases(String pattern) {
 		totalTestCaseCount = 0;
 		for (TestCase testCase : testCases) {
 			if (testCase.patternMatches(pattern)) {
@@ -48,19 +48,19 @@ public class TestSuite extends Test {
 		return totalTestCaseCount;
 	}
 
-	public int countTestCases() {
+	public final int countTestCases() {
 		return countTestCases(ALL_MATCHES_PATTERN);
 	}
 
-	public int countFailTestCases() {
+	public final int countFailTestCases() {
 		return failTestCaseCount;
 	}
 
-	public int countErrorTestCases() {
+	public final int countErrorTestCases() {
 		return errorTestCaseCount;
 	}
 
-	public long getRunTime() {
+	public final long getRunTime() {
 		return time;
 	}
 
@@ -71,7 +71,7 @@ public class TestSuite extends Test {
 	 *            the {@code TestCase} that is added
 	 * @throws TestException
 	 */
-	public void add(TestCase test) throws TestException {
+	public final void add(TestCase test) throws TestException {
 		if (existsTestCase(test.getName())) {
 			throwsExistsTestCaseException(test.getName());
 		}
@@ -85,7 +85,7 @@ public class TestSuite extends Test {
 	 *            the {@code TestSuite} that is added
 	 * @throws TestException
 	 */
-	public void add(TestSuite test) throws TestException {
+	public final void add(TestSuite test) throws TestException {
 		String testName = name + "." + test.getName();
 		if (existsTestSuite(testName)) {
 			throwsExistsTestSuiteException(test.getName());
@@ -99,7 +99,7 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
-	public Report run() {
+	public final Report run() {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
@@ -114,7 +114,7 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
-	public Report run(String pattern) {
+	public final Report run(String pattern) {
 		if (isNoTestsThatSatisfyPattern(pattern)) {
 			return getNoTestsThatSatisfyPatternMessage(pattern);
 		}

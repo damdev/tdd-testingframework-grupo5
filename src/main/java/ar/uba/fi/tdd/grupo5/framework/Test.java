@@ -22,7 +22,7 @@ public abstract class Test {
 	/**
 	 * Returns the {@code Test}'s name.
 	 */
-	public String getName() {
+	public final String getName() {
 		return name;
 	}
 }

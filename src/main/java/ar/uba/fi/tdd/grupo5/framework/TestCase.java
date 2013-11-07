@@ -28,7 +28,7 @@ public abstract class TestCase extends Test {
 	 * @return the result of the @ TestCase}
 	 * @see TestResult
 	 */
-	public TestResult run(Fixture fixture) {
+	public final TestResult run(Fixture fixture) {
 		this.fixture = fixture;
 		setUp();
 		TestResult result = new TestResult();
@@ -37,7 +37,7 @@ public abstract class TestCase extends Test {
 		return result;
 	}
 
-	public boolean patternMatches(String pattern) {
+	public final boolean patternMatches(String pattern) {
 		return name.matches(pattern);
 	}
 
