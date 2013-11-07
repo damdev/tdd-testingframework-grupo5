@@ -34,10 +34,6 @@ public class TestSuite extends Test {
 		time = 0;
 		fixture = new Fixture();
 	}
-	
-	private void resetResults(){
-		results = new ArrayList<>();
-	}
 
 	public int countTestCases(String pattern) {
 		totalTestCaseCount = 0;
@@ -109,7 +105,7 @@ public class TestSuite extends Test {
 		}
 		return run(ALL_MATCHES_PATTERN);
 	}
-	
+
 	/**
 	 * Run the cases that are in the suite and matches the pattern
 	 * 
@@ -127,7 +123,7 @@ public class TestSuite extends Test {
 		tearDown();
 		return new Report(generateReport());
 	}
-	
+
 	private Report run(String pattern, Fixture fixture) {
 		this.fixture = fixture;
 		return run(pattern);
@@ -174,8 +170,7 @@ public class TestSuite extends Test {
 	}
 
 	private Report getNoTestsThatSatisfyPatternMessage(String pattern) {
-		String report = getName()
-				+ SEPARATOR
+		String report = getName() + SEPARATOR
 				+ "Not available tests that satisfy the pattern " + pattern;
 		return new Report(report);
 	}
@@ -185,13 +180,12 @@ public class TestSuite extends Test {
 	}
 
 	private Report getEmptyTestSuiteMessage() {
-		String report = getName()
-				+ SEPARATOR
+		String report = getName() + SEPARATOR
 				+ "The TestSuite is empty. There are no tests to run.";
 		return new Report(report);
 	}
 
-	/*
+	/**
 	 * Run the tests but do not generate a report
 	 */
 	private void runTests(String pattern) {
@@ -228,8 +222,9 @@ public class TestSuite extends Test {
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
 
-	/*
-	 * Reset the counters of the suite and the previous results (if they exists).
+	/**
+	 * Reset the counters of the suite and the previous results (if they
+	 * exists).
 	 */
 	private void resetCounters() {
 		totalTestCaseCount = countTestCases();
@@ -237,6 +232,10 @@ public class TestSuite extends Test {
 		errorTestCaseCount = 0;
 		time = 0;
 		resetResults();
+	}
+
+	private void resetResults() {
+		results = new ArrayList<>();
 	}
 
 	private void increaseErrorCount() {
@@ -271,11 +270,7 @@ public class TestSuite extends Test {
 	}
 
 	private String addTestSuiteName() {
-		return name
-				+ " ("
-				+ time
-				+ "ns)"
-				+ SEPARATOR;
+		return name + " (" + time + "ns)" + SEPARATOR;
 	}
 
 	private String addTestCaseReport(String report, TestResult result) {
