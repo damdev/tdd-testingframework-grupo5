@@ -25,41 +25,41 @@ public class TestSuiteTest {
 				emptySuite, suite.run().writeOnString());
 	}
 
-	@Test(expected=TestException.class)
+	@Test(expected = TestException.class)
 	public void addTwoTestCaseWithSameName() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
 		String testName = "SameName";
-		MyTest test1 = new MyTest(testName);
-		MyTest test2 = new MyTest(testName);
+		MyComplexTest test1 = new MyComplexTest(testName);
+		MyComplexTest test2 = new MyComplexTest(testName);
 		suite.add(test1);
 		suite.add(test2);
 	}
-	
+
 	@Test
 	public void twoTestCaseCount() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
-		MyTest test1 = new MyTest("test1");
-		MyTest test2 = new MyTest("test2");
+		MyComplexTest test1 = new MyComplexTest("test1");
+		MyComplexTest test2 = new MyComplexTest("test2");
 		suite.add(test1);
 		suite.add(test2);
 		assertEquals(2, suite.countTestCases());
 	}
-	
+
 	@Test
 	public void twoTestCaseCountPattern() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
-		MyTest test1 = new MyTest("hola");
-		MyTest test2 = new MyTest("chau");
+		MyComplexTest test1 = new MyComplexTest("hola");
+		MyComplexTest test2 = new MyComplexTest("chau");
 		suite.add(test1);
 		suite.add(test2);
-		
+
 		assertEquals(2, suite.countTestCases());
 	}
-	
+
 	@Test
 	public void oneSuccessAndOneFailTestCaseCount() throws TestException {
 		TestSuite suite = new TestSuite(testSuiteName);
-		MyTest test1 = new MyTest("test1");
+		TestCase test1 = new MySimpleTest("test1");
 		MyFailTest test2 = new MyFailTest("test2");
 		suite.add(test1);
 		suite.add(test2);
@@ -68,18 +68,90 @@ public class TestSuiteTest {
 		assertEquals(1, suite.countFailTestCases());
 	}
 
-	private class MyTest extends TestCase {
+	@Test
+	public void oneSuccessAndOneFailTestCaseCountWithComplexTest()
+			throws TestException {
+		TestSuite suite = new TestSuite(testSuiteName);
+		TestCase test1 = new MyComplexTest("test1");
+		MyFailTest test2 = new MyFailTest("test2");
+		suite.add(test1);
+		suite.add(test2);
+		suite.run();
+		assertEquals(2, suite.countTestCases());
+		assertEquals(1, suite.countFailTestCases());
+	}
 
-		public MyTest(String name) {
+	@Test
+	public void successFixtureChanges() throws TestException {
+		TestSuite suite = new MySuite();
+		MyComplexTest test1 = new MyComplexTest("test1");
+		suite.add(test1);
+		suite.run();
+	}
+
+	private class MySuite extends TestSuite {
+		public MySuite() {
+			super("MySuite");
+		}
+
+		@Override
+		public void setUp() {
+			fixture.add("myNumber", 3);
+			fixture.add("myString", "Hello World!");
+		}
+	}
+
+	private class MySimpleTest extends TestCase {
+		public MySimpleTest(String name) {
 			this.name = name;
 		}
 
 		@Override
 		public void testCode() throws AssertException {
-			// Auto-generated method stub
 		}
 	}
-	
+
+	private class MyComplexTest extends TestCase {
+
+		public MyComplexTest(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public void testCode() throws AssertException {
+			int number = (int) fixture.get("myNumber");
+			number++;
+			fixture.add("myNumber", number);
+			String string = (String) fixture.get("myString");
+			string = string.substring(0, 5);
+			fixture.add("myString", string);
+			int number1 = (int) fixture.get("myNumber2");
+			number1 += 2;
+			fixture.add("myNumber2", number1);
+			String string1 = (String) fixture.get("myString2");
+			string1 = string1.substring(0, 8);
+			fixture.add("myString2", string1);
+		}
+
+		@Override
+		public void setUp() {
+			fixture.add("myNumber2", 4);
+			fixture.add("myString2", "Good bye cruel world");
+		}
+
+		@Override
+		public void tearDown() {
+			int number = (int) fixture.get("myNumber");
+			assertEquals(4, number);
+			String string = (String) fixture.get("myString");
+			assertEquals("Hello", string);
+			int number1 = (int) fixture.get("myNumber2");
+			assertEquals(6, number1);
+			String string1 = (String) fixture.get("myString2");
+			assertEquals("Good bye", string1);
+		}
+	}
+
 	private class MyFailTest extends TestCase {
 
 		public MyFailTest(String name) {
