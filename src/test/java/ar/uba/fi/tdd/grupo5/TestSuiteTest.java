@@ -55,14 +55,6 @@ public class TestSuiteTest {
 
 		assertEquals(2, suite.countTestCases());
 	}
-	
-	@Test
-	public void notRunTearDownIfFailTestCase() throws TestException {
-		TestSuite suite = new TestSuite(testSuiteName);
-		TestCase test1 = new MyFailTest("test2");
-		suite.add(test1);
-		suite.run();
-	}
 
 	@Test
 	public void oneSuccessAndOneFailTestCaseCount() throws TestException {
@@ -169,11 +161,6 @@ public class TestSuiteTest {
 		@Override
 		public void testCode() throws AssertException {
 			Assert.assertTrue(false);
-		}
-		
-		@Override
-		public void tearDown() {
-			fail("Execute tearDown in fail TestCode");
 		}
 	}
 }
