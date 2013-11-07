@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.Assert;
+import ar.uba.fi.tdd.grupo5.framework.Fixture;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestResult;
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
@@ -15,11 +16,12 @@ public class TestResultTest {
 	private TestCase testerCase;
 	private String defaultMessage = "Message was not provided";
 	private String personalizedMessage = "This is a personalized message";
+	private Fixture fixture;
 
 	@Test
 	public void errorTestReturnErrorValue() {
 		testerCase = new myErrorTest("I'm a error test");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertFalse("testerResult.isOK() return true in an error test",
 				testerResult.isOK());
 		assertFalse("testerResult.isFail() return true in an error test",
@@ -31,7 +33,7 @@ public class TestResultTest {
 	@Test
 	public void failTestReturnFailValue() {
 		testerCase = new myFailTest("I'm a fail test");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertFalse("testerResult.isOK() return true in a fail test",
 				testerResult.isOK());
 		assertFalse("testerResult.isError() return true in a fail test",
@@ -43,7 +45,7 @@ public class TestResultTest {
 	@Test
 	public void okTestReturnOKValue() {
 		testerCase = new myOKTest("I'm a OK test");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertFalse("testerResult.isFail() return true in an OK test",
 				testerResult.isFail());
 		assertFalse("testerResult.isError() return true in an OK test",
@@ -55,7 +57,7 @@ public class TestResultTest {
 	@Test
 	public void defaultResultMessage() {
 		testerCase = new myFailTest("I'm a fail test");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertEquals(
 				"testerResult.getMessage() return a different message than the default message",
 				testerResult.getMessage(), defaultMessage);
@@ -64,7 +66,7 @@ public class TestResultTest {
 	@Test
 	public void personalizedResultMessage() {
 		testerCase = new myFailTestWithMessage("I'm a fail test, with message");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertEquals(
 				"testerResult.getMessage() return a different message than the personalized message",
 				testerResult.getMessage(), personalizedMessage);
@@ -75,7 +77,7 @@ public class TestResultTest {
 		long timeInNanoSec = 500000000;
 		long deltaTime = 1000000;
 		testerCase = new mySleepTest("0.5 sec sleep");
-		testerResult = testerCase.run();
+		testerResult = testerCase.run(fixture);
 		assertEquals(
 				"testerResult.getTestTime() return a different value than the expected (Considering delta)",
 				testerResult.getTestTime(), timeInNanoSec, deltaTime);

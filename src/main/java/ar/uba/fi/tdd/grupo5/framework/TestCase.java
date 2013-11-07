@@ -12,6 +12,7 @@ public abstract class TestCase extends Test {
 	 */
 	public TestCase(String name) {
 		this.setName(name);
+		
 	}
 	
 	/**
@@ -27,11 +28,15 @@ public abstract class TestCase extends Test {
 	 * {@link TestResult}
 	 * 
 	 * @return the result of the <code>TestCase</code>
+	 * @throws Exception 
 	 * @see TestResult
 	 */
-	public TestResult run() {
+	public TestResult run(Fixture fixture) {
+		this.fixture = fixture;
+		setUp(fixture);
 		TestResult result = new TestResult();
 		result.run(this);
+		tearDown(fixture);
 		return result;
 	}
 	
