@@ -1,5 +1,6 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Fixture {
@@ -7,11 +8,15 @@ public class Fixture {
 	private Map<String, Object> objectMap;
 	
 	public Fixture(){
-		objectMap.clear();
+		objectMap = new HashMap<String, Object>();
 	}
 	
-	public void addObject(String ID, Object object){
+	public void add(String ID, Object object){
 		objectMap.put(ID, object);
+	}
+	
+	public Object get(String ID) {
+		return objectMap.get(ID);
 	}
 	
 	public Fixture cloneFixture(){
