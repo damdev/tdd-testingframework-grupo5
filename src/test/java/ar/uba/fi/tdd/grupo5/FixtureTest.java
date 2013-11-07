@@ -31,5 +31,23 @@ public class FixtureTest {
 		fx.add("string", string);
 		assertEquals(null, fx.get("number"));
 	}
+	
+	@Test
+	public void cloneMapWithInteger() {
+		Fixture fx = new Fixture();
+		Integer integer = 1;
+		fx.add("number", integer);
+		Fixture otherFx = fx.cloneFixture();
+		assertEquals(1, (int) otherFx.get("number"));		
+	}
+	
+	@Test
+	public void cloneMapWithCalculator() {
+		Fixture fx = new Fixture();
+		Calculator calculator = new Calculator();
+		fx.add("calc", calculator);
+		Fixture otherFx = fx.cloneFixture();
+		assertEquals(calculator, (Calculator) otherFx.get("calc"));		
+	}
 
 }
