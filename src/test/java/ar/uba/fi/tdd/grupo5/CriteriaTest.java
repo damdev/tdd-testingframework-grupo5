@@ -19,6 +19,29 @@ public class CriteriaTest {
 	}
 
 	@Test
+	public void EmptyTagAndRegexp() {
+		anotherCriteria.setRegexp(null);
+		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
+		assertTrue(criteria.matchAllTagsAndRegexp(anotherCriteria));
+	}
+	
+	@Test
+	public void AnyTagAndNoRegexp() {
+		anotherCriteria.setRegexp(null);
+		criteria.addTag("DB");
+		anotherCriteria.addTag("DB:SLOW");
+		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
+	}
+	
+	@Test
+	public void AllTagsAndNoRegexp() {
+		anotherCriteria.setRegexp(null);
+		criteria.addTag("DB:SLOW:P0");
+		anotherCriteria.addTag("DB:SLOW");
+		assertTrue(criteria.matchAllTagsAndRegexp(anotherCriteria));
+	}
+	
+	@Test
 	public void MatchOnlyRegexp() {
 		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
 	}
