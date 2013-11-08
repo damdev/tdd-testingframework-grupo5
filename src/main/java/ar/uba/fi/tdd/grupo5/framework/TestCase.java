@@ -25,7 +25,10 @@ public abstract class TestCase extends Test {
 	/**
 	 * Run the @ TestCase} and return a {@link TestResult}.
 	 * 
-	 * @return the result of the @ TestCase}
+	 * @param fixture
+	 * 			the fixture of the parent test
+	 * @return the result of the {@code TestCase}
+	 * 
 	 * @see TestResult
 	 */
 	public final TestResult run(Fixture fixture) {
@@ -37,6 +40,14 @@ public abstract class TestCase extends Test {
 		return result;
 	}
 
+	/**
+	 * Verify if the {@TestCase}'s name matches the given regex
+	 * 
+	 * @param pattern
+	 * 			tells whether or not {@code TestCase} matches the given regex.
+	 * @return String
+	 * 			true if name matches the regex, else return false
+	 */			
 	public final boolean patternMatches(String pattern) {
 		return name.matches(pattern);
 	}
