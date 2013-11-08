@@ -42,6 +42,19 @@ public class FixtureTest {
 	}
 	
 	@Test
+	public void cloneMapWithString() {
+		Fixture fx = new Fixture();
+		String test = "testValue";
+		fx.add("test", test);
+		Fixture otherFx = fx.cloneFixture();
+		String s = (String) otherFx.get("test");
+		s = s.substring(0,4);
+		otherFx.add("test", s);
+		s = (String) fx.get("test");
+		assertFalse(s.equals(otherFx.get("test")));
+	}
+	
+	@Test
 	public void cloneMapWithCalculator() {
 		Fixture fx = new Fixture();
 		Calculator calculator = new Calculator();
