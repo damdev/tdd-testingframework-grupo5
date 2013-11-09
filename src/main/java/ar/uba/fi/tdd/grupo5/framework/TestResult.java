@@ -34,26 +34,6 @@ public class TestResult {
 	}
 
 	/**
-	 * Returns a string representation of the {@code TestResult}.
-	 */
-	public String toString() {
-		String sResult = "";
-		if (isOK()) {
-			sResult = "[ok] ";
-		}
-		if (isFail()) {
-			sResult = "[fail]";
-		}
-		if (isError()) {
-			sResult = "[error]";
-		}
-		sResult = addTestName(sResult);
-		sResult = addTime(sResult);
-		sResult = addEndLine(sResult);
-		return sResult;
-	}
-
-	/**
 	 * Determines whether the test failed.
 	 */
 	public boolean isFail() {
@@ -72,6 +52,13 @@ public class TestResult {
 	 */
 	public boolean isOK() {
 		return !error && !fail;
+	}
+
+	/**
+	 * Returns the name of the test.
+	 */
+	public String getTestName() {
+		return test.getName();
 	}
 
 	/**
@@ -144,17 +131,5 @@ public class TestResult {
 	 */
 	private void setTestTime(long time) {
 		testTime = time;
-	}
-
-	private String addTestName(String result) {
-		return result + " " + test.getName();
-	}
-
-	private String addTime(String result) {
-		return result + " (" + testTime + "ns)";
-	}
-
-	private String addEndLine(String result) {
-		return result + "\n";
 	}
 }

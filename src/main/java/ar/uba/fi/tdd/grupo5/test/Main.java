@@ -1,6 +1,5 @@
 package ar.uba.fi.tdd.grupo5.test;
 
-import ar.uba.fi.tdd.grupo5.framework.Report;
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 
@@ -24,7 +23,6 @@ public class Main {
 		calculatorSuite.add(productSuite);
 		calculatorSuite.add(divSuite);
 
-		Report result = calculatorSuite.run();
-		result.writeOnScreen();
+		calculatorSuite.run();
 	}
 }

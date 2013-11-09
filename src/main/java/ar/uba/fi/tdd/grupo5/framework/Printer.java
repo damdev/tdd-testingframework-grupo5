@@ -9,6 +9,7 @@ public class Printer {
 
 	public Printer() {
 		stream = "";
+		onScreen = true;
 	}
 
 	public void printOnScreen() {
@@ -26,38 +27,45 @@ public class Printer {
 	}
 
 	public void printOkTestCaseResult(String name, long time) {
-		String buffer = "[ok]\t" + name + "\n";
+		String buffer = "[ok]\t" + name + stringTime(time);
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
 
 	public void printErrorTestCaseResult(String name, long time) {
-		String buffer = "[fail]\t" + name + "\n";
+		String buffer = "[error]\t" + name + stringTime(time);
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
 
 	public void printFailTestCaseResult(String name, long time) {
-		String buffer = "[fail]\t" + name + "\n";
+		String buffer = "[fail]\t" + name + stringTime(time);
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
 
-	public void printSummary(int totalTestCount, int errorCount, int failCount) {
-		String buffer = getStringOfStatusTestSuite(errorCount, failCount)
-				+ "Summary" + DOUBLE_LINE
-				+ getStringOfTestCount(totalTestCount)
-				+ getStringOfErrorCount(errorCount)
-				+ getStringOfFailCount(failCount);
+	public void printSummary(int totalTestCount, int errorCount, int failCount,
+			long time) {
+		printEndLine();
+		String buffer = stringOfStatusTestSuite(errorCount, failCount)
+				+ "Summary" + DOUBLE_LINE + stringOfTestCount(totalTestCount)
+				+ stringOfErrorCount(errorCount) + stringOfFailCount(failCount)
+				+ stringOfSummaryTime(time);
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
-	
+
+	public void printEndLine() {
+		String buffer = "\n";
+		printOnScreen(buffer);
+		stream = stream + buffer;
+	}
+
 	public String getPrintText() {
 		return stream;
 	}
-	
-	public void clearPrintTest() {
+
+	public void clearPrintText() {
 		stream = "";
 	}
 
@@ -67,26 +75,34 @@ public class Printer {
 
 	private void printOnScreen(String buffer) {
 		if (isPrintOnScreen()) {
-			System.out.println(buffer);
+			System.out.print(buffer);
 		}
 	}
 
-	private String getStringOfStatusTestSuite(int errorCount, int failCount) {
+	private String stringTime(long time) {
+		return " (" + time + " ns)\n";
+	}
+
+	private String stringOfStatusTestSuite(int errorCount, int failCount) {
 		if ((errorCount == 0) && (failCount == 0)) {
-			return "[success]";
+			return "[success] ";
 		}
-		return "[failure]";
+		return "[failure] ";
 	}
 
-	private String getStringOfTestCount(int testCount) {
+	private String stringOfTestCount(int testCount) {
 		return "Run: " + testCount + "\n";
 	}
 
-	private String getStringOfErrorCount(int errorCount) {
+	private String stringOfErrorCount(int errorCount) {
 		return "Errors: " + errorCount + "\n";
 	}
 
-	private String getStringOfFailCount(int failCount) {
+	private String stringOfFailCount(int failCount) {
 		return "Failures: " + failCount + "\n";
+	}
+
+	private String stringOfSummaryTime(long time) {
+		return "Time: " + time + " ns\n";
 	}
 }
