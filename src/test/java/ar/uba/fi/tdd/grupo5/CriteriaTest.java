@@ -5,138 +5,164 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.uba.fi.tdd.grupo5.framework.Criteria;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.*;
 
 public class CriteriaTest {
-	private Criteria criteria;
-	private Criteria anotherCriteria;
+	private TagManager criteria;
+	private TagManager criteriaNameNotContainTest;
+	
+	private Regexp regexpMatchTest;
+	private Regexp regexpMatchAll;
+	private Regexp regexpNotMatch;
+	
+	private AllTags allTags;
+	private AnyTag anyTag;
+	private MixedCriteria  mixedCriteria;
 	
 	@Before
 	public void setUp() {
-		criteria = new Criteria("Test1");
-		anotherCriteria = new Criteria("Test Matcher Criteria");
-		anotherCriteria.setRegexp(".*");
-	}
-
-	@Test
-	public void EmptyTagAndRegexp() {
-		anotherCriteria.setRegexp(null);
-		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
-		assertTrue(criteria.matchAllTagsAndRegexp(anotherCriteria));
-	}
-	
-	@Test
-	public void AnyTagAndNoRegexp() {
-		anotherCriteria.setRegexp(null);
-		criteria.addTag("DB");
-		anotherCriteria.addTag("DB:SLOW");
-		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
-	}
-	
-	@Test
-	public void AllTagsAndNoRegexp() {
-		anotherCriteria.setRegexp(null);
-		criteria.addTag("DB:SLOW:P0");
-		anotherCriteria.addTag("DB:SLOW");
-		assertTrue(criteria.matchAllTagsAndRegexp(anotherCriteria));
-	}
-	
-	@Test
-	public void MatchOnlyRegexp() {
-		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
-	}
-	
-	@Test
-	public void MatchRegexpWhenIsNotSetted() {
-		assertTrue(anotherCriteria.matchRegexp(criteria));
-	}
-	
-	@Test
-	public void MatchRegexpWhenPatternMatches() {
-		assertTrue(criteria.matchRegexp(anotherCriteria));
-	}
-	
-	@Test
-	public void MatchOnlyRegexpNoTags() {
-		assertTrue(criteria.matchAllTagsAndRegexp(anotherCriteria));
+		criteria = new TagManager("Test1");
+		criteriaNameNotContainTest = new TagManager("Rare Name");
+		regexpMatchTest = new Regexp("^Test.*");
+		regexpMatchAll = new Regexp(".*");
+		regexpNotMatch = new Regexp("This regexp doesnt match");
 		
-	}
-	
-	@Test
-	public void MatchAnyTag() {
-		criteria.addTag("DB");
-		anotherCriteria.addTag("DB:SLOW");
-		assertTrue(criteria.matchAnyTag(anotherCriteria));
-	}
-	
-	@Test
-	public void DontMatchAnyTag() {
-		criteria.addTag("FAST");
-		anotherCriteria.addTag("DB:SLOW:P0");
-		assertFalse(criteria.matchAnyTag(anotherCriteria));
+		allTags = new AllTags("All Tags Criteria");
+		anyTag = new AnyTag ("Any Tag Criteria");
+		mixedCriteria = new MixedCriteria();
 	}
 
+	@Test
+	public void EmptyTag() {
+		assertTrue(allTags.match(criteria));
+		assertTrue(anyTag.match(criteria));
+	}
+	
+	@Test
+	public void AnyTag() {
+		criteria.addTag("DB");
+		anyTag.addTag("DB:SLOW");
+		assertTrue(anyTag.match(criteria));
+	}
+	
+	@Test
+	public void AnyTagNotContained() {
+		criteria.addTag("FAST:NOTDB");
+		anyTag.addTag("DB:SLOW");
+		assertFalse(anyTag.match(criteria));
+	}
+	
 	@Test
 	public void DontMatchAnyTagWithEmptySet() {
-		anotherCriteria.addTag("DB:SLOW:P0");
-		assertFalse(criteria.matchAnyTag(anotherCriteria));
+		anyTag.addTag("DB:SLOW:P0");
+		assertFalse(anyTag.match(criteria));
 	}
 	
 	@Test
-	public void DontMatchAnyTagWithEmptyTagWanted() {
+	public void MatchAnyTagWithEmptyAnyTag() {
 		criteria.addTag("DB:SLOW:P0");
-		assertTrue(criteria.matchAnyTag(anotherCriteria));
+		assertTrue(anyTag.match(criteria));
+	}
+	
+	@Test
+	public void AllTagsContained() {
+		criteria.addTag("DB:SLOW:P0");
+		allTags.addTag("DB:SLOW");
+		assertTrue(allTags.match(criteria));
+	}
+	
+	@Test
+	public void AllTagsNotContained() {
+		criteria.addTag("DB:SLOW");
+		allTags.addTag("DB:SLOW:P0");
+		assertFalse(allTags.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsExactly() {
 		criteria.addTag("DB:SLOW:P0");
-		anotherCriteria.addTag("DB:SLOW:P0");
-		assertTrue(criteria.matchAllTags(anotherCriteria));
+		allTags.addTag("DB:SLOW:P0");
+		assertTrue(allTags.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsAndMore() {
 		criteria.addTag("DB:SLOW:P0:P1");
-		anotherCriteria.addTag("DB:SLOW:P0");
-		assertTrue(criteria.matchAllTags(anotherCriteria));
+		allTags.addTag("DB:SLOW:P0");
+		assertTrue(allTags.match(criteria));
 	}
 	
 	@Test
-	public void DontMatchAllTags() {
-		criteria.addTag("DB:SLOW");
-		anotherCriteria.addTag("DB:SLOW:P0");
-		assertTrue(! criteria.matchAllTags(anotherCriteria));
+	public void DontMatchAllTagsWithEmptySet() {
+		allTags.addTag("DB:SLOW:P0");
+		assertFalse(allTags.match(criteria));
+	}
+	
+	@Test
+	public void MatchRegexp() {
+		assertTrue(regexpMatchTest.match(criteria));
+		assertTrue(regexpMatchAll.match(criteria));
+		assertFalse(regexpNotMatch.match(criteria));
+	}
+	
+	@Test
+	public void NoMatchRegexp() {
+		assertFalse(regexpMatchTest.match(criteriaNameNotContainTest));
+		assertTrue(regexpMatchAll.match(criteriaNameNotContainTest));
+		assertFalse(regexpNotMatch.match(criteriaNameNotContainTest));
+	}
+	
+	@Test
+	public void MatchOneRegexpAndOneNot() {
+		mixedCriteria.add(regexpNotMatch);
+		mixedCriteria.add(regexpMatchAll);
+		assertFalse(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAnyTagAndRegexp() {
-		criteria.addTag("DB");
-		anotherCriteria.addTag("DB:SLOW");
-		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
+		anyTag.addTag("DB");
+		mixedCriteria.add(anyTag);
+		mixedCriteria.add(regexpMatchTest);
+		criteria.addTag("DB:SLOW");
+		assertTrue(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAnyTagAndDontMatchRegexp() {
-		criteria.addTag("DB");
-		anotherCriteria.addTag("DB:SLOW");
-		anotherCriteria.setRegexp("Regexp that does not match");
-		assertFalse(criteria.matchAnyTagAndRegexp(anotherCriteria));
+		anyTag.addTag("DB");
+		mixedCriteria.add(anyTag);
+		mixedCriteria.add(regexpNotMatch);
+		criteria.addTag("DB:SLOW");
+		assertFalse(mixedCriteria.match(criteria));
 	}
 	
 	@Test
-	public void MatchAllTagsAndRegexp() {
+	public void MatchAnyTagAndTwoRegexp() {
+		anyTag.addTag("DB");
 		criteria.addTag("DB:SLOW");
-		anotherCriteria.addTag("DB:SLOW");
-		assertTrue(criteria.matchAnyTagAndRegexp(anotherCriteria));
+		mixedCriteria.add(anyTag);
+		mixedCriteria.add(regexpMatchTest);
+		mixedCriteria.add(regexpMatchAll);
+		assertTrue(mixedCriteria.match(criteria));
+	}
+	
+
+	public void MatchAllTagsAndRegexp() {
+		allTags.addTag("DB:SLOW");
+		mixedCriteria.add(anyTag);
+		mixedCriteria.add(regexpMatchTest);
+		criteria.addTag("DB:SLOW:P0");
+		assertTrue(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsAndDontMatchRegexp() {
-		criteria.addTag("DB:SLOW");
-		anotherCriteria.addTag("DB:SLOW");
-		anotherCriteria.setRegexp("Regexp that does not match");
-		assertFalse(criteria.matchAllTagsAndRegexp(anotherCriteria));
+		allTags.addTag("DB:SLOW");
+		mixedCriteria.add(anyTag);
+		mixedCriteria.add(regexpNotMatch);
+		criteria.addTag("DB:SLOW:P0");
+		assertFalse(mixedCriteria.match(criteria));
 	}
 
 }
