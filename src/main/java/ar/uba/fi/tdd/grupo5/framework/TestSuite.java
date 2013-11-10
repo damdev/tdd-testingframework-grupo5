@@ -1,14 +1,13 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.AllMatch;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
 
 public class TestSuite extends Test {
 
-	private static final String SEPARATOR = "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
 	private List<TestResult> results;
@@ -122,15 +121,20 @@ public class TestSuite extends Test {
 		testSuites.add(test);
 	}
 
+	public void printOnScreen() {
+		printer.printOnScreen();
+	}
+
+	public void notPrintOnScreen() {
+		printer.notPrintOnScreen();
+	}
+
 	/**
 	 * Run all the cases that are in the suite
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
 	public final Report run() {
-		if (isEmptyTestSuite()) {
-			return getEmptyTestSuiteMessage();
-		}
 		return run(new AllMatch());
 	}
 
@@ -143,16 +147,19 @@ public class TestSuite extends Test {
 	 * @return the report of the tests executed plus statistical data
 	 */
 	public final Report run(Criteria criteria) {
-		if (isNoTestsThatSatisfyPattern(criteria)) {
-			return getNoTestsThatSatisfyPatternMessage(criteria);
+		if (isEmptyTestSuite()) {
+			return printer.printAndReportEmptyTestSuiteMessage(getName());
 		}
-		printer.clearPrintText();
+		if (isNoTestsThatSatisfyPattern(criteria)) {
+			return printer.printAndReportNoTestsThatSatisfyPatternMessage(
+					getName(), criteria.toString());
+		}
 		setUp();
 		runTests(criteria);
 		tearDown();
 		printer.printSummary(totalTestCaseCount, errorTestCaseCount,
 				failTestCaseCount, getRunTime());
-		return new Report(printer.getPrintText());
+		return printer.getReport();
 	}
 
 	private void run(Criteria criteria, Fixture fixture, Printer printer) {
@@ -201,26 +208,14 @@ public class TestSuite extends Test {
 		return countTestCases(criteria) == 0;
 	}
 
-	private Report getNoTestsThatSatisfyPatternMessage(Criteria criteria) {
-		String report = getName() + SEPARATOR
-				+ "Not available tests that satisfy the pattern " + criteria.toString();
-		return new Report(report);
-	}
-
 	private boolean isEmptyTestSuite() {
 		return countTestCases(new AllMatch()) == 0;
 	}
 
-	private Report getEmptyTestSuiteMessage() {
-		String report = getName() + SEPARATOR
-				+ "The TestSuite is empty. There are no tests to run.";
-		return new Report(report);
-	}
-
-	private boolean isRunnable(TestCase test, Criteria criteria){
+	private boolean isRunnable(TestCase test, Criteria criteria) {
 		return (criteria.match(test.getTagManager()) && test.isRunnable());
 	}
-	
+
 	/**
 	 * Run the tests but do not generate a report
 	 */

@@ -20,6 +20,22 @@ public class Printer {
 		onScreen = false;
 	}
 
+	public Report printAndReportEmptyTestSuiteMessage(String testName) {
+		clearPrintText();
+		String buffer = testName + SIMPLE_LINE
+				+ "The TestSuite is empty. There are no tests to run.";
+		printOnScreen(buffer);
+		return this.getReport();
+	}
+	
+	public Report printAndReportNoTestsThatSatisfyPatternMessage(String testName, String pattern) {
+		clearPrintText();
+		String buffer = testName + SIMPLE_LINE
+				+ "Not available tests that satisfy the pattern " + pattern;
+		printOnScreen(buffer);
+		return getReport();
+	}
+
 	public void printTestSuiteName(String name) {
 		String buffer = name + SIMPLE_LINE;
 		printOnScreen(buffer);
@@ -60,9 +76,9 @@ public class Printer {
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
-
-	public String getPrintText() {
-		return stream;
+	
+	public Report getReport() {
+		return new Report(stream);
 	}
 
 	public void clearPrintText() {
