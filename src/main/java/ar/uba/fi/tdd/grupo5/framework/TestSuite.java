@@ -154,6 +154,7 @@ public class TestSuite extends Test {
 			return printer.printAndReportNoTestsThatSatisfyPatternMessage(
 					getName(), criteria.toString());
 		}
+		printer.clearPrintText();
 		setUp();
 		runTests(criteria);
 		tearDown();
