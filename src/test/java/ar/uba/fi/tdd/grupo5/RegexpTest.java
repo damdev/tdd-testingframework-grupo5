@@ -7,6 +7,7 @@ import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.Regexp;
 
 public class RegexpTest {
 
@@ -18,11 +19,11 @@ public class RegexpTest {
 		MyTest commonTest = new MyTest("Common Test");
 		suite.add(specialTest);
 		suite.add(anotherSpecialTest);
-
-		assertEquals(2, suite.countTestCases(".*Special.*"));
+		Regexp special = new Regexp(".*Special.*");
+		assertEquals(2, suite.countTestCases(special));
 
 		suite.add(commonTest);
-		assertEquals(2, suite.countTestCases(".*Special.*"));
+		assertEquals(2, suite.countTestCases(special));
 	}
 
 	@Test
@@ -34,8 +35,10 @@ public class RegexpTest {
 		suite.add(specialTest);
 		suite.add(anotherSpecialTest);
 		suite.add(commonTest);
-		assertEquals(1, suite.countTestCases("^Common.*"));
-		assertEquals(3, suite.countTestCases(".*Test$"));
+		Regexp test = new Regexp(".*Test$");
+		Regexp common = new Regexp("^Common.*");
+		assertEquals(3, suite.countTestCases(test));
+		assertEquals(1, suite.countTestCases(common));
 		assertEquals(3, suite.countTestCases());
 	}
 
@@ -48,7 +51,8 @@ public class RegexpTest {
 		suite.add(specialTest);
 		suite.add(anotherSpecialTest);
 		suite.add(commonTest);
-		assertEquals(0, suite.countTestCases(".*Something.*"));
+		Regexp something = new Regexp(".*Something.*");
+		assertEquals(0, suite.countTestCases(something));
 	}
 
 	@Test
@@ -66,7 +70,7 @@ public class RegexpTest {
 	private class MyTest extends TestCase {
 
 		public MyTest(String name) {
-			this.name = name;
+			super(name);
 		}
 
 		@Override

@@ -1,9 +1,12 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.TagManager;
 
 public abstract class TestCase extends Test {
 
+	private TagManager tagManager;
+	private boolean skipped;
 	/**
 	 * Constructs a @ TestCase} specifying a name.
 	 * 
@@ -12,6 +15,8 @@ public abstract class TestCase extends Test {
 	 */
 	public TestCase(String name) {
 		this.setName(name);
+		tagManager = new TagManager(name);
+		skipped = false;
 	}
 
 	/**
@@ -57,7 +62,33 @@ public abstract class TestCase extends Test {
 	 */
 	public abstract void testCode() throws AssertException;
 
+	/**
+	 * The test that is skipped is not going to be executed
+	 */
+	public void skip(){
+		skipped = true;
+	}
+	
+	/**
+	 * Turn the state of the test in not skipped, so its going to be executed
+	 */
+	public void unSkip(){
+		skipped = false;
+	}
+	
 	private void setName(String name) {
 		this.name = name;
+	}
+
+	public TagManager getTagManager() {
+		return tagManager;
+	}
+	
+	/**
+	 * A TestCase is runnable if it must not be skipped
+	 * @return 
+	 */
+	public boolean isRunnable(){
+		return (!skipped);
 	}
 }

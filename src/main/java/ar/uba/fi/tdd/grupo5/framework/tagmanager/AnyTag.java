@@ -24,5 +24,4 @@ public class AnyTag extends TagManager implements Criteria {
 		return false;
 	}
 
-
 }

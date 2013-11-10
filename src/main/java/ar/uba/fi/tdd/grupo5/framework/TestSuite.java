@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.AllMatch;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
 
 public class TestSuite extends Test {
 
@@ -44,15 +46,15 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the final count of {@code TestCase}
 	 */
-	public final int countTestCases(String pattern) {
+	public final int countTestCases(Criteria criteria) {
 		totalTestCaseCount = 0;
 		for (TestCase testCase : testCases) {
-			if (testCase.patternMatches(pattern)) {
+			if (isRunnable(testCase, criteria)) {
 				totalTestCaseCount += 1;
 			}
 		}
 		for (TestSuite testSuite : testSuites) {
-			totalTestCaseCount += testSuite.countTestCases(pattern);
+			totalTestCaseCount += testSuite.countTestCases(criteria);
 		}
 		return totalTestCaseCount;
 	}
@@ -63,7 +65,7 @@ public class TestSuite extends Test {
 	 * @return the final count of {@code TestCase}
 	 */
 	public final int countTestCases() {
-		return countTestCases(ALL_MATCHES_PATTERN);
+		return countTestCases(new AllMatch());
 	}
 
 	/**
@@ -128,7 +130,7 @@ public class TestSuite extends Test {
 		if (isEmptyTestSuite()) {
 			return getEmptyTestSuiteMessage();
 		}
-		return run(ALL_MATCHES_PATTERN);
+		return run(new AllMatch());
 	}
 
 	/**
@@ -139,19 +141,19 @@ public class TestSuite extends Test {
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
-	public final Report run(String pattern) {
-		if (isNoTestsThatSatisfyPattern(pattern)) {
-			return getNoTestsThatSatisfyPatternMessage(pattern);
+	public final Report run(Criteria criteria) {
+		if (isNoTestsThatSatisfyPattern(criteria)) {
+			return getNoTestsThatSatisfyPatternMessage(criteria);
 		}
 		setUp();
-		runTests(pattern);
+		runTests(criteria);
 		tearDown();
 		return new Report(generateReport());
 	}
 
-	private Report run(String pattern, Fixture fixture) {
+	private Report run(Criteria criteria, Fixture fixture) {
 		this.fixture = fixture;
-		return run(pattern);
+		return run(criteria);
 	}
 
 	private boolean existsTestCase(String testName) {
@@ -190,18 +192,18 @@ public class TestSuite extends Test {
 		this.name = name;
 	}
 
-	private boolean isNoTestsThatSatisfyPattern(String pattern) {
-		return countTestCases(pattern) == 0;
+	private boolean isNoTestsThatSatisfyPattern(Criteria criteria) {
+		return countTestCases(criteria) == 0;
 	}
 
-	private Report getNoTestsThatSatisfyPatternMessage(String pattern) {
+	private Report getNoTestsThatSatisfyPatternMessage(Criteria criteria) {
 		String report = getName() + SEPARATOR
-				+ "Not available tests that satisfy the pattern " + pattern;
+				+ "Not available tests that satisfy the pattern " + criteria.toString();
 		return new Report(report);
 	}
 
 	private boolean isEmptyTestSuite() {
-		return countTestCases(ALL_MATCHES_PATTERN) == 0;
+		return countTestCases(new AllMatch()) == 0;
 	}
 
 	private Report getEmptyTestSuiteMessage() {
@@ -210,20 +212,24 @@ public class TestSuite extends Test {
 		return new Report(report);
 	}
 
+	private boolean isRunnable(TestCase test, Criteria criteria){
+		return (criteria.match(test.getTagManager()) && test.isRunnable());
+	}
+	
 	/**
 	 * Run the tests but do not generate a report
 	 */
-	private void runTests(String pattern) {
+	private void runTests(Criteria criteria) {
 		resetCounters();
 		Timer timer = new Timer();
 		timer.setStart();
 		for (TestCase testCase : testCases) {
-			if (testCase.patternMatches(pattern)) {
+			if (isRunnable(testCase, criteria)) {
 				runTestCase(testCase);
 			}
 		}
 		for (TestSuite testSuite : testSuites) {
-			runTestSuite(testSuite, pattern);
+			runTestSuite(testSuite, criteria);
 		}
 		time = timer.getRegisteredTime();
 	}
@@ -240,9 +246,9 @@ public class TestSuite extends Test {
 		}
 	}
 
-	private void runTestSuite(TestSuite testSuite, String pattern) {
+	private void runTestSuite(TestSuite testSuite, Criteria criteria) {
 		Fixture clonedFixture = fixture.cloneFixture();
-		testSuite.run(pattern, clonedFixture);
+		testSuite.run(criteria, clonedFixture);
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}

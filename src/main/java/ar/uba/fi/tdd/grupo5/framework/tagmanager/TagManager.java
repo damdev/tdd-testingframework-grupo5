@@ -67,4 +67,8 @@ public class TagManager {
 	protected boolean bothEmpty(TagManager tagManager){
 		return (!this.hasTags() && !tagManager.hasTags());
 	}
+	
+	public String toString(){
+		return name + " " + tags.toString();
+	}
 }
