@@ -8,7 +8,6 @@ import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
 
 public class TestSuite extends Test {
 
-	private static final String ALL_MATCHES_PATTERN = ".*";
 	private static final String SEPARATOR = "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n";
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
@@ -225,9 +224,7 @@ public class TestSuite extends Test {
 	/**
 	 * Run the tests but do not generate a report
 	 */
-
 	private void runTests(Criteria criteria) {
-
 		initRunEnviroment();
 		Timer timer = new Timer();
 		timer.setStart();
