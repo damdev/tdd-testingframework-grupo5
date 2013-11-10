@@ -46,7 +46,7 @@ public class TagManager {
 	 * 
 	 * @return true if the criteria have any tag
 	 */
-	protected boolean hasTags(){
+	public boolean hasTags(){
 		return (!tags.isEmpty());
 	}
 	
