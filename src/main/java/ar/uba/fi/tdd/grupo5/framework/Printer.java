@@ -9,6 +9,7 @@ public class Printer {
 
 	public Printer() {
 		stream = "";
+		onScreen = true;
 	}
 
 	public void printOnScreen() {
@@ -43,10 +44,19 @@ public class Printer {
 		stream = stream + buffer;
 	}
 
-	public void printSummary(int totalTestCount, int errorCount, int failCount) {
+	public void printSummary(int totalTestCount, int errorCount, int failCount,
+			long time) {
+		printEndLine();
 		String buffer = stringOfStatusTestSuite(errorCount, failCount)
 				+ "Summary" + DOUBLE_LINE + stringOfTestCount(totalTestCount)
-				+ stringOfErrorCount(errorCount) + stringOfFailCount(failCount);
+				+ stringOfErrorCount(errorCount) + stringOfFailCount(failCount)
+				+ stringOfSummaryTime(time);
+		printOnScreen(buffer);
+		stream = stream + buffer;
+	}
+
+	public void printEndLine() {
+		String buffer = "\n";
 		printOnScreen(buffer);
 		stream = stream + buffer;
 	}
@@ -55,7 +65,7 @@ public class Printer {
 		return stream;
 	}
 
-	public void clearPrintTest() {
+	public void clearPrintText() {
 		stream = "";
 	}
 
@@ -65,7 +75,7 @@ public class Printer {
 
 	private void printOnScreen(String buffer) {
 		if (isPrintOnScreen()) {
-			System.out.println(buffer);
+			System.out.print(buffer);
 		}
 	}
 
@@ -75,9 +85,9 @@ public class Printer {
 
 	private String stringOfStatusTestSuite(int errorCount, int failCount) {
 		if ((errorCount == 0) && (failCount == 0)) {
-			return "[success]";
+			return "[success] ";
 		}
-		return "[failure]";
+		return "[failure] ";
 	}
 
 	private String stringOfTestCount(int testCount) {
@@ -90,5 +100,9 @@ public class Printer {
 
 	private String stringOfFailCount(int failCount) {
 		return "Failures: " + failCount + "\n";
+	}
+
+	private String stringOfSummaryTime(long time) {
+		return "Time: " + time + " ns\n";
 	}
 }

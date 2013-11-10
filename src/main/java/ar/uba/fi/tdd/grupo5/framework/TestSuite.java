@@ -2,7 +2,6 @@ package ar.uba.fi.tdd.grupo5.framework;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.AllMatch;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
@@ -14,6 +13,7 @@ public class TestSuite extends Test {
 	private List<TestCase> testCases;
 	private List<TestSuite> testSuites;
 	private List<TestResult> results;
+	private Printer printer;
 	private int totalTestCaseCount;
 	private int failTestCaseCount;
 	private int errorTestCaseCount;
@@ -27,22 +27,23 @@ public class TestSuite extends Test {
 	 */
 	public TestSuite(String name) {
 		this.name = name;
+		fixture = new Fixture();
 		testCases = new ArrayList<>();
 		testSuites = new ArrayList<>();
 		results = new ArrayList<>();
+		printer = new Printer();
 		totalTestCaseCount = 0;
 		failTestCaseCount = 0;
 		errorTestCaseCount = 0;
 		time = 0;
-		fixture = new Fixture();
 	}
 
 	/**
-	 * Counts the number of {@code TestCase} in the {@code TestSuite}
-	 * that match with the regex
+	 * Counts the number of {@code TestCase} in the {@code TestSuite} that match
+	 * with the regex
 	 * 
 	 * @param pattern
-	 * 			the regex that must match with the test name
+	 *            the regex that must match with the test name
 	 * 
 	 * @return the final count of {@code TestCase}
 	 */
@@ -69,7 +70,8 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Counts the number of failed {@code TestCase} after run the {@code TestSuite}
+	 * Counts the number of failed {@code TestCase} after run the
+	 * {@code TestSuite}
 	 * 
 	 * @return the number of failed {@code TestCase}
 	 */
@@ -78,8 +80,8 @@ public class TestSuite extends Test {
 	}
 
 	/**
-	 * Counts the number of {@code TestCase} thats return an error 
-	 * after run the {@code TestSuite}
+	 * Counts the number of {@code TestCase} thats return an error after run the
+	 * {@code TestSuite}
 	 * 
 	 * @return the number of erroneous {@code TestCase}
 	 */
@@ -145,15 +147,19 @@ public class TestSuite extends Test {
 		if (isNoTestsThatSatisfyPattern(criteria)) {
 			return getNoTestsThatSatisfyPatternMessage(criteria);
 		}
+		printer.clearPrintText();
 		setUp();
 		runTests(criteria);
 		tearDown();
-		return new Report(generateReport());
+		printer.printSummary(totalTestCaseCount, errorTestCaseCount,
+				failTestCaseCount, getRunTime());
+		return new Report(printer.getPrintText());
 	}
 
-	private Report run(Criteria criteria, Fixture fixture) {
+	private void run(Criteria criteria, Fixture fixture, Printer printer) {
 		this.fixture = fixture;
-		return run(criteria);
+		this.printer = printer;
+		runTests(criteria);
 	}
 
 	private boolean existsTestCase(String testName) {
@@ -219,36 +225,49 @@ public class TestSuite extends Test {
 	/**
 	 * Run the tests but do not generate a report
 	 */
+
 	private void runTests(Criteria criteria) {
-		resetCounters();
+
+		initRunEnviroment();
 		Timer timer = new Timer();
 		timer.setStart();
+		setUp();
+		printer.printTestSuiteName(getName());
 		for (TestCase testCase : testCases) {
 			if (isRunnable(testCase, criteria)) {
-				runTestCase(testCase);
+				runTestCase(testCase, printer);
 			}
 		}
 		for (TestSuite testSuite : testSuites) {
 			runTestSuite(testSuite, criteria);
 		}
+		tearDown();
 		time = timer.getRegisteredTime();
 	}
 
-	private void runTestCase(TestCase test) {
+	private void runTestCase(TestCase test, Printer printer) {
 		Fixture clonedFixture = fixture.cloneFixture();
 		TestResult result = test.run(clonedFixture);
 		results.add(result);
+		if (result.isOK()) {
+			printer.printOkTestCaseResult(test.getName(), result.getTestTime());
+		}
 		if (result.isError()) {
 			increaseErrorCount();
+			printer.printErrorTestCaseResult(test.getName(),
+					result.getTestTime());
 		}
 		if (result.isFail()) {
 			increaseFailCount();
+			printer.printFailTestCaseResult(test.getName(),
+					result.getTestTime());
 		}
 	}
 
 	private void runTestSuite(TestSuite testSuite, Criteria criteria) {
 		Fixture clonedFixture = fixture.cloneFixture();
-		testSuite.run(criteria, clonedFixture);
+		testSuite.run(criteria, clonedFixture, printer);
+		printer.printEndLine();
 		failTestCaseCount += testSuite.countFailTestCases();
 		errorTestCaseCount += testSuite.countErrorTestCases();
 	}
@@ -257,16 +276,12 @@ public class TestSuite extends Test {
 	 * Reset the counters of the suite and the previous results (if they
 	 * exists).
 	 */
-	private void resetCounters() {
+	private void initRunEnviroment() {
+		results.clear();
 		totalTestCaseCount = countTestCases();
 		failTestCaseCount = 0;
 		errorTestCaseCount = 0;
 		time = 0;
-		resetResults();
-	}
-
-	private void resetResults() {
-		results = new ArrayList<>();
 	}
 
 	private void increaseErrorCount() {
@@ -275,68 +290,5 @@ public class TestSuite extends Test {
 
 	private void increaseFailCount() {
 		failTestCaseCount++;
-	}
-
-	/**
-	 * Generate the report of the executed tests.
-	 * 
-	 * @return a String the report of the tests, with their results and
-	 *         statistical data about them.
-	 */
-	private String generateReport() {
-		String report = generateReducedReport();
-		report = addSummary(report);
-		return report;
-	}
-
-	private String generateReducedReport() {
-		String report = addTestSuiteName();
-		for (TestResult result : results) {
-			report = addTestCaseReport(report, result);
-		}
-		for (TestSuite testSuite : testSuites) {
-			report = addTestSuiteReport(report, testSuite);
-		}
-		return report;
-	}
-
-	private String addTestSuiteName() {
-		return name + " (" + time + "ns)" + SEPARATOR;
-	}
-
-	private String addTestCaseReport(String report, TestResult result) {
-		return report + result.toString();
-	}
-
-	private String addTestSuiteReport(String report, TestSuite testSuite) {
-		return report + "\n" + testSuite.generateReducedReport();
-	}
-
-	/**
-	 * Generate statistical data of the suite.
-	 * 
-	 * @param report
-	 *            a string that contain the results of the tests.
-	 * 
-	 * @return a string having the previous results, plus the statistical data
-	 *         provided by the counters (fails, errors, OK, execution time).
-	 */
-	private String addSummary(String report) {
-		report = report + "\n";
-		if (isFailureTestSuite()) {
-			report = report + "[failure]";
-		} else {
-			report = report + "[success]";
-		}
-		report = report + " Summary\n==================" + "\nRun: "
-				+ totalTestCaseCount + "\nErrors: " + errorTestCaseCount
-				+ "\nFailures: " + failTestCaseCount + "\n";
-		return report;
-	}
-
-	private boolean isFailureTestSuite() {
-		int totalsuccessTestCaseCount = totalTestCaseCount - failTestCaseCount
-				- errorTestCaseCount;
-		return totalsuccessTestCaseCount < totalTestCaseCount;
 	}
 }
