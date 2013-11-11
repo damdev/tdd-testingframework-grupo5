@@ -7,6 +7,10 @@ public class TagManager {
 	protected HashSet<String> tags;
 	protected static String TAG_SEPARATOR = ":";
 	
+	/**
+	 * 
+	 * @param testName the name of the test that uses this tagManager
+	 */
 	public TagManager(String testName){
 		tags = new HashSet<String>();
 		name = testName;
@@ -53,7 +57,7 @@ public class TagManager {
 	/**
 	 * 
 	 * @param tag that is going to be inspected
-	 * @return true if the tag is contained in the criteria
+	 * @return true if the tag is contained in the tagManager
 	 */
 	public boolean matchTag(String tag){
 		return (tags.contains(tag));
@@ -61,12 +65,13 @@ public class TagManager {
 	
 	/**
 	 * 
-	 * @param anotherCriteria
-	 * @return true if both criteria does not have tags inside
+	 * @param tagManager
+	 * @return true if both any tag manager has tags inside
 	 */
 	protected boolean bothEmpty(TagManager tagManager){
 		return (!this.hasTags() && !tagManager.hasTags());
 	}
+	
 	
 	public String toString(){
 		return name + " " + tags.toString();

@@ -17,6 +17,7 @@ public class MixedCriteria implements Criteria {
 
 	/**
 	 * @param tagManager that we want to know if match all the criterias contained
+	 * @return true if the tagManager matches all the criterias contained
 	 */
 	@Override
 	public boolean match(TagManager tagManager) {

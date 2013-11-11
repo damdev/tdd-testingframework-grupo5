@@ -38,10 +38,10 @@ public class TestSuite extends Test {
 
 	/**
 	 * Counts the number of {@code TestCase} in the {@code TestSuite} that match
-	 * with the regex
+	 * with the criteria recibed
 	 * 
-	 * @param pattern
-	 *            the regex that must match with the test name
+	 * @param criteria
+	 *            the criteria that must be true to not ignore the test
 	 * 
 	 * @return the final count of {@code TestCase}
 	 */
@@ -141,8 +141,8 @@ public class TestSuite extends Test {
 	/**
 	 * Run the cases that are in the suite and matches the pattern
 	 * 
-	 * @param pattern
-	 *            the regex that must match with the test name
+	 * @param criteria
+	 *            the criteria that must be true to not ignore the test
 	 * 
 	 * @return the report of the tests executed plus statistical data
 	 */
@@ -219,6 +219,8 @@ public class TestSuite extends Test {
 
 	/**
 	 * Run the tests but do not generate a report
+	 * @param criteria
+	 * 			the criteria that must be true to not ignore the test
 	 */
 	private void runTests(Criteria criteria) {
 		initRunEnviroment();

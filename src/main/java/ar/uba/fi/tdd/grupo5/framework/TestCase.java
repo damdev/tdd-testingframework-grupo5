@@ -86,7 +86,6 @@ public abstract class TestCase extends Test {
 	
 	/**
 	 * A TestCase is runnable if it must not be skipped
-	 * @return 
 	 */
 	public boolean isRunnable(){
 		return (!skipped);
