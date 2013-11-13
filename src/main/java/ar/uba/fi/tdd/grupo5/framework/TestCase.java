@@ -1,12 +1,14 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.TagManager;
 
 public abstract class TestCase extends Test {
 
 	private TagManager tagManager;
 	private boolean skipped;
+
 	/**
 	 * Constructs a @ TestCase} specifying a name.
 	 * 
@@ -31,7 +33,7 @@ public abstract class TestCase extends Test {
 	 * Run the @ TestCase} and return a {@link TestResult}.
 	 * 
 	 * @param fixture
-	 * 			the fixture of the parent test
+	 *            the fixture of the parent test
 	 * @return the result of the {@code TestCase}
 	 * 
 	 * @see TestResult
@@ -46,15 +48,13 @@ public abstract class TestCase extends Test {
 	}
 
 	/**
-	 * Verify if the {@TestCase}'s name matches the given regex
+	 * Verify if the {@TestCase}'s is runnable
 	 * 
-	 * @param pattern
-	 * 			tells whether or not {@code TestCase} matches the given regex.
-	 * @return String
-	 * 			true if name matches the regex, else return false
-	 */			
-	public final boolean patternMatches(String pattern) {
-		return name.matches(pattern);
+	 * @param criteria
+	 * @return String true if name matches the regex, else return false
+	 */
+	public final boolean isRunnable(Criteria criteria) {
+		return criteria.match(tagManager) && (!skipped);
 	}
 
 	/**
@@ -65,29 +65,18 @@ public abstract class TestCase extends Test {
 	/**
 	 * The test that is skipped is not going to be executed
 	 */
-	public void skip(){
+	public final void skip() {
 		skipped = true;
 	}
-	
+
 	/**
 	 * Turn the state of the test in not skipped, so its going to be executed
 	 */
-	public void unSkip(){
+	public final void unSkip() {
 		skipped = false;
 	}
-	
+
 	private void setName(String name) {
 		this.name = name;
-	}
-
-	public TagManager getTagManager() {
-		return tagManager;
-	}
-	
-	/**
-	 * A TestCase is runnable if it must not be skipped
-	 */
-	public boolean isRunnable(){
-		return (!skipped);
 	}
 }

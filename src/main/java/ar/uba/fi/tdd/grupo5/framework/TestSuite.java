@@ -48,7 +48,7 @@ public class TestSuite extends Test {
 	public final int countTestCases(Criteria criteria) {
 		totalTestCaseCount = 0;
 		for (TestCase testCase : testCases) {
-			if (isRunnable(testCase, criteria)) {
+			if (testCase.isRunnable(criteria)) {
 				totalTestCaseCount += 1;
 			}
 		}
@@ -121,11 +121,11 @@ public class TestSuite extends Test {
 		testSuites.add(test);
 	}
 
-	public void printOnScreen() {
+	public final void printOnScreen() {
 		printer.printOnScreen();
 	}
 
-	public void notPrintOnScreen() {
+	public final void notPrintOnScreen() {
 		printer.notPrintOnScreen();
 	}
 
@@ -213,14 +213,11 @@ public class TestSuite extends Test {
 		return countTestCases(new AllMatch()) == 0;
 	}
 
-	private boolean isRunnable(TestCase test, Criteria criteria) {
-		return (criteria.match(test.getTagManager()) && test.isRunnable());
-	}
-
 	/**
 	 * Run the tests but do not generate a report
+	 * 
 	 * @param criteria
-	 * 			the criteria that must be true to not ignore the test
+	 *            the criteria that must be true to not ignore the test
 	 */
 	private void runTests(Criteria criteria) {
 		initRunEnviroment();
@@ -229,7 +226,7 @@ public class TestSuite extends Test {
 		setUp();
 		printer.printTestSuiteName(getName());
 		for (TestCase testCase : testCases) {
-			if (isRunnable(testCase, criteria)) {
+			if (testCase.isRunnable(criteria)) {
 				runTestCase(testCase, printer);
 			}
 		}
