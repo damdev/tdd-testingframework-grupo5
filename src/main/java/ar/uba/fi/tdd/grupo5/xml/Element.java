@@ -63,6 +63,9 @@ public abstract class Element {
 
 	protected final void setTabLevel(String tabLevel) {
 		this.tabLevel = tabLevel;
+		for (Element elem : childs) {
+			elem.setTabLevel(this.tabLevel + tab);
+		}
 	}
 
 	protected final void addChild(Element child) {

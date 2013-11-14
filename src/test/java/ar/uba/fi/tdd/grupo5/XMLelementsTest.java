@@ -64,11 +64,12 @@ public class XMLelementsTest {
 		String XML = propertyElement.getXMLFormatElement();
 		assertEquals(propertyWithAttributes, XML);
 	}
-	
+
 	@Test
 	public void propertiesElementWithProperty() {
 		PropertiesElement propertiesElement = new PropertiesElement();
-		propertiesElement.addPropertyElement(new PropertyElement("A name", "A value"));
+		propertiesElement.addPropertyElement(new PropertyElement("A name",
+				"A value"));
 		String XML = propertiesElement.getXMLFormatElement();
 		assertEquals(propertiesWithPropertyStream, XML);
 	}
@@ -148,7 +149,8 @@ public class XMLelementsTest {
 	public void twoLevelAnidationTest() {
 		TestSuiteElement testSuiteElement = new TestSuiteElement(
 				"TestSuite name", "A tests");
-		testSuiteElement.addTestCaseElement(new TestCaseElement("TestCase name"));
+		testSuiteElement
+				.addTestCaseElement(new TestCaseElement("TestCase name"));
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(twoLevelStream, XML);
 	}
@@ -160,10 +162,13 @@ public class XMLelementsTest {
 		TestSuiteElement testSuiteElement2 = new TestSuiteElement(
 				"TestSuite2 name", "A tests");
 
-		testSuiteElement.addTestCaseElement(new TestCaseElement("TestCase1 name"));
+		testSuiteElement.addTestCaseElement(new TestCaseElement(
+				"TestCase1 name"));
 		testSuiteElement.addTestSuiteElement(testSuiteElement2);
-		testSuiteElement2.addTestCaseElement(new TestCaseElement("TestCase2 name"));
-		testSuiteElement2.addTestCaseElement(new TestCaseElement("TestCase3 name"));
+		testSuiteElement2.addTestCaseElement(new TestCaseElement(
+				"TestCase2 name"));
+		testSuiteElement2.addTestCaseElement(new TestCaseElement(
+				"TestCase3 name"));
 
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(threeLevelStream, XML);
