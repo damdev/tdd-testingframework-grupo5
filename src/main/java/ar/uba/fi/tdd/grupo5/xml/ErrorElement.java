@@ -6,11 +6,11 @@ public class ErrorElement extends Element {
 		super("error");
 	}
 
-	public void setTypeAttributeValue(String typeAttributeValue){
+	public void setTypeAttributeValue(String typeAttributeValue) {
 		attributes.add(new Attribute("type", typeAttributeValue));
 	}
-	
-	public void setMessageAttributeValue(String messageAttributeValue){
+
+	public void setMessageAttributeValue(String messageAttributeValue) {
 		attributes.add(new Attribute("message", messageAttributeValue));
 	}
 }

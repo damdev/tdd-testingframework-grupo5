@@ -3,19 +3,19 @@ package ar.uba.fi.tdd.grupo5.xml;
 import java.util.LinkedList;
 
 public abstract class Element {
-	
+
 	protected final static String tab = "\t";
-	
+
 	protected LinkedList<Element> childs;
 	protected LinkedList<Attribute> attributes;
 	protected String name;
 	protected String tabLevel;
-	
+
 	protected String stream;
-	
+
 	protected boolean isLeaf;
-	
-	public Element(String name){
+
+	public Element(String name) {
 		childs = new LinkedList<Element>();
 		attributes = new LinkedList<Attribute>();
 		this.name = name;
@@ -23,57 +23,51 @@ public abstract class Element {
 		stream = "";
 		isLeaf = true;
 	}
-	
-	public final String getXMLFormatElement(){
-		if (isLeaf){
+
+	public final String getXMLFormatElement() {
+		if (isLeaf) {
 			oneLineTag();
 		} else {
 			getXMLFormatNoLeafElement();
 		}
 		return stream;
 	}
-	
-	protected final void getXMLFormatNoLeafElement(){
+
+	protected final void getXMLFormatNoLeafElement() {
 		openTag();
 		for (Element elem : childs) {
 			stream += elem.getXMLFormatElement();
 		}
 		closeTag();
 	}
-	
-	protected final void openTag(){
+
+	protected final void openTag() {
 		stream = tabLevel + "<" + name + " " + getXMLFormatAttributes() + ">\n";
 	}
-	
-	protected final void closeTag(){
+
+	protected final void closeTag() {
 		stream += tabLevel + "</" + name + ">\n";
 	}
-	
-	protected void oneLineTag(){
-		stream = tabLevel + "<" + name + " " + getXMLFormatAttributes() + "/>\n";
-	}	
-	
-	protected final String getXMLFormatAttributes(){
+
+	protected void oneLineTag() {
+		stream = tabLevel + "<" + name + " " + getXMLFormatAttributes()
+				+ "/>\n";
+	}
+
+	protected final String getXMLFormatAttributes() {
 		for (Attribute attrib : attributes) {
 			stream += attrib.getXMLFormatAttibute();
 		}
 		return stream;
 	}
-	
-	protected final void setTabLevel(String tabLevel){
+
+	protected final void setTabLevel(String tabLevel) {
 		this.tabLevel = tabLevel;
 	}
-	
-	public final void addChild(Element child){
+
+	public final void addChild(Element child) {
 		child.setTabLevel(this.tabLevel + tab);
 		childs.add(child);
 		isLeaf = false;
 	}
-	
-	/*
-	public final void addAttribute(String attributeName, String attributeValue){
-		Attribute attrib = new Attribute(attributeName, attributeValue);
-		attributes.add(attrib);
-	}
-	*/
 }

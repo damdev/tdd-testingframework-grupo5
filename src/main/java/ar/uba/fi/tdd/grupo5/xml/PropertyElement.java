@@ -8,12 +8,12 @@ public class PropertyElement extends Element {
 		setValueAttributeValue(valueAttributeValue);
 	}
 
-	public void setNameAttributeValue(String nameAttributeValue){
+	public void setNameAttributeValue(String nameAttributeValue) {
 		attributes.add(new Attribute("name", nameAttributeValue));
 	}
-	
-	public void setValueAttributeValue(String valueAttributeValue){
+
+	public void setValueAttributeValue(String valueAttributeValue) {
 		attributes.add(new Attribute("value", valueAttributeValue));
 	}
-	
+
 }
