@@ -164,7 +164,7 @@ public class TestSuite extends Test {
 	
 	public final TestSuiteElement getXmlElement(){
 		TestSuiteElement testSuiteElement = new TestSuiteElement(name, Integer.toString(totalTestCaseCount));
-		testSuiteElement.setTimeAttributeValue(Long.toString(getRunTime()));
+		testSuiteElement.setTimeAttributeValue(Long.toString(getRunTime()) + "[nS]");
 		testSuiteElement.setFailuresAttributeValue(Integer.toString(failTestCaseCount));
 		testSuiteElement.setErrorsAttributeValue(Integer.toString(errorTestCaseCount));
 		testSuiteElement.setSkippedAttributeValue(isSkipped());

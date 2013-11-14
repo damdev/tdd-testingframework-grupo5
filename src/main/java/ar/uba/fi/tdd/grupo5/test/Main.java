@@ -36,9 +36,11 @@ public class Main {
 		calculatorSuite.add(productSuite);
 		calculatorSuite.add(divSuite);
 
-		Runner runner = new Runner(calculatorSuite);
-//		runner.runAll();
+		Runner runner = new Runner(calculatorSuite, "./XMLReport");
+		runner.runAll();
 		runner.runWithAnyTags("FIRST");
 		runner.runWithAllTags("SECOND");
+		
+		runner.writeXML();
 	}
 }

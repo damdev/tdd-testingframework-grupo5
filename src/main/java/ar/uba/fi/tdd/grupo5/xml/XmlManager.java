@@ -21,7 +21,7 @@ public class XmlManager {
 
 	public void writeXML() throws IOException {
 		generateXMLBuffer();
-		File file = new File(filePath + getDate());
+		File file = new File(filePath + getDate() + ".xml");
 		FileWriter fw = new FileWriter(file.getAbsoluteFile());
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write(buffer);
@@ -43,7 +43,7 @@ public class XmlManager {
 	private String getDate() {
 		Calendar cal = Calendar.getInstance();
 		cal.getTime();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY - HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("-dd-MM-YYYY-HH:mm:ss");
 		return (sdf.format(cal.getTime()));
 	}
 }
