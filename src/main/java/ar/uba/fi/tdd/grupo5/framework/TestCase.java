@@ -7,7 +7,6 @@ import ar.uba.fi.tdd.grupo5.framework.tagmanager.TagManager;
 public abstract class TestCase extends Test {
 
 	private TagManager tagManager;
-	private boolean skipped;
 
 	/**
 	 * Constructs a @ TestCase} specifying a name.
@@ -62,19 +61,6 @@ public abstract class TestCase extends Test {
 	 */
 	public abstract void testCode() throws AssertException;
 
-	/**
-	 * The test that is skipped is not going to be executed
-	 */
-	public final void skip() {
-		skipped = true;
-	}
-
-	/**
-	 * Turn the state of the test in not skipped, so its going to be executed
-	 */
-	public final void unSkip() {
-		skipped = false;
-	}
 
 	private void setName(String name) {
 		this.name = name;

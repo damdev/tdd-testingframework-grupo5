@@ -48,6 +48,15 @@ public class TagManager {
 	
 	/**
 	 * 
+	 * @param inputTag the tag wanted to be removed
+	 * @return true if it was possible to remove the tag, false if it was not.
+	 */
+	public boolean removeTag(String inputTag){
+		return tags.remove(inputTag);
+	}
+	
+	/**
+	 * 
 	 * @return true if the criteria have any tag
 	 */
 	public boolean hasTags(){
