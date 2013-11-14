@@ -1,6 +1,10 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+import ar.uba.fi.tdd.grupo5.xml.ErrorElement;
+import ar.uba.fi.tdd.grupo5.xml.FailureElement;
+import ar.uba.fi.tdd.grupo5.xml.SkippedElement;
+import ar.uba.fi.tdd.grupo5.xml.TestCaseElement;
 
 public class TestResult {
 
@@ -76,6 +80,35 @@ public class TestResult {
 	 */
 	public long getTestTime() {
 		return testTime;
+	}
+
+	public TestCaseElement getXmlElement() {
+		TestCaseElement testCaseElement = new TestCaseElement(test.getName());
+		testCaseElement.setClassnameAttributeValue(test.getClass().getName());
+		testCaseElement.setTimeAttributeValue(Long.toString(testTime) + "[nS]");
+		if (fail) {
+			testCaseElement.addFailureElement(getXmlFailure());
+		}
+		if (error) {
+			testCaseElement.addErrorElement(getXmlError());
+		}
+		testCaseElement.addSkippedElement(new SkippedElement(test.isSkipped()));
+		return testCaseElement;
+	}
+
+	private FailureElement getXmlFailure() {
+		FailureElement failureElement = new FailureElement();
+		failureElement.setTypeAttributeValue(throwable.getClass().getName());
+		failureElement
+				.setMessageAttributeValue(throwable.getLocalizedMessage());
+		return failureElement;
+	}
+
+	private ErrorElement getXmlError() {
+		ErrorElement errorElement = new ErrorElement();
+		errorElement.setTypeAttributeValue(throwable.getClass().getName());
+		errorElement.setMessageAttributeValue(throwable.getLocalizedMessage());
+		return errorElement;
 	}
 
 	/**

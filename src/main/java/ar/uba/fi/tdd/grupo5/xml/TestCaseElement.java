@@ -26,24 +26,24 @@ public class TestCaseElement extends Element {
 	public void setStatusAttributeValue(String statusAttributeValue) {
 		attributes.add(new Attribute("status", statusAttributeValue));
 	}
-	
-	public void addSkippedElement(SkippedElement skipped){
+
+	public void addSkippedElement(SkippedElement skipped) {
 		addChild(skipped);
 	}
-	
-	public void addErrorElement(ErrorElement error){
+
+	public void addErrorElement(ErrorElement error) {
 		addChild(error);
 	}
-	
-	public void addFailureElement(FailureElement failure){
+
+	public void addFailureElement(FailureElement failure) {
 		addChild(failure);
 	}
-	
-	public void addSystemOutElement(SystemoutElement systemout){
+
+	public void addSystemOutElement(SystemoutElement systemout) {
 		addChild(systemout);
 	}
-	
-	public void addSystemErrElement(SystemerrElement systemerr){
+
+	public void addSystemErrElement(SystemerrElement systemerr) {
 		addChild(systemerr);
 	}
 }

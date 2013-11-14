@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.AllMatch;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
+import ar.uba.fi.tdd.grupo5.xml.TestCaseElement;
 import ar.uba.fi.tdd.grupo5.xml.TestSuiteElement;
 
 public class TestSuite extends Test {
@@ -161,14 +162,34 @@ public class TestSuite extends Test {
 				failTestCaseCount, getRunTime());
 		return printer.getReport();
 	}
-	
-	public final TestSuiteElement getXmlElement(){
-		TestSuiteElement testSuiteElement = new TestSuiteElement(name, Integer.toString(totalTestCaseCount));
-		testSuiteElement.setTimeAttributeValue(Long.toString(getRunTime()) + "[nS]");
-		testSuiteElement.setFailuresAttributeValue(Integer.toString(failTestCaseCount));
-		testSuiteElement.setErrorsAttributeValue(Integer.toString(errorTestCaseCount));
+
+	public final TestSuiteElement getXmlElement() {
+		TestSuiteElement testSuiteElement = new TestSuiteElement(name,
+				Integer.toString(totalTestCaseCount));
+		testSuiteElement.setTimeAttributeValue(Long.toString(getRunTime())
+				+ "[nS]");
+		testSuiteElement.setFailuresAttributeValue(Integer
+				.toString(failTestCaseCount));
+		testSuiteElement.setErrorsAttributeValue(Integer
+				.toString(errorTestCaseCount));
 		testSuiteElement.setSkippedAttributeValue(isSkipped());
+		getXmlTestCaseChilds(testSuiteElement);
+		getXmlTestSuiteChilds(testSuiteElement);
 		return testSuiteElement;
+	}
+
+	private void getXmlTestCaseChilds(TestSuiteElement testSuiteElement) {
+		for (TestResult testResult : results) {
+			TestCaseElement testCaseElement = testResult.getXmlElement();
+			testSuiteElement.addTestCaseElement(testCaseElement);
+		}
+	}
+
+	private void getXmlTestSuiteChilds(TestSuiteElement testSuiteElement) {
+		for (TestSuite testSuite : testSuites) {
+			TestSuiteElement childTestSuiteElement = testSuite.getXmlElement();
+			testSuiteElement.addTestSuiteElement(childTestSuiteElement);
+		}
 	}
 
 	private void run(Criteria criteria, Fixture fixture, Printer printer) {
