@@ -8,7 +8,6 @@ import ar.uba.fi.tdd.grupo5.xml.*;
 
 public class XMLelementsTest {
 
-	//System.out.println(XML);
 	private final String emptyFailure = "<failure />\n";
 	private final String failureWithAttributes = "<failure message=\"A message\" type=\"A type\" />\n";
 	private final String emptyError = "<error />\n";
@@ -22,7 +21,9 @@ public class XMLelementsTest {
 	private final String testCaseWithFullAttributes = "<testcase name=\"A name\" assertions=\"An assertions\" classname=\"A classname\" status=\"A status\" time=\"A time\" />\n";
 	private final String testSuiteWithOnlyRequiredAttributesStream = "<testsuite name=\"A name\" tests=\"A tests\" />\n";
 	private final String testSuiteWithFullAttributesStream = "<testsuite name=\"A name\" tests=\"A tests\" disabled=\"YES\" errors=\"An errors\" failures=\"A failures\" hostname=\"A hostname\" id=\"An ID\" package=\"A package\" skipped=\"YES\" time=\"A time\" timestamp=\"A timestamp\" />\n";
-
+	private final String twoLevelStream = "<testsuite name=\"TestSuite name\" tests=\"A tests\" >\n\t<testcase name=\"TestCase name\" />\n</testsuite>\n";
+	private final String threeLevelStream ="<testsuite name=\"TestSuite name\" tests=\"A tests\" >\n\t<testcase name=\"TestCase1 name\" />\n\t<testsuite name=\"TestSuite2 name\" tests=\"A tests\" >\n\t\t<testcase name=\"TestCase2 name\" />\n\t\t<testcase name=\"TestCase3 name\" />\n\t</testsuite>\n</testsuite>\n";
+	
 	
 	@Test
 	public void emptyFailureElement() {
@@ -130,5 +131,27 @@ public class XMLelementsTest {
 		testSuiteElement.setTimestampAttributeValue("A timestamp");
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(testSuiteWithFullAttributesStream , XML);
+	}
+	
+	@Test
+	public void twoLevelAnidationTest() {
+		TestSuiteElement testSuiteElement = new TestSuiteElement("TestSuite name", "A tests");
+		testSuiteElement.addChild(new TestCaseElement("TestCase name"));
+		String XML = testSuiteElement.getXMLFormatElement();
+		assertEquals(twoLevelStream , XML);
+	}
+	
+	@Test
+	public void threeLevelAnidationTest() {
+		TestSuiteElement testSuiteElement = new TestSuiteElement("TestSuite name", "A tests");
+		TestSuiteElement testSuiteElement2 = new TestSuiteElement("TestSuite2 name", "A tests");
+
+		testSuiteElement.addChild(new TestCaseElement("TestCase1 name"));
+		testSuiteElement.addChild(testSuiteElement2);
+		testSuiteElement2.addChild(new TestCaseElement("TestCase2 name"));
+		testSuiteElement2.addChild(new TestCaseElement("TestCase3 name"));
+
+		String XML = testSuiteElement.getXMLFormatElement();
+		assertEquals(threeLevelStream , XML);
 	}
 }
