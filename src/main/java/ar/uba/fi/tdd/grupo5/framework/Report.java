@@ -22,25 +22,18 @@ public class Report {
 	 * 
 	 * @param filePath
 	 *            the path of the file that is going to be written
-	 * @return true if write the file
+	 * @throws NullPointerException, IOException 
 	 */
-	public boolean writeOnFile(String filePath) {
+	public void writeOnFile(String filePath) throws NullPointerException, IOException {
 		if (isEmptyBuffer()) {
-			return false;
+			return;
 		}
+		
 		File file = new File(filePath);
-		if (file.exists()) {
-			return false;
-		}
-		try {
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(buffer);
-			bw.close();
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
+		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(buffer);
+		bw.close();
 	}
 
 	/**

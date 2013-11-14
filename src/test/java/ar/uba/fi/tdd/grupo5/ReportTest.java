@@ -29,10 +29,9 @@ public class ReportTest {
 	}
 
 	@Test
-	public void failWriteToFileOutputWithNullMessage() {
+	public void failWriteToFileOutputWithNullMessage() throws NullPointerException,IOException {
 		Report report = new Report(null);
-		boolean result = report.writeOnFile(FILE);
-		assertFalse(result);
+		report.writeOnFile(FILE);
 	}
 
 	@Test
