@@ -12,13 +12,18 @@ public class Runner {
 		this.suite = suite;
 	}
 
+	public Report runAll() {
+		Criteria criteria = new AllMatch();
+		return suite.run(criteria);
+	}
+	
 	public Report runWithAnyTags(String tags) {
-		Criteria criteria = new AnyTag(tags);
+		AnyTag criteria = new AnyTag(tags);
 		return suite.run(criteria);
 	}
 
 	public Report runWithAllTags(String tags) {
-		Criteria criteria = new AllTags(tags);
+		AllTags criteria = new AllTags(tags);
 		return suite.run(criteria);
 	}
 

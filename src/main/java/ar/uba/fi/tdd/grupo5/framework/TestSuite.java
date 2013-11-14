@@ -272,6 +272,9 @@ public class TestSuite extends Test {
 	}
 
 	private void runTestSuite(TestSuite testSuite, Criteria criteria) {
+		if (testSuite.isSkipped()) {
+			return;
+		}
 		Fixture clonedFixture = fixture.cloneFixture();
 		testSuite.run(criteria, clonedFixture, printer);
 		printer.printEndLine();

@@ -28,8 +28,8 @@ public class CriteriaTest {
 		regexpMatchAll = new Regexp(".*");
 		regexpNotMatch = new Regexp("This regexp doesnt match");
 		
-		allTags = new AllTags("All Tags Criteria");
-		anyTag = new AnyTag ("Any Tag Criteria");
+		allTags = new AllTags();
+		anyTag = new AnyTag ();
 		mixedCriteria = new MixedCriteria();
 	}
 
