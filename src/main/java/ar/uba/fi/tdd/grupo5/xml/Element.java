@@ -65,7 +65,7 @@ public abstract class Element {
 		this.tabLevel = tabLevel;
 	}
 
-	public final void addChild(Element child) {
+	protected final void addChild(Element child) {
 		child.setTabLevel(this.tabLevel + tab);
 		childs.add(child);
 		isLeaf = false;

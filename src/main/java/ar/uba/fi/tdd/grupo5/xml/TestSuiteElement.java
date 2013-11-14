@@ -52,6 +52,26 @@ public class TestSuiteElement extends Element {
 	public void setPackageAttributeValue(String packageAttributeValue) {
 		attributes.add(new Attribute("package", packageAttributeValue));
 	}
+	
+	public void addPropertiesOutElement(PropertiesElement properties){
+		addChild(properties);
+	}
+	
+	public void addTestCaseElement(TestCaseElement testCase){
+		addChild(testCase);
+	}
+	
+	public void addTestSuiteElement(TestSuiteElement testSuite){
+		addChild(testSuite);
+	}
+	
+	public void addSystemOutElement(SystemoutElement systemout){
+		addChild(systemout);
+	}
+	
+	public void addSystemErrElement(SystemerrElement systemerr){
+		addChild(systemerr);
+	}
 
 	private String disableMode(boolean isDisabled) {
 		if (isDisabled) {

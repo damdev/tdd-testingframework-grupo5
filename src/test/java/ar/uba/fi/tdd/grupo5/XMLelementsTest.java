@@ -139,7 +139,7 @@ public class XMLelementsTest {
 	public void twoLevelAnidationTest() {
 		TestSuiteElement testSuiteElement = new TestSuiteElement(
 				"TestSuite name", "A tests");
-		testSuiteElement.addChild(new TestCaseElement("TestCase name"));
+		testSuiteElement.addTestCaseElement(new TestCaseElement("TestCase name"));
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(twoLevelStream, XML);
 	}
@@ -151,10 +151,10 @@ public class XMLelementsTest {
 		TestSuiteElement testSuiteElement2 = new TestSuiteElement(
 				"TestSuite2 name", "A tests");
 
-		testSuiteElement.addChild(new TestCaseElement("TestCase1 name"));
-		testSuiteElement.addChild(testSuiteElement2);
-		testSuiteElement2.addChild(new TestCaseElement("TestCase2 name"));
-		testSuiteElement2.addChild(new TestCaseElement("TestCase3 name"));
+		testSuiteElement.addTestCaseElement(new TestCaseElement("TestCase1 name"));
+		testSuiteElement.addTestSuiteElement(testSuiteElement2);
+		testSuiteElement2.addTestCaseElement(new TestCaseElement("TestCase2 name"));
+		testSuiteElement2.addTestCaseElement(new TestCaseElement("TestCase3 name"));
 
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(threeLevelStream, XML);
