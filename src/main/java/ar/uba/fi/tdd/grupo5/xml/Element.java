@@ -42,7 +42,7 @@ public abstract class Element {
 	}
 	
 	protected final void openTag(){
-		stream = tabLevel + "<" + name + getXMLFormatAttributes() + ">\n";
+		stream = tabLevel + "<" + name + " " + getXMLFormatAttributes() + ">\n";
 	}
 	
 	protected final void closeTag(){
@@ -50,7 +50,7 @@ public abstract class Element {
 	}
 	
 	protected void oneLineTag(){
-		stream = tabLevel + "<" + name + getXMLFormatAttributes() + "/>\n";
+		stream = tabLevel + "<" + name + " " + getXMLFormatAttributes() + "/>\n";
 	}	
 	
 	protected final String getXMLFormatAttributes(){

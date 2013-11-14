@@ -28,12 +28,12 @@ public class TestSuiteElement extends Element {
 		attributes.add(new Attribute("time", timeAttributeValue));
 	}
 	
-	public void setDisabledAttributeValue(String disabledAttributeValue){
-		attributes.add(new Attribute("disabled", disabledAttributeValue));
+	public void setDisabledAttributeValue(boolean isDisabled){
+		attributes.add(new Attribute("disabled", disableMode(isDisabled)));
 	}
 	
-	public void setSkippedAttributeValue(String skippedAttributeValue){
-		attributes.add(new Attribute("skipped", skippedAttributeValue));
+	public void setSkippedAttributeValue(boolean isSkipped){
+		attributes.add(new Attribute("skipped", skippedMode(isSkipped)));
 	}
 	
 	public void setTimestampAttributeValue(String timestampAttributeValue){
@@ -50,5 +50,21 @@ public class TestSuiteElement extends Element {
 	
 	public void setPackageAttributeValue(String packageAttributeValue){
 		attributes.add(new Attribute("package", packageAttributeValue));
+	}
+	
+	private String disableMode(boolean isDisabled){
+		if (isDisabled){
+			return "YES";
+		} else {
+			return "NO";
+		}
+	}
+	
+	private String skippedMode(boolean isSkipped){
+		if (isSkipped){
+			return "YES";
+		} else {
+			return "NO";
+		}
 	}
 }

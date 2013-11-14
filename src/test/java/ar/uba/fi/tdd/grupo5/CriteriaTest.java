@@ -8,6 +8,7 @@ import org.junit.Test;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.*;
 
 public class CriteriaTest {
+	
 	private TagManager criteria;
 	private TagManager criteriaNameNotContainTest;
 	
