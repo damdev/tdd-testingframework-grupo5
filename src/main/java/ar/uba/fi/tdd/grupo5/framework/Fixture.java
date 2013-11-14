@@ -20,7 +20,7 @@ public class Fixture {
 	 * 
 	 */
 	public Fixture() {
-		objectMap = new HashMap<String, Object>();
+		objectMap = new HashMap<>();
 	}
 
 	/**
