@@ -4,16 +4,25 @@ public class SkippedElement extends Element {
 		
 	private String content;
 	
-	public SkippedElement(String name, String content) {
+	public SkippedElement(boolean isSkipped) {
 		super("skipped");
-		this.content = content;
+		if (isSkipped){
+			setSkipped();
+		} else {
+			setNoSkipped();
+		}
 	}
 
-	public String getXMLFormatElement(){
-		openTag();
-		stream += tabLevel + content + "\n";
-		closeTag();
-		return stream;
+	protected void oneLineTag(){
+		stream = tabLevel + "<" + name + ">" + content + "</" + name + ">\n";
+	}
+		
+	public void setSkipped(){
+		this.content = "YES";
+	}
+	
+	public void setNoSkipped(){
+		this.content = "NO";
 	}
 	
 }

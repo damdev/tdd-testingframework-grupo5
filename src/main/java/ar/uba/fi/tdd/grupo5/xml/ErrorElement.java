@@ -1,11 +1,11 @@
 package ar.uba.fi.tdd.grupo5.xml;
 
-public class FailureElement extends Element {
+public class ErrorElement extends Element {
 
-	public FailureElement() {
-		super("failure");
+	public ErrorElement() {
+		super("error");
 	}
-	
+
 	public void setTypeAttributeValue(String typeAttributeValue){
 		attributes.add(new Attribute("type", typeAttributeValue));
 	}
@@ -13,5 +13,4 @@ public class FailureElement extends Element {
 	public void setMessageAttributeValue(String messageAttributeValue){
 		attributes.add(new Attribute("message", messageAttributeValue));
 	}
-
 }

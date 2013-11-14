@@ -24,7 +24,7 @@ public abstract class Element {
 		isLeaf = true;
 	}
 	
-	public String getXMLFormatElement(){
+	public final String getXMLFormatElement(){
 		if (isLeaf){
 			oneLineTag();
 		} else {
@@ -49,7 +49,7 @@ public abstract class Element {
 		stream += tabLevel + "</" + name + ">\n";
 	}
 	
-	protected final void oneLineTag(){
+	protected void oneLineTag(){
 		stream = tabLevel + "<" + name + getXMLFormatAttributes() + "/>\n";
 	}	
 	
@@ -70,9 +70,10 @@ public abstract class Element {
 		isLeaf = false;
 	}
 	
-	public final void addAttribute(String attibuteName, String attibuteValue){
-		Attribute attrib = new Attribute(attibuteName, attibuteValue);
+	/*
+	public final void addAttribute(String attributeName, String attributeValue){
+		Attribute attrib = new Attribute(attributeName, attributeValue);
 		attributes.add(attrib);
 	}
-	
+	*/
 }

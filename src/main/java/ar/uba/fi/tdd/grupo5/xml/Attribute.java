@@ -10,9 +10,11 @@ public class Attribute {
 		this.value = value;
 	}
 	
+	/*
 	public String get(){
 		return name;
 	}
+	*/
 	
 	public String getXMLFormatAttibute(){
 		return name + "=\"" + value + "\" ";
