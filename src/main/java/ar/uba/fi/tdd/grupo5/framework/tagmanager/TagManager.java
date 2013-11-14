@@ -23,24 +23,19 @@ public class TagManager {
 	public String getName() {
 		return name;
 	}
-
-	
-	protected HashSet<String> getHashSet(){
-		return tags;
-	}
 	
 	/**
 	 * 
-	 * @param inputTag is a string simple tag, or a concatenated string with the character ":" as a separator
+	 * @param inputTags is a string simple tag, or a concatenated string with the character ":" as a separator
 	 */
 	
-	public void addTag(String inputTag){
-		if (!inputTag.contains(TAG_SEPARATOR)){
-			tags.add(inputTag);
+	public void add(String inputTags){
+		if (!inputTags.contains(TAG_SEPARATOR)){
+			tags.add(inputTags);
 			return;
 		}
 		
-		String[] splitArray = inputTag.split(TAG_SEPARATOR);
+		String[] splitArray = inputTags.split(TAG_SEPARATOR);
 		for (String s : splitArray){
 			tags.add(s);
 		}
@@ -51,7 +46,7 @@ public class TagManager {
 	 * @param inputTag the tag wanted to be removed
 	 * @return true if it was possible to remove the tag, false if it was not.
 	 */
-	public boolean removeTag(String inputTag){
+	public boolean remove(String inputTag){
 		return tags.remove(inputTag);
 	}
 	
@@ -72,6 +67,14 @@ public class TagManager {
 		return (tags.contains(tag));
 	}
 	
+	public String toString(){
+		return name + " " + tags.toString();
+	}
+	
+	protected HashSet<String> getHashSet(){
+		return tags;
+	}
+	
 	/**
 	 * 
 	 * @param tagManager
@@ -79,10 +82,5 @@ public class TagManager {
 	 */
 	protected boolean bothEmpty(TagManager tagManager){
 		return (!this.hasTags() && !tagManager.hasTags());
-	}
-	
-	
-	public String toString(){
-		return name + " " + tags.toString();
 	}
 }

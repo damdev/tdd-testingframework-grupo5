@@ -13,17 +13,6 @@ import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 public class TestSuiteTest {
 
 	private final String testSuiteName = "My Test Suite";
-	private final String emptySuite = testSuiteName
-			+ "\n­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­--------------------------\n"
-			+ "The TestSuite is empty. There are no tests to run.";
-
-	@Test
-	public void runAnEmptyTestSuite() {
-		TestSuite suite = new TestSuite(testSuiteName);
-		assertEquals(
-				"tester.run() returns a different default message than the expected",
-				emptySuite, suite.run().writeOnString());
-	}
 
 	@Test(expected = TestException.class)
 	public void addTwoTestCaseWithSameName() throws TestException {

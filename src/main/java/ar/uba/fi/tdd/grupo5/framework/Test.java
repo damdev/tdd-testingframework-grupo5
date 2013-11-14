@@ -26,18 +26,25 @@ public abstract class Test {
 	public final String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * The test that is skipped is not going to be executed
+	 * The test that is skipped is not going to be executed.
 	 */
 	public final void skip() {
 		skipped = true;
 	}
 
 	/**
-	 * Turn the state of the test in not skipped, so its going to be executed
+	 * Turn the state of the test in not skipped, so its going to be executed.
 	 */
 	public final void unSkip() {
 		skipped = false;
+	}
+
+	/**
+	 * Return true if skipped test.
+	 */
+	public final boolean isSkipped() {
+		return this.skipped;
 	}
 }

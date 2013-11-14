@@ -26,6 +26,8 @@ public abstract class TestCase extends Test {
 	 */
 	public TestCase() {
 		setName(getClass().getSimpleName());
+		tagManager = new TagManager(name);
+		skipped = false;
 	}
 
 	/**
@@ -39,13 +41,27 @@ public abstract class TestCase extends Test {
 	 */
 	public final TestResult run(Fixture fixture) {
 		this.fixture = fixture;
-		setUp();
 		TestResult result = new TestResult();
+		if (isSkipped()) return result;
+		setUp();
 		result.run(this);
 		tearDown();
 		return result;
 	}
 
+	/**
+	 * The user-client implements the method including the code under test.
+	 */
+	public abstract void testCode() throws AssertException;
+
+	public final void addTags(String inputTags) {
+		tagManager.add(inputTags);
+	}
+	
+	public final void removeTag(String inputTag) {
+		tagManager.remove(inputTag);
+	}
+	
 	/**
 	 * Verify if the {@TestCase}'s is runnable
 	 * 
@@ -55,13 +71,7 @@ public abstract class TestCase extends Test {
 	public final boolean isRunnable(Criteria criteria) {
 		return criteria.match(tagManager) && (!skipped);
 	}
-
-	/**
-	 * The user-client implements the method including the code under test.
-	 */
-	public abstract void testCode() throws AssertException;
-
-
+	
 	private void setName(String name) {
 		this.name = name;
 	}

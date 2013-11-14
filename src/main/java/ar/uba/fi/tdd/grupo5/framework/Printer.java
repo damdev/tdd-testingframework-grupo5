@@ -22,42 +22,54 @@ public class Printer {
 
 	public Report printAndReportEmptyTestSuiteMessage(String testName) {
 		clearPrintText();
+		printEmptyTestSuiteMessage(testName);
+		return getReport();
+	}
+
+	public void printEmptyTestSuiteMessage(String testName) {
 		String buffer = testName + SIMPLE_LINE
 				+ "The TestSuite is empty. There are no tests to run.";
 		printOnScreen(buffer);
-		return this.getReport();
+		addToStream(buffer);
 	}
-	
-	public Report printAndReportNoTestsThatSatisfyPatternMessage(String testName, String pattern) {
+
+	public Report printAndReportNoTestsThatSatisfyPatternMessage(
+			String testName, String pattern) {
 		clearPrintText();
+		printNoTestsThatSatisfyPatternMessage(testName, pattern);
+		return getReport();
+	}
+
+	public void printNoTestsThatSatisfyPatternMessage(String testName,
+			String pattern) {
 		String buffer = testName + SIMPLE_LINE
 				+ "Not available tests that satisfy the pattern " + pattern;
 		printOnScreen(buffer);
-		return getReport();
+		addToStream(buffer);
 	}
 
 	public void printTestSuiteName(String name) {
 		String buffer = name + SIMPLE_LINE;
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
 
 	public void printOkTestCaseResult(String name, long time) {
 		String buffer = "[ok]\t" + name + stringTime(time);
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
 
 	public void printErrorTestCaseResult(String name, long time) {
 		String buffer = "[error]\t" + name + stringTime(time);
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
 
 	public void printFailTestCaseResult(String name, long time) {
 		String buffer = "[fail]\t" + name + stringTime(time);
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
 
 	public void printSummary(int totalTestCount, int errorCount, int failCount,
@@ -68,15 +80,15 @@ public class Printer {
 				+ stringOfErrorCount(errorCount) + stringOfFailCount(failCount)
 				+ stringOfSummaryTime(time);
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
 
 	public void printEndLine() {
 		String buffer = "\n";
 		printOnScreen(buffer);
-		stream = stream + buffer;
+		addToStream(buffer);
 	}
-	
+
 	public Report getReport() {
 		return new Report(stream);
 	}
@@ -93,6 +105,10 @@ public class Printer {
 		if (isPrintOnScreen()) {
 			System.out.print(buffer);
 		}
+	}
+
+	private void addToStream(String buffer) {
+		stream += buffer;
 	}
 
 	private String stringTime(long time) {

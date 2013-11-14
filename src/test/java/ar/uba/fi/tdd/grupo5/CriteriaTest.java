@@ -40,61 +40,61 @@ public class CriteriaTest {
 	
 	@Test
 	public void AnyTag() {
-		criteria.addTag("DB");
-		anyTag.addTag("DB:SLOW");
+		criteria.add("DB");
+		anyTag.add("DB:SLOW");
 		assertTrue(anyTag.match(criteria));
 	}
 	
 	@Test
 	public void AnyTagNotContained() {
-		criteria.addTag("FAST:NOTDB");
-		anyTag.addTag("DB:SLOW");
+		criteria.add("FAST:NOTDB");
+		anyTag.add("DB:SLOW");
 		assertFalse(anyTag.match(criteria));
 	}
 	
 	@Test
 	public void DontMatchAnyTagWithEmptySet() {
-		anyTag.addTag("DB:SLOW:P0");
+		anyTag.add("DB:SLOW:P0");
 		assertFalse(anyTag.match(criteria));
 	}
 	
 	@Test
 	public void MatchAnyTagWithEmptyAnyTag() {
-		criteria.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW:P0");
 		assertTrue(anyTag.match(criteria));
 	}
 	
 	@Test
 	public void AllTagsContained() {
-		criteria.addTag("DB:SLOW:P0");
-		allTags.addTag("DB:SLOW");
+		criteria.add("DB:SLOW:P0");
+		allTags.add("DB:SLOW");
 		assertTrue(allTags.match(criteria));
 	}
 	
 	@Test
 	public void AllTagsNotContained() {
-		criteria.addTag("DB:SLOW");
-		allTags.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW");
+		allTags.add("DB:SLOW:P0");
 		assertFalse(allTags.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsExactly() {
-		criteria.addTag("DB:SLOW:P0");
-		allTags.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW:P0");
+		allTags.add("DB:SLOW:P0");
 		assertTrue(allTags.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsAndMore() {
-		criteria.addTag("DB:SLOW:P0:P1");
-		allTags.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW:P0:P1");
+		allTags.add("DB:SLOW:P0");
 		assertTrue(allTags.match(criteria));
 	}
 	
 	@Test
 	public void DontMatchAllTagsWithEmptySet() {
-		allTags.addTag("DB:SLOW:P0");
+		allTags.add("DB:SLOW:P0");
 		assertFalse(allTags.match(criteria));
 	}
 	
@@ -121,26 +121,26 @@ public class CriteriaTest {
 	
 	@Test
 	public void MatchAnyTagAndRegexp() {
-		anyTag.addTag("DB");
+		anyTag.add("DB");
 		mixedCriteria.add(anyTag);
 		mixedCriteria.add(regexpMatchTest);
-		criteria.addTag("DB:SLOW");
+		criteria.add("DB:SLOW");
 		assertTrue(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAnyTagAndDontMatchRegexp() {
-		anyTag.addTag("DB");
+		anyTag.add("DB");
 		mixedCriteria.add(anyTag);
 		mixedCriteria.add(regexpNotMatch);
-		criteria.addTag("DB:SLOW");
+		criteria.add("DB:SLOW");
 		assertFalse(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAnyTagAndTwoRegexp() {
-		anyTag.addTag("DB");
-		criteria.addTag("DB:SLOW");
+		anyTag.add("DB");
+		criteria.add("DB:SLOW");
 		mixedCriteria.add(anyTag);
 		mixedCriteria.add(regexpMatchTest);
 		mixedCriteria.add(regexpMatchAll);
@@ -149,19 +149,19 @@ public class CriteriaTest {
 	
 
 	public void MatchAllTagsAndRegexp() {
-		allTags.addTag("DB:SLOW");
+		allTags.add("DB:SLOW");
 		mixedCriteria.add(anyTag);
 		mixedCriteria.add(regexpMatchTest);
-		criteria.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW:P0");
 		assertTrue(mixedCriteria.match(criteria));
 	}
 	
 	@Test
 	public void MatchAllTagsAndDontMatchRegexp() {
-		allTags.addTag("DB:SLOW");
+		allTags.add("DB:SLOW");
 		mixedCriteria.add(anyTag);
 		mixedCriteria.add(regexpNotMatch);
-		criteria.addTag("DB:SLOW:P0");
+		criteria.add("DB:SLOW:P0");
 		assertFalse(mixedCriteria.match(criteria));
 	}
 
