@@ -58,7 +58,7 @@ public class Runner {
 
 	private Report runSuite(Criteria criteria) {
 		Report runReport = suite.run(criteria);
-		xmlManager.setTestSuiteChild(suite.getXmlElement());
+		xmlManager.addTestSuiteElement(suite.getXmlElement());
 		return runReport;
 	}
 }

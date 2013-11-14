@@ -28,7 +28,7 @@ public class XmlManager {
 		bw.close();
 	}
 
-	public void setTestSuiteChild(TestSuiteElement testSuiteElement) {
+	public void addTestSuiteElement(TestSuiteElement testSuiteElement) {
 		rootElement.addTestSuiteElement(testSuiteElement);
 	}
 

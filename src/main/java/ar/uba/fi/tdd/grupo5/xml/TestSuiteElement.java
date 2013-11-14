@@ -37,8 +37,8 @@ public class TestSuiteElement extends Element {
 		attributes.add(new Attribute("skipped", skippedMode(isSkipped)));
 	}
 
-	public void setTimestampAttributeValue(String timestampAttributeValue) {
-		attributes.add(new Attribute("timestamp", timestampAttributeValue));
+	public void setTimeStampAttributeValue(String timeStampAttributeValue) {
+		attributes.add(new Attribute("timestamp", timeStampAttributeValue));
 	}
 
 	public void setHostnameAttributeValue(String hostnameAttributeValue) {
@@ -65,11 +65,11 @@ public class TestSuiteElement extends Element {
 		addChild(testSuite);
 	}
 
-	public void addSystemOutElement(SystemoutElement systemout) {
+	public void addSystemOutElement(SystemOutElement systemout) {
 		addChild(systemout);
 	}
 
-	public void addSystemErrElement(SystemerrElement systemerr) {
+	public void addSystemErrElement(SystemErrElement systemerr) {
 		addChild(systemerr);
 	}
 

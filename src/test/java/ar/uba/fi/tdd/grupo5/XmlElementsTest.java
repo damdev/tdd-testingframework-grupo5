@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.xml.*;
 
-public class XMLelementsTest {
+public class XmlElementsTest {
 
 	private final String emptyFailure = "<failure />\n";
 	private final String failureWithAttributes = "<failure message=\"A message\" type=\"A type\" />\n";
@@ -90,14 +90,14 @@ public class XMLelementsTest {
 
 	@Test
 	public void systemerrElement() {
-		SystemerrElement systemerrElement = new SystemerrElement("A content");
+		SystemErrElement systemerrElement = new SystemErrElement("A content");
 		String XML = systemerrElement.getXMLFormatElement();
 		assertEquals(systemerrElementStream, XML);
 	}
 
 	@Test
 	public void systemoutElement() {
-		SystemoutElement systemoutElement = new SystemoutElement("A content");
+		SystemOutElement systemoutElement = new SystemOutElement("A content");
 		String XML = systemoutElement.getXMLFormatElement();
 		assertEquals(systemoutElementStream, XML);
 	}
@@ -113,7 +113,7 @@ public class XMLelementsTest {
 	public void testCaseElementWithFullAttributes() {
 		TestCaseElement testCaseElement = new TestCaseElement("A name");
 		testCaseElement.setAssertionsAttributeValue("An assertions");
-		testCaseElement.setClassnameAttributeValue("A classname");
+		testCaseElement.setClassNameAttributeValue("A classname");
 		testCaseElement.setStatusAttributeValue("A status");
 		testCaseElement.setTimeAttributeValue("A time");
 		String XML = testCaseElement.getXMLFormatElement();
@@ -140,7 +140,7 @@ public class XMLelementsTest {
 		testSuiteElement.setPackageAttributeValue("A package");
 		testSuiteElement.setSkippedAttributeValue(true);
 		testSuiteElement.setTimeAttributeValue("A time");
-		testSuiteElement.setTimestampAttributeValue("A timestamp");
+		testSuiteElement.setTimeStampAttributeValue("A timestamp");
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(testSuiteWithFullAttributesStream, XML);
 	}

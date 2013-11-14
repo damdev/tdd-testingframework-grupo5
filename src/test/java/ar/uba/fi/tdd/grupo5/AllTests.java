@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ AssertExceptionTest.class, AssertTest.class, TimerTest.class,
 		ReportTest.class, TestResultTest.class, TestCaseTest.class,
 		TestSuiteTest.class, FixtureTest.class, RegexpTest.class,
-		TwoLevelTestSuiteTest.class, CriteriaTest.class, XMLelementsTest.class })
+		TwoLevelTestSuiteTest.class, CriteriaTest.class, XmlElementsTest.class })
 public class AllTests {
 
 }

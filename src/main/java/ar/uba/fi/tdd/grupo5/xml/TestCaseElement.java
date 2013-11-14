@@ -19,8 +19,8 @@ public class TestCaseElement extends Element {
 		attributes.add(new Attribute("time", timeAttributeValue));
 	}
 
-	public void setClassnameAttributeValue(String classnameAttributeValue) {
-		attributes.add(new Attribute("classname", classnameAttributeValue));
+	public void setClassNameAttributeValue(String classNameAttributeValue) {
+		attributes.add(new Attribute("classname", classNameAttributeValue));
 	}
 
 	public void setStatusAttributeValue(String statusAttributeValue) {
@@ -39,11 +39,11 @@ public class TestCaseElement extends Element {
 		addChild(failure);
 	}
 
-	public void addSystemOutElement(SystemoutElement systemout) {
+	public void addSystemOutElement(SystemOutElement systemout) {
 		addChild(systemout);
 	}
 
-	public void addSystemErrElement(SystemerrElement systemerr) {
+	public void addSystemErrElement(SystemErrElement systemerr) {
 		addChild(systemerr);
 	}
 }

@@ -84,7 +84,7 @@ public class TestResult {
 
 	public TestCaseElement getXmlElement() {
 		TestCaseElement testCaseElement = new TestCaseElement(test.getName());
-		testCaseElement.setClassnameAttributeValue(test.getClass().getName());
+		testCaseElement.setClassNameAttributeValue(test.getClass().getName());
 		testCaseElement.setTimeAttributeValue(Long.toString(testTime) + "[nS]");
 		if (fail) {
 			testCaseElement.addFailureElement(getXmlFailure());
