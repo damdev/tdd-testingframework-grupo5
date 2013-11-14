@@ -11,7 +11,7 @@ public class XmlManager {
 
 	private String buffer;
 	private String filePath;
-	private Element rootElement;
+	private TestSuitesElement rootElement;
 
 	public XmlManager(String filePath) {
 		initBuffer();
@@ -36,18 +36,22 @@ public class XmlManager {
 		return true;
 	}
 
+	public void setTestSuiteChild(TestSuiteElement testSuiteElement) {
+		rootElement.addTestSuiteElement(testSuiteElement);
+	}
+
 	private void initBuffer() {
 		buffer = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	}
-	
-	private void generateXMLBuffer(){
+
+	private void generateXMLBuffer() {
 		buffer += rootElement.getXMLFormatElement();
 	}
-	
-	private String getDate(){
-    	Calendar cal = Calendar.getInstance();
-    	cal.getTime();
-    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY - HH:mm:ss");
-    	return(sdf.format(cal.getTime()));
+
+	private String getDate() {
+		Calendar cal = Calendar.getInstance();
+		cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY - HH:mm:ss");
+		return (sdf.format(cal.getTime()));
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.AllMatch;
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.Criteria;
+import ar.uba.fi.tdd.grupo5.xml.TestSuiteElement;
 
 public class TestSuite extends Test {
 
@@ -159,6 +160,15 @@ public class TestSuite extends Test {
 		printer.printSummary(totalTestCaseCount, errorTestCaseCount,
 				failTestCaseCount, getRunTime());
 		return printer.getReport();
+	}
+	
+	public final TestSuiteElement getXmlElement(){
+		TestSuiteElement testSuiteElement = new TestSuiteElement(name, Integer.toString(totalTestCaseCount));
+		testSuiteElement.setTimeAttributeValue(Long.toString(getRunTime()));
+		testSuiteElement.setFailuresAttributeValue(Integer.toString(failTestCaseCount));
+		testSuiteElement.setErrorsAttributeValue(Integer.toString(errorTestCaseCount));
+		testSuiteElement.setSkippedAttributeValue(isSkipped());
+		return testSuiteElement;
 	}
 
 	private void run(Criteria criteria, Fixture fixture, Printer printer) {
