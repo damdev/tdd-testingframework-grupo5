@@ -13,6 +13,7 @@ public class XMLelementsTest {
 	private final String emptyError = "<error />\n";
 	private final String errorWithAttributes = "<error message=\"A message\" type=\"A type\" />\n";
 	private final String propertyWithAttributes = "<property name=\"A name\" value=\"A value\" />\n";
+	private final String propertiesWithPropertyStream = "<properties >\n\t<property name=\"A name\" value=\"A value\" />\n</properties>\n";
 	private final String skippedElementStream = "<skipped>YES</skipped>\n";
 	private final String nonSkippedElementStream = "<skipped>NO</skipped>\n";
 	private final String systemerrElementStream = "<system-err>A content</system-err>\n";
@@ -62,6 +63,14 @@ public class XMLelementsTest {
 				"A value");
 		String XML = propertyElement.getXMLFormatElement();
 		assertEquals(propertyWithAttributes, XML);
+	}
+	
+	@Test
+	public void propertiesElementWithProperty() {
+		PropertiesElement propertiesElement = new PropertiesElement();
+		propertiesElement.addPropertyElement(new PropertyElement("A name", "A value"));
+		String XML = propertiesElement.getXMLFormatElement();
+		assertEquals(propertiesWithPropertyStream, XML);
 	}
 
 	@Test
