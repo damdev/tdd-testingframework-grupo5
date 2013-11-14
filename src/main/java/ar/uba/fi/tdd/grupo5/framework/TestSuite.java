@@ -157,7 +157,7 @@ public class TestSuite extends Test {
 		}
 		printer.clearPrintText();
 		runTests(criteria);
-		printer.printSummary(totalTestCaseCount, errorTestCaseCount,
+		printer.printSummary(countTestCases(criteria), errorTestCaseCount,
 				failTestCaseCount, getRunTime());
 		return printer.getReport();
 	}
@@ -176,10 +176,12 @@ public class TestSuite extends Test {
 		this.printer = printer;
 		if (isEmptyTestSuite()) {
 			printer.printEmptyTestSuiteMessage(getName());
+			return;
 		}
 		if (isNoTestsThatSatisfyPattern(criteria)) {
 			printer.printNoTestsThatSatisfyPatternMessage(getName(),
 					criteria.toString());
+			return;
 		}
 		runTests(criteria);
 	}
