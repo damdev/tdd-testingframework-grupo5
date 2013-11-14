@@ -19,21 +19,13 @@ public class XmlManager {
 		rootElement = new TestSuitesElement();
 	}
 
-	public boolean writeXML() {
+	public void writeXML() throws IOException {
 		generateXMLBuffer();
 		File file = new File(filePath + getDate());
-		if (file.exists()) {
-			return false;
-		}
-		try {
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(buffer);
-			bw.close();
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
+		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(buffer);
+		bw.close();
 	}
 
 	public void setTestSuiteChild(TestSuiteElement testSuiteElement) {
