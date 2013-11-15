@@ -17,3 +17,7 @@ target
 *.jar
 *.war
 *.ear
+
+#Idea Files
+*.iml
+.idea
