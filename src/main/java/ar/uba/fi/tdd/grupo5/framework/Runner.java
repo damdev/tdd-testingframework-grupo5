@@ -1,17 +1,25 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
 import java.io.IOException;
+
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.*;
+import ar.uba.fi.tdd.grupo5.xml.XmlRunStore;
 import ar.uba.fi.tdd.grupo5.xml.XmlManager;
 
 public class Runner {
 
 	private TestSuite suite;
 	private XmlManager xmlManager;
+	private TestRunStore previousRunsManager;
+    private TestRunMode previousTestsRunMode;
 
+	
 	public Runner(TestSuite suite, String xmlPath) {
 		this.suite = suite;
 		xmlManager = new XmlManager(xmlPath);
+		previousRunsManager = new XmlRunStore();
+		previousRunsManager.setPath("previousRun-" + suite.getName());
+		previousTestsRunMode = new NotSucceedTestsRunMode(previousRunsManager.getAllTestResults());
 	}
 
 	public Report runAll() {
@@ -59,6 +67,24 @@ public class Runner {
 	private Report runSuite(Criteria criteria) {
 		Report runReport = suite.run(criteria);
 		xmlManager.addTestSuiteElement(suite.getXmlElement());
+		previousRunsManager.addAllTestResults(suite.getAllChildTestResults());
+		previousRunsManager.save();
 		return runReport;
 	}
+
+    private Report runSuiteWithStoreModeOn(Criteria criteria) {
+    	if(!previousRunsManager.load()) {
+    		return runSuite(criteria);
+    	} else {
+    		Report runReport = suite.runWithStoreModeOn(criteria, previousTestsRunMode);
+    		xmlManager.addTestSuiteElement(suite.getXmlElement());
+    		previousRunsManager.addAllTestResults(suite.getAllChildTestResults());
+    		return runReport;
+    	}
+    }
+
+    public Report runAllWithStoreModeOn() {
+        Criteria criteria = new AllMatch();
+        return runSuiteWithStoreModeOn(criteria);
+    }
 }

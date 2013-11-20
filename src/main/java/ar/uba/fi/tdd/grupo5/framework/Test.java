@@ -5,6 +5,15 @@ public abstract class Test {
 	protected String name;
 	protected Fixture fixture;
 	protected boolean skipped;
+    protected long timeLimit = Long.MAX_VALUE;
+
+    public void setTimeLimit(long limit) {
+        timeLimit = limit;
+    }
+
+    public long getTimeLimit() {
+        return timeLimit;
+    }
 
 	/**
 	 * Sets up the fixture, for example, open a network connection. This method

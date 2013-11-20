@@ -12,7 +12,7 @@ public class XmlManager {
 	private String buffer;
 	private String filePath;
 	private TestSuitesElement rootElement;
-
+	
 	public XmlManager(String filePath) {
 		initBuffer();
 		this.filePath = filePath;
@@ -31,6 +31,7 @@ public class XmlManager {
 	public void addTestSuiteElement(TestSuiteElement testSuiteElement) {
 		rootElement.addTestSuiteElement(testSuiteElement);
 	}
+	
 
 	private void initBuffer() {
 		buffer = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -46,4 +47,5 @@ public class XmlManager {
 		SimpleDateFormat sdf = new SimpleDateFormat("-dd-MM-YYYY-HH:mm:ss");
 		return (sdf.format(cal.getTime()));
 	}
+	
 }

@@ -172,5 +172,6 @@ public class XmlElementsTest {
 
 		String XML = testSuiteElement.getXMLFormatElement();
 		assertEquals(threeLevelStream, XML);
-	}
+
+    }
 }

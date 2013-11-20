@@ -1,10 +1,12 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
+import ar.uba.fi.tdd.grupo5.framework.exception.PerformanceException;
 import ar.uba.fi.tdd.grupo5.xml.ErrorElement;
 import ar.uba.fi.tdd.grupo5.xml.FailureElement;
 import ar.uba.fi.tdd.grupo5.xml.SkippedElement;
 import ar.uba.fi.tdd.grupo5.xml.TestCaseElement;
+import ar.uba.fi.tdd.grupo5.xml.TestResultXml;
 
 public class TestResult {
 
@@ -13,9 +15,10 @@ public class TestResult {
 	private boolean error;
 	private boolean fail;
 	private long testTime;
+	private String testName;
 
 	public TestResult() {
-	}
+    }
 
 	/**
 	 * Runs a {@code TestCase}.
@@ -24,6 +27,7 @@ public class TestResult {
 	 */
 	public void run(TestCase test) {
 		this.test = test;
+		this.testName = test.getName();
 		initAttributes();
 		Timer timer = startTimer();
 		try {
@@ -33,8 +37,9 @@ public class TestResult {
 		} catch (Throwable exception) {
 			setErrorTest(exception);
 		} finally {
-			setTestTime(timer.getRegisteredTime());
-		}
+            setTestTime(timer.getRegisteredTime());
+            reviseTimeRestriction(test);
+        }
 	}
 
 	/**
@@ -43,6 +48,7 @@ public class TestResult {
 	public boolean isFail() {
 		return fail;
 	}
+
 
 	/**
 	 * Determines whether the test gave error
@@ -62,7 +68,8 @@ public class TestResult {
 	 * Returns the name of the test.
 	 */
 	public String getTestName() {
-		return test.getName();
+		//return test.getName();
+		return testName;
 	}
 
 	/**
@@ -165,4 +172,22 @@ public class TestResult {
 	private void setTestTime(long time) {
 		testTime = time;
 	}
+
+
+    private void reviseTimeRestriction(Test test) {
+        if(testTime > test.getTimeLimit()) {
+            PerformanceException throwable = new PerformanceException("Test took " + String.valueOf(testTime)
+            + "ns and time restriction was " + String.valueOf(test.getTimeLimit()));
+            setFailTest(throwable);
+        }
+    }
+    
+    public static TestResult buildFromXml(TestResultXml testResultXml) {
+    	TestResult testResult = new TestResult();
+    	testResult.setError(testResultXml.isError());
+    	testResult.setFail(testResultXml.isFail());
+    	testResult.setTestTime(testResultXml.getTestTime());
+    	testResult.testName = testResultXml.getTestName();
+    	return testResult;
+    }
 }

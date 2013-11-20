@@ -1,5 +1,6 @@
 package ar.uba.fi.tdd.grupo5.framework;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 import ar.uba.fi.tdd.grupo5.framework.exception.TestException;
@@ -18,6 +19,7 @@ public class TestSuite extends Test {
 	private int failTestCaseCount;
 	private int errorTestCaseCount;
 	private long time;
+
 
 	/**
 	 * Constructs a {@code TestSuite}.
@@ -59,6 +61,10 @@ public class TestSuite extends Test {
 		}
 		return totalTestCaseCount;
 	}
+
+    public void setStoreMode() {
+
+    }
 
 	/**
 	 * Counts the total number of {@code TestCase} in the {@code TestSuite}
@@ -163,6 +169,21 @@ public class TestSuite extends Test {
 		return printer.getReport();
 	}
 
+    public final Report runWithStoreModeOn(Criteria criteria, TestRunMode runMode) {
+        if (isEmptyTestSuite()) {
+            return printer.printAndReportEmptyTestSuiteMessage(getName());
+        }
+        if (isNoTestsThatSatisfyPattern(criteria)) {
+            return printer.printAndReportNoTestsThatSatisfyPatternMessage(
+                    getName(), criteria.toString());
+        }
+        printer.clearPrintText();
+        runTestsWithStoreModeOn(criteria, runMode);
+        printer.printSummary(countTestCases(criteria), errorTestCaseCount,
+                failTestCaseCount, getRunTime());
+        return printer.getReport();
+    }
+
 	public final TestSuiteElement getXmlElement() {
 		TestSuiteElement testSuiteElement = new TestSuiteElement(name,
 				Integer.toString(totalTestCaseCount));
@@ -193,18 +214,18 @@ public class TestSuite extends Test {
 	}
 
 	private void run(Criteria criteria, Fixture fixture, Printer printer) {
-		this.fixture = fixture;
-		this.printer = printer;
-		if (isEmptyTestSuite()) {
-			printer.printEmptyTestSuiteMessage(getName());
-			return;
-		}
-		if (isNoTestsThatSatisfyPattern(criteria)) {
-			printer.printNoTestsThatSatisfyPatternMessage(getName(),
-					criteria.toString());
-			return;
-		}
-		runTests(criteria);
+        this.fixture = fixture;
+        this.printer = printer;
+        if (isEmptyTestSuite()) {
+            printer.printEmptyTestSuiteMessage(getName());
+            return;
+        }
+        if (isNoTestsThatSatisfyPattern(criteria)) {
+            printer.printNoTestsThatSatisfyPatternMessage(getName(),
+                    criteria.toString());
+            return;
+        }
+        runTests(criteria);
 	}
 
 	private boolean existsTestCase(String testName) {
@@ -231,6 +252,22 @@ public class TestSuite extends Test {
 		}
 		return false;
 	}
+
+    public boolean removeByName(String test) {
+        for(TestSuite currentTestSuite : testSuites) {
+            if(currentTestSuite.getName().equals(test)) {
+                testSuites.remove(currentTestSuite);
+                return true;
+            }
+        }
+        for(TestCase currentTestCase : testCases) {
+            if(currentTestCase.getName().equals(test)) {
+                testCases.remove(currentTestCase);
+                return true;
+            }
+        }
+        return false;
+    }
 
 	private void throwsExistsTestSuiteException(String testSuiteName)
 			throws TestException {
@@ -274,6 +311,18 @@ public class TestSuite extends Test {
 		tearDown();
 		time = timer.getRegisteredTime();
 	}
+
+    public void runTestsWithStoreModeOn(Criteria criteria, TestRunMode previousTestsRunMode) {
+        for(TestSuite currentSuite : testSuites) {
+            previousTestsRunMode.setTestsToBeRunned(currentSuite);
+        }
+        for(TestCase currentCase : testCases) {
+            if(!previousTestsRunMode.shouldRunTest(currentCase)) {
+                testCases.remove(currentCase);
+            }
+        }
+        runTests(criteria);
+    }
 
 	private void runTestCase(TestCase test, Printer printer) {
 		Fixture clonedFixture = fixture.cloneFixture();
@@ -324,4 +373,19 @@ public class TestSuite extends Test {
 	private void increaseFailCount() {
 		failTestCaseCount++;
 	}
+
+    public Collection<String> getAllUnsuccessfullChildTestNames() {
+        List<String> names = new ArrayList<String>();
+        for(TestResult result : results) {
+            if(!result.isOK()) {
+                names.add(result.getTestName());
+            }
+        }
+        return names;
+    }
+
+    public Collection<TestResult> getAllChildTestResults() {
+        return results;
+    }
+    
 }

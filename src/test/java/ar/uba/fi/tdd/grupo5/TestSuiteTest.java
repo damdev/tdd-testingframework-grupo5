@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ar.uba.fi.tdd.grupo5.framework.Assert;
+import ar.uba.fi.tdd.grupo5.framework.Runner;
 import ar.uba.fi.tdd.grupo5.framework.TestCase;
 import ar.uba.fi.tdd.grupo5.framework.TestSuite;
 import ar.uba.fi.tdd.grupo5.framework.exception.AssertException;
@@ -22,6 +23,7 @@ public class TestSuiteTest {
 		TestCase test2 = new MyComplexTest(testName);
 		suite.add(test1);
 		suite.add(test2);
+		
 	}
 
 	@Test
@@ -73,7 +75,7 @@ public class TestSuiteTest {
 
 	@Test
 	public void oneSuccessAndOneErrorTestCaseCount() throws TestException {
-		TestSuite suite = new TestSuite(testSuiteName);
+		TestSuite suite = new TestSuite("mySuite2");
 		TestCase test1 = new MySimpleTest("test1");
 		TestCase test2 = new MyErrorTest("test2");
 		suite.add(test1);
@@ -82,6 +84,10 @@ public class TestSuiteTest {
 		assertEquals(2, suite.countTestCases());
 		assertEquals(0, suite.countFailTestCases());
 		assertEquals(1, suite.countErrorTestCases());
+
+			
+		Runner runner = new Runner(suite,"xmlReport");
+		runner.runAllWithStoreModeOn();	
 	}
 
 	@Test
