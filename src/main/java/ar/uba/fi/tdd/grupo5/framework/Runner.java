@@ -17,7 +17,7 @@ public class Runner {
 	public Runner(TestSuite suite, String xmlPath) {
 		this.suite = suite;
 		xmlManager = new XmlManager(xmlPath);
-		previousRunsManager = new XmlRunStore();
+		previousRunsManager = new TextFileRunStore();
 		previousRunsManager.setPath("previousRun-" + suite.getName());
 		previousTestsRunMode = new NotSucceedTestsRunMode(previousRunsManager.getAllTestResults());
 	}

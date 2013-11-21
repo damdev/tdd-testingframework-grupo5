@@ -19,7 +19,14 @@ public class TestResult {
 
 	public TestResult() {
     }
-
+	
+	public TestResult(String tname, boolean err, boolean failed, long tTime) {
+		testName = tname;
+		error = err;
+		fail = failed;
+		testTime = tTime;
+	}
+	
 	/**
 	 * Runs a {@code TestCase}.
 	 * 
@@ -190,4 +197,5 @@ public class TestResult {
     	testResult.testName = testResultXml.getTestName();
     	return testResult;
     }
+    
 }
