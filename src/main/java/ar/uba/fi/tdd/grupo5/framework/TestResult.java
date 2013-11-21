@@ -182,7 +182,7 @@ public class TestResult {
 
 
     private void reviseTimeRestriction(Test test) {
-        if(testTime > test.getTimeLimit()) {
+        if(test.performanceFailed(testTime)) {
             PerformanceException throwable = new PerformanceException("Test took " + String.valueOf(testTime)
             + "ns and time restriction was " + String.valueOf(test.getTimeLimit()));
             setFailTest(throwable);

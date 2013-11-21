@@ -312,7 +312,7 @@ public class TestSuite extends Test {
 		time = timer.getRegisteredTime();
 	}
 
-    public void runTestsWithStoreModeOn(Criteria criteria, TestRunMode previousTestsRunMode) {
+    private void runTestsWithStoreModeOn(Criteria criteria, TestRunMode previousTestsRunMode) {
         for(TestSuite currentSuite : testSuites) {
             previousTestsRunMode.setTestsToBeRunned(currentSuite);
         }

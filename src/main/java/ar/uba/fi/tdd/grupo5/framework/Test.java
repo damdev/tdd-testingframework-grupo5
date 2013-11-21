@@ -7,6 +7,13 @@ public abstract class Test {
 	protected boolean skipped;
     protected long timeLimit = Long.MAX_VALUE;
 
+    public boolean performanceFailed(long time) {
+    	if(timeLimit < time) { 
+    		return true; 
+    	}
+    	return false;
+    }
+    
     public void setTimeLimit(long limit) {
         timeLimit = limit;
     }

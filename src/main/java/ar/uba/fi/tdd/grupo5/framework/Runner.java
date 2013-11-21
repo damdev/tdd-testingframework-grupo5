@@ -3,7 +3,6 @@ package ar.uba.fi.tdd.grupo5.framework;
 import java.io.IOException;
 
 import ar.uba.fi.tdd.grupo5.framework.tagmanager.*;
-import ar.uba.fi.tdd.grupo5.xml.XmlRunStore;
 import ar.uba.fi.tdd.grupo5.xml.XmlManager;
 
 public class Runner {

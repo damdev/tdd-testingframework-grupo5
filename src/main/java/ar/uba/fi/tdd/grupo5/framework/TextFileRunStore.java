@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class TextFileRunStore implements TestRunStore {
 
 	private static final String F_SEP = "<>";
-	private static final String R_SEP = "\n";
 	
 	private List<TestResult> previousResults;
 	StringBuffer buffer;
