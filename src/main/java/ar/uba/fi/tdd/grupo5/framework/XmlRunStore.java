@@ -60,18 +60,30 @@ public class XmlRunStore implements TestRunStore {
 		return true;
 	}
 	
+	/**
+	 * Internal function to turn the loaded data into a objects
+	 * 
+	 */
+	
 	private void generateXMLBuffer() {
 		XStream xstream = new XStream();
 		buffer += xstream.toXML(rootElement);
 	}
 	
-
+	@Override
 	public void addAllTestResults(Collection<TestResult> results) {
 		for(TestResult result : results) {
 			TestResultXml testResultXml = new TestResultXml(result);
 			rootElement.addTestResultXml(testResultXml);
 		}
 	}
+	
+	/**
+	 * Add a single TestResult
+	 * 
+	 * @param result
+	 *            the result being added
+	 */
 	
 	public void addTestResult(TestResult testResult) {
 		rootElement.addTestResultXml(new TestResultXml(testResult));
